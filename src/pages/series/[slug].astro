@@ -1,0 +1,28 @@
+---
+// 系列详情页：根据 series.json 里的每个 slug 自动生成一个页面（/series/mountains/ 等）
+import Base from '../../layouts/Base.astro';
+import Gallery from '../../components/Gallery.astro';
+import allSeries from '../../data/series.json';
+import allPhotos from '../../data/photos.json';
+
+export function getStaticPaths() {
+  return allSeries.map((s) => ({
+    params: { slug: s.slug },
+    props: { s },
+  }));
+}
+
+const { s } = Astro.props;
+const photos = allPhotos.filter((p) => p.series === s.slug);
+---
+
+<Base title={`${s.title} · 摄影作品集`} description={s.subtitle}>
+  <div class="container">
+    <header class="series-head">
+      <h1>{s.title}</h1>
+      <p class="sub">{s.subtitle} · {s.year}</p>
+      <p class="desc">{s.description}</p>
+    </header>
+    <Gallery photos={photos} />
+  </div>
+</Base>

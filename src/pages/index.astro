@@ -1,0 +1,32 @@
+---
+// 首页：大图 hero + 系列卡片网格
+// 系列数据来自 src/data/series.json，增删系列只改那个文件
+import Base from '../layouts/Base.astro';
+import allSeries from '../data/series.json';
+---
+
+<Base title="你的名字 · 摄影作品集" description="个人摄影作品集：风光、纪实、旅行摄影系列">
+  <section class="hero">
+    <!-- 占位图，之后换成你最有代表性的一张作品（public/photos/hero.svg 改文件即可） -->
+    <img src="/photos/hero.svg" alt="" fetchpriority="high" />
+    <div class="hero-text">
+      <h1>用影像记录世界</h1>
+      <p>你的名字 · 摄影作品集</p>
+    </div>
+  </section>
+
+  <section class="container" id="series">
+    <h2 class="section-title">系列作品</h2>
+    <div class="series-grid">
+      {allSeries.map((s) => (
+        <a class="series-card" href={`/series/${s.slug}/`}>
+          <img src={s.cover} alt={s.title} loading="lazy" decoding="async" />
+          <div class="card-text">
+            <h3>{s.title}</h3>
+            <p>{s.subtitle} · {s.year}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

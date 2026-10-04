@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+
+# 照片母版体量大且涉版权，不进 git；用自己的移动硬盘/NAS 备份管理
+_masters/

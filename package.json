@@ -1,0 +1,20 @@
+{
+  "name": "photo-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "个人摄影作品集网站（静态站，Astro 构建）",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "placeholders": "node scripts/gen-placeholders.mjs",
+    "photos": "node scripts/build-photos.mjs"
+  },
+  "dependencies": {
+    "astro": "^5.13.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.3"
+  }
+}

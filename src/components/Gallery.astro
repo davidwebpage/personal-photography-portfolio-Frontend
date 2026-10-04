@@ -1,0 +1,33 @@
+---
+// 画廊组件：接收照片数组，渲染瀑布流网格，点击图片打开灯箱
+// 照片数据来自 src/data/photos.json（由 npm run placeholders / npm run photos 生成）
+interface Photo {
+  id: string;
+  src: string;
+  srcset?: string;
+  width: number;
+  height: number;
+  title?: string;
+}
+interface Props {
+  photos: Photo[];
+}
+const { photos } = Astro.props;
+---
+
+<div class="gallery">
+  {photos.map((p) => (
+    <a href={p.src} data-lightbox data-title={p.title ?? ''} class="g-item">
+      <img
+        src={p.src}
+        srcset={p.srcset}
+        sizes={p.srcset ? '(max-width: 768px) 100vw, 33vw' : undefined}
+        width={p.width}
+        height={p.height}
+        alt={p.title ?? '摄影作品'}
+        loading="lazy"
+        decoding="async"
+      />
+    </a>
+  ))}
+</div>

@@ -1,0 +1,180 @@
+/* ========== 全局样式：深色底 + 衬线中文 + 金色点缀（参考储卫民站气质） ========== */
+
+:root {
+  --bg: #0a0a0a;
+  --fg: rgba(255, 255, 255, 0.88);
+  --muted: rgba(255, 255, 255, 0.5);
+  --accent: #c9a558;
+  --max: 1200px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  /* 中文衬线优先用系统字体，避免加载 10MB 网页字体；后续性能优化时再做字体子集化 */
+  font-family: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; }
+
+/* ---------- 顶栏 ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.brand { font-size: 17px; letter-spacing: 0.12em; color: #fff; font-weight: 700; }
+.brand:hover { text-decoration: none; }
+.site-nav { display: flex; gap: 22px; font-size: 14px; }
+.site-nav a { color: var(--muted); letter-spacing: 0.08em; }
+.site-nav a:hover,
+.site-nav a[aria-current] { color: #fff; text-decoration: none; }
+
+.container { max-width: var(--max); margin: 0 auto; padding: 48px 24px; }
+
+/* ---------- 首页 hero ---------- */
+.hero { position: relative; height: 88vh; min-height: 480px; overflow: hidden; }
+.hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55));
+}
+.hero h1 {
+  font-size: clamp(28px, 5vw, 52px);
+  color: #fff;
+  margin: 0 0 12px;
+  letter-spacing: 0.15em;
+  font-weight: 900;
+}
+.hero p { color: rgba(255, 255, 255, 0.75); letter-spacing: 0.25em; font-size: 14px; margin: 0; }
+
+/* ---------- 系列卡片 ---------- */
+.section-title { font-size: 22px; letter-spacing: 0.2em; margin: 0 0 28px; color: #fff; }
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.series-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 3 / 2;
+  background: #161616;
+}
+.series-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+.series-card:hover img { transform: scale(1.04); }
+.card-text {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 40px 18px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}
+.card-text h3 { margin: 0; color: #fff; font-size: 18px; letter-spacing: 0.12em; }
+.card-text p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+/* ---------- 画廊：CSS 多列瀑布流，横竖图混排不裁切 ---------- */
+.gallery { columns: 3 300px; column-gap: 14px; }
+.g-item {
+  display: block;
+  margin: 0 0 14px;
+  break-inside: avoid;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #141414;
+}
+.g-item img { width: 100%; height: auto; display: block; transition: opacity 0.3s; }
+.g-item:hover img { opacity: 0.85; }
+
+/* ---------- 灯箱 ---------- */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.94);
+}
+#lightbox.open { display: flex; }
+#lightbox figure { margin: 0; }
+#lightbox img { max-width: 92vw; max-height: 86vh; object-fit: contain; }
+#lightbox figcaption {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.lb-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 42px;
+  padding: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+.lb-btn:hover { color: #fff; }
+.lb-prev { left: 8px; }
+.lb-next { right: 8px; }
+.lb-close { top: 10px; right: 18px; font-size: 34px; transform: none; }
+
+/* ---------- 文字页 ---------- */
+.prose { max-width: 720px; margin: 0 auto; }
+.prose h1 { color: #fff; letter-spacing: 0.1em; }
+
+/* ---------- 系列页头 ---------- */
+.series-head { text-align: center; margin-bottom: 40px; }
+.series-head h1 { color: #fff; letter-spacing: 0.2em; margin: 0 0 6px; }
+.series-head .sub { color: var(--accent); letter-spacing: 0.15em; font-size: 14px; margin: 0; }
+.series-head .desc { max-width: 640px; margin: 16px auto 0; color: var(--muted); font-size: 15px; }
+
+/* ---------- 页脚 ---------- */
+.site-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 60px;
+  padding: 28px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 640px) {
+  .site-nav { gap: 14px; font-size: 13px; }
+  .lb-btn { font-size: 30px; padding: 10px; }
+}

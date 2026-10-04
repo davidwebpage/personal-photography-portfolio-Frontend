@@ -1,0 +1,106 @@
+---
+// 全站布局：顶栏导航 + 页脚 + 灯箱（每个页面都包一层它）
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = '个人摄影作品集' } = Astro.props;
+
+// 顶栏导航项，增删页面时改这里
+const nav = [
+  { href: '/', label: '首页' },
+  { href: '/#series', label: '系列作品' },
+  { href: '/archive/', label: '全部照片' },
+  { href: '/about/', label: '关于' },
+  { href: '/contact/', label: '联系' },
+];
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <header class="site-header">
+      <!-- 把「你的名字」改成你的品牌名 -->
+      <a class="brand" href="/">你的名字 · 摄影</a>
+      <nav class="site-nav">
+        {nav.map((item) => (
+          <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      © {new Date().getFullYear()} 你的名字 · 保留所有权利 · 照片未经授权请勿使用
+    </footer>
+
+    <!-- 灯箱：点击任意带 data-lightbox 的 <a> 打开，← → 切换，Esc/点背景关闭 -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="查看大图">
+      <button class="lb-btn lb-close" aria-label="关闭">×</button>
+      <button class="lb-btn lb-prev" aria-label="上一张">‹</button>
+      <figure>
+        <img alt="" />
+        <figcaption></figcaption>
+      </figure>
+      <button class="lb-btn lb-next" aria-label="下一张">›</button>
+    </div>
+
+    <script>
+      const lb = document.getElementById('lightbox');
+      const lbImg = lb.querySelector('img');
+      const lbCap = lb.querySelector('figcaption');
+      let items = [];
+      let idx = 0;
+
+      function open(i) {
+        idx = (i + items.length) % items.length;
+        lbImg.src = items[idx].src;
+        lbImg.alt = items[idx].title;
+        lbCap.textContent = items[idx].title;
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (e) => {
+        const a = e.target.closest('[data-lightbox]');
+        if (a) {
+          e.preventDefault();
+          const links = [...document.querySelectorAll('[data-lightbox]')];
+          items = links.map((el) => ({
+            src: el.getAttribute('href'),
+            title: el.dataset.title || '',
+          }));
+          open(links.indexOf(a));
+          return;
+        }
+        if (e.target === lb || e.target.closest('.lb-close')) close();
+        if (e.target.closest('.lb-prev')) open(idx - 1);
+        if (e.target.closest('.lb-next')) open(idx + 1);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') open(idx - 1);
+        if (e.key === 'ArrowRight') open(idx + 1);
+      });
+    </script>
+  </body>
+</html>

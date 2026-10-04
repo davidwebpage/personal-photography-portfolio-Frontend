@@ -1,0 +1,122 @@
+[
+  {
+    "id": "m01",
+    "series": "mountains",
+    "title": "山野之间 · 示例 1",
+    "src": "/photos/mountains/m01.svg",
+    "width": 1600,
+    "height": 1067,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "m02",
+    "series": "mountains",
+    "title": "山野之间 · 示例 2",
+    "src": "/photos/mountains/m02.svg",
+    "width": 1067,
+    "height": 1600,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "m03",
+    "series": "mountains",
+    "title": "山野之间 · 示例 3",
+    "src": "/photos/mountains/m03.svg",
+    "width": 1600,
+    "height": 900,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "m04",
+    "series": "mountains",
+    "title": "山野之间 · 示例 4",
+    "src": "/photos/mountains/m04.svg",
+    "width": 1280,
+    "height": 1600,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "c01",
+    "series": "city",
+    "title": "城市切片 · 示例 1",
+    "src": "/photos/city/c01.svg",
+    "width": 1600,
+    "height": 1067,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "c02",
+    "series": "city",
+    "title": "城市切片 · 示例 2",
+    "src": "/photos/city/c02.svg",
+    "width": 1600,
+    "height": 1067,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "c03",
+    "series": "city",
+    "title": "城市切片 · 示例 3",
+    "src": "/photos/city/c03.svg",
+    "width": 1067,
+    "height": 1600,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "c04",
+    "series": "city",
+    "title": "城市切片 · 示例 4",
+    "src": "/photos/city/c04.svg",
+    "width": 1600,
+    "height": 900,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "s01",
+    "series": "sea",
+    "title": "海岸线 · 示例 1",
+    "src": "/photos/sea/s01.svg",
+    "width": 1280,
+    "height": 1600,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "s02",
+    "series": "sea",
+    "title": "海岸线 · 示例 2",
+    "src": "/photos/sea/s02.svg",
+    "width": 1600,
+    "height": 1067,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "s03",
+    "series": "sea",
+    "title": "海岸线 · 示例 3",
+    "src": "/photos/sea/s03.svg",
+    "width": 1600,
+    "height": 900,
+    "year": 2024,
+    "location": ""
+  },
+  {
+    "id": "s04",
+    "series": "sea",
+    "title": "海岸线 · 示例 4",
+    "src": "/photos/sea/s04.svg",
+    "width": 1067,
+    "height": 1600,
+    "year": 2024,
+    "location": ""
+  }
+]

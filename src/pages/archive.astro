@@ -1,0 +1,21 @@
+---
+// 全部照片索引页：按系列分组展示所有照片
+import Base from '../layouts/Base.astro';
+import Gallery from '../components/Gallery.astro';
+import allSeries from '../data/series.json';
+import allPhotos from '../data/photos.json';
+---
+
+<Base title="全部照片 · 摄影作品集" description="全部摄影作品索引">
+  <div class="container">
+    <h1 class="section-title">全部照片</h1>
+    {allSeries.map((s) => (
+      <section style="margin-bottom: 48px;">
+        <h2 style="color: #fff; letter-spacing: 0.15em; font-size: 18px; margin: 0 0 18px;">
+          <a href={`/series/${s.slug}/`}>{s.title}</a>
+        </h2>
+        <Gallery photos={allPhotos.filter((p) => p.series === s.slug)} />
+      </section>
+    ))}
+  </div>
+</Base>
