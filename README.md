@@ -14,7 +14,7 @@ export PATH="$HOME/.local/node/bin:$PATH"
 
 ## 常用命令
 
-在项目目录（`~/photo-portfolio`）下运行：
+在项目目录（`~/personal-photography-portfolio`）下运行：
 
 | 命令 | 作用 |
 |---|---|
@@ -28,7 +28,7 @@ export PATH="$HOME/.local/node/bin:$PATH"
 ## 目录结构
 
 ```
-photo-portfolio/
+personal-photography-portfolio/
 ├── src/
 │   ├── pages/            页面：首页 index.astro、归档 archive.astro、
 │   │                     单图 single.astro、获奖 awards.astro、
