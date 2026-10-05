@@ -458,6 +458,21 @@ img { max-width: 100%; }
 .award-title { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: 0.08em; color: var(--title); }
 .award-meta { margin: 6px 0 0; font-size: 13px; color: var(--muted); letter-spacing: 0.06em; }
 .award-link { font-size: 13px; letter-spacing: 0.1em; white-space: nowrap; }
+.award-photo {
+  display: block;
+  margin-top: 12px;
+  max-width: 320px;
+  border-radius: 4px;
+  overflow: hidden;
+  line-height: 0;
+}
+.award-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+.award-photo:hover img { opacity: 0.85; }
 
 @media (max-width: 640px) {
   /* 手机端：年份单独一行，标题和赛事跟在下面 */

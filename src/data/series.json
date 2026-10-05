@@ -1,26 +1,42 @@
 [
   {
     "slug": "mountains",
-    "title": "山野之间",
-    "subtitle": "风光摄影 · 示例系列",
+    "title": "山水之间",
+    "subtitle": "自然风光 · 示例系列",
     "year": "2023–2025",
     "cover": "/photos/mountains/峰林布依-1600.webp",
     "description": "这里写这个系列的介绍：为什么拍、拍了多久、想表达什么。两三百字即可，访客会在系列页顶部看到它。占位内容，替换图片时一起改掉。"
   },
   {
     "slug": "city",
-    "title": "城市切片",
-    "subtitle": "纪实摄影 · 示例系列",
+    "title": "城野入画",
+    "subtitle": "城市风光 · 示例系列",
     "year": "2024",
     "cover": "/photos/city/转角小巷-1600.webp",
     "description": "系列介绍文字。占位内容，替换图片时一起改掉。"
   },
   {
-    "slug": "sea",
-    "title": "海岸线",
-    "subtitle": "旅行摄影 · 示例系列",
-    "year": "2022–2024",
-    "cover": "/photos/sea/劳力士-1600.webp",
+    "slug": "people",
+    "title": "人间烟火",
+    "subtitle": "人文人像 · 示例系列",
+    "year": "",
+    "cover": "",
+    "description": "系列介绍文字。占位内容，替换图片时一起改掉。"
+  },
+  {
+    "slug": "event",
+    "title": "舞台之上",
+    "subtitle": "活动演出 · 示例系列",
+    "year": "",
+    "cover": "",
+    "description": "系列介绍文字。占位内容，替换图片时一起改掉。"
+  },
+  {
+    "slug": "space",
+    "title": "空间折叠",
+    "subtitle": "空间建筑 · 示例系列",
+    "year": "",
+    "cover": "",
     "description": "系列介绍文字。占位内容，替换图片时一起改掉。"
   }
 ]

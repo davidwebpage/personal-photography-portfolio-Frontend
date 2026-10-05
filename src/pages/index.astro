@@ -5,6 +5,9 @@ import Base from '../layouts/Base.astro';
 import allSeries from '../data/series.json';
 import allPhotos from '../data/photos.json';
 
+// 只展示有照片的系列：空系列（还没放照片）不显示卡片，等有照片了自动出现
+const series = allSeries.filter((s) => allPhotos.some((p) => p.series === s.slug));
+
 // 首页背景的候选池：每次打开随机抽一张（抽取逻辑在 Base.astro 的 applyRandomHero）。
 // 只用横构图——竖图铺满整屏会被裁掉大半；横图不够时再退回全部照片。
 const landscape = allPhotos.filter((p) => p.width >= p.height);
@@ -28,7 +31,7 @@ const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
   <section class="container" id="series">
     <h2 class="section-title">系列作品</h2>
     <div class="series-grid">
-      {allSeries.map((s) => (
+      {series.map((s) => (
         <a class="series-card" href={`/series/${s.slug}/`}>
           <img src={s.cover} alt={s.title} loading="lazy" decoding="async" />
           <div class="card-text">

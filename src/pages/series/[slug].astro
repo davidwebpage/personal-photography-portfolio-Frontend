@@ -14,9 +14,16 @@ export function getStaticPaths() {
 
 const { s } = Astro.props;
 const photos = allPhotos.filter((p) => p.series === s.slug);
+const isEmpty = photos.length === 0;
 ---
 
 <Base title={`${s.title} · 摄影作品集`} description={s.subtitle}>
+  {isEmpty ? (
+    <div class="container">
+      <h1 class="section-title">{s.title}</h1>
+      <p class="page-empty">这个系列的照片还在整理中，稍后更新。</p>
+    </div>
+  ) : (
   <!-- 整屏封面：小标题 / 超大主标题 / 年份·张数 / 向下滚动提示 -->
   <section class="series-hero">
     <img src={s.cover} alt={s.title} />
@@ -33,4 +40,5 @@ const photos = allPhotos.filter((p) => p.series === s.slug);
     <p class="series-desc">{s.description}</p>
     <Gallery photos={photos} seriesName={s.title} />
   </div>
+  )}
 </Base>

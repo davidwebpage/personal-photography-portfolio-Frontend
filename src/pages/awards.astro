@@ -6,10 +6,14 @@
 //     "title": "作品标题",
 //     "competition": "赛事 / 展览名称",
 //     "award": "金奖",
-//     "link": "https://…（可选，填了就显示「查看」按钮）"
+//     "link": "https://…（可选，填了就显示「查看」按钮）",
+//     "photoId": "照片 id（可选，填了就在获奖页显示这张照片，可点击放大）"
 //   }
+// photoId 对应 src/data/photos.json 里某张照片的 id。同一张照片在类别页和
+// 获奖页都会出现，但文件只有一份——获奖只是「附加在照片上的一层信息」。
 import Base from '../layouts/Base.astro';
 import raw from '../data/awards.json';
+import allPhotos from '../data/photos.json';
 
 interface Award {
   year?: string;
@@ -17,11 +21,15 @@ interface Award {
   competition?: string;
   award?: string;
   link?: string;
+  photoId?: string;
 }
 
 const awards = (raw as Award[])
   .slice()
   .sort((a, b) => String(b.year ?? '').localeCompare(String(a.year ?? '')));
+
+// 按 photoId 找到对应照片，供灯箱显示；找不到就返回 null（只显示文字）
+const photoById = new Map(allPhotos.map((p) => [p.id, p]));
 ---
 
 <Base title="获奖作品 · 摄影作品集" description="摄影获奖、入展与提名记录">
@@ -32,7 +40,9 @@ const awards = (raw as Award[])
       <p class="page-empty">获奖与入展记录整理中，稍后更新。</p>
     ) : (
       <ul class="award-list">
-        {awards.map((a) => (
+        {awards.map((a) => {
+          const photo = a.photoId ? photoById.get(a.photoId) : null;
+          return (
           <li class="award-item">
             <span class="award-year">{a.year}</span>
             <div class="award-body">
@@ -40,12 +50,37 @@ const awards = (raw as Award[])
               {(a.competition || a.award) && (
                 <p class="award-meta">{[a.competition, a.award].filter(Boolean).join(' · ')}</p>
               )}
+              {photo && (
+                <a
+                  class="award-photo"
+                  href={photo.src}
+                  data-lightbox
+                  data-title={photo.title ?? a.title ?? ''}
+                  data-series="获奖作品"
+                  data-srcset={photo.srcset}
+                  data-width={photo.width}
+                  data-height={photo.height}
+                  data-exif={photo.exif ? JSON.stringify(photo.exif) : undefined}
+                >
+                  <img
+                    src={photo.src}
+                    srcset={photo.srcset}
+                    sizes="(max-width: 640px) 100vw, 320px"
+                    width={photo.width}
+                    height={photo.height}
+                    alt={photo.title ?? a.title ?? '获奖作品'}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+              )}
             </div>
             {a.link && (
               <a class="award-link" href={a.link} target="_blank" rel="noopener">查看</a>
             )}
           </li>
-        ))}
+          );
+        })}
       </ul>
     )}
   </div>
