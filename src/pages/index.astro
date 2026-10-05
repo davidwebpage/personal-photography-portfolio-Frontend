@@ -1,12 +1,8 @@
 ---
-// 首页：大图 hero + 系列卡片网格
-// 系列数据来自 src/data/series.json，增删系列只改那个文件
+// 首页：大图 hero
+// 背景图从所有照片里随机抽一张（抽取逻辑在 Base.astro 的 applyRandomHero）
 import Base from '../layouts/Base.astro';
-import allSeries from '../data/series.json';
 import allPhotos from '../data/photos.json';
-
-// 只展示有照片的系列：空系列（还没放照片）不显示卡片，等有照片了自动出现
-const series = allSeries.filter((s) => allPhotos.some((p) => p.series === s.slug));
 
 // 首页背景的候选池：每次打开随机抽一张（抽取逻辑在 Base.astro 的 applyRandomHero）。
 // 只用横构图——竖图铺满整屏会被裁掉大半；横图不够时再退回全部照片。
@@ -27,21 +23,4 @@ const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
       <p>David photograph · 摄影作品集</p>
     </div>
   </section>
-
-  {series.length > 0 && (
-  <section class="container" id="series">
-    <h2 class="section-title">系列作品</h2>
-    <div class="series-grid">
-      {series.map((s) => (
-        <a class="series-card" href={`/series/${s.slug}/`}>
-          <img src={s.cover} alt={s.title} loading="lazy" decoding="async" />
-          <div class="card-text">
-            <h3>{s.title}</h3>
-            <p>{s.subtitle} · {s.year}</p>
-          </div>
-        </a>
-      ))}
-    </div>
-  </section>
-  )}
 </Base>

@@ -20,7 +20,11 @@ const groups = singlesByCategory();
             {category.title}
             <span style="color: var(--muted); font-size: 13px; margin-left: 8px;">{category.subtitle}</span>
           </h2>
-          <Gallery photos={photos} seriesName={category.title} />
+          {photos.length === 0 ? (
+            <p class="page-empty" style="margin-top: 0;">这个类别的照片整理中，稍后更新。</p>
+          ) : (
+            <Gallery photos={photos} seriesName={category.title} />
+          )}
         </section>
       ))
     )}

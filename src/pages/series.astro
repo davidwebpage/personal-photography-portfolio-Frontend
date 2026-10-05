@@ -1,0 +1,30 @@
+---
+// 系列作品页：暂时没有系列类目，显示占位。
+// 等系列类目确定后，把类目填进 src/data/series.json，这里会自动生成系列卡片。
+import Base from '../layouts/Base.astro';
+import allSeries from '../data/series.json';
+import allPhotos from '../data/photos.json';
+
+const series = allSeries.filter((s) => allPhotos.some((p) => p.series === s.slug));
+---
+
+<Base title="系列作品 · 摄影作品集" description="系列摄影作品">
+  <div class="container">
+    <h1 class="section-title">系列作品</h1>
+    {series.length === 0 ? (
+      <p class="page-empty">系列作品整理中，稍后更新。</p>
+    ) : (
+      <div class="series-grid">
+        {series.map((s) => (
+          <a class="series-card" href={`/series/${s.slug}/`}>
+            <img src={s.cover} alt={s.title} loading="lazy" decoding="async" />
+            <div class="card-text">
+              <h3>{s.title}</h3>
+              <p>{s.subtitle} · {s.year}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>

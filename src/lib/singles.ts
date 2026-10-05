@@ -20,12 +20,11 @@ export const singles = allPhotos.filter(
   (p) => categorySlugs.has(p.series) && !seriesSlugs.has(p.series),
 );
 
-// 按类别分组：返回 [{ category, photos }]，类别顺序按 single-categories.json
+// 按类别分组：返回 [{ category, photos }]，类别顺序按 single-categories.json。
+// 空类别也返回（photos 为空数组），页面会显示占位，保证 5 个类别始终可见。
 export function singlesByCategory() {
-  return allCategories
-    .map((c) => ({
-      category: c,
-      photos: singles.filter((p) => p.series === c.slug),
-    }))
-    .filter((g) => g.photos.length > 0); // 空类别不显示
+  return allCategories.map((c) => ({
+    category: c,
+    photos: singles.filter((p) => p.series === c.slug),
+  }));
 }
