@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "nature",
+    "title": "山水之间",
+    "subtitle": "自然风光"
+  },
+  {
+    "slug": "city",
+    "title": "城野入画",
+    "subtitle": "城市风光"
+  },
+  {
+    "slug": "people",
+    "title": "人间烟火",
+    "subtitle": "人文人像"
+  },
+  {
+    "slug": "event",
+    "title": "舞台之上",
+    "subtitle": "活动演出"
+  },
+  {
+    "slug": "space",
+    "title": "空间折叠",
+    "subtitle": "空间建筑"
+  }
+]

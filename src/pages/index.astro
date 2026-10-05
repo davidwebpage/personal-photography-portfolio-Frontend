@@ -28,6 +28,7 @@ const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
     </div>
   </section>
 
+  {series.length > 0 && (
   <section class="container" id="series">
     <h2 class="section-title">系列作品</h2>
     <div class="series-grid">
@@ -42,4 +43,5 @@ const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
       ))}
     </div>
   </section>
+  )}
 </Base>

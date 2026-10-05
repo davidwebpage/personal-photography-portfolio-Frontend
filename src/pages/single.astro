@@ -1,18 +1,28 @@
 ---
-// 单图作品：不属于任何系列的单张照片
-// 判定规则见 src/lib/singles.ts
+// 单幅作品：不属于任何系列的单张照片，按类别分组展示
+// 类别见 src/data/single-categories.json，判定规则见 src/lib/singles.ts
 import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
-import { singles } from '../lib/singles';
+import { singlesByCategory } from '../lib/singles';
+
+const groups = singlesByCategory();
 ---
 
-<Base title="单图作品 · 摄影作品集" description="未被系列收录的单张作品">
+<Base title="单幅作品 · 摄影作品集" description="单幅摄影作品，按类别分组">
   <div class="container">
-    <h1 class="section-title">单图作品</h1>
-    {singles.length === 0 ? (
-      <p class="page-empty">单图作品整理中，稍后更新。</p>
+    <h1 class="section-title">单幅作品</h1>
+    {groups.length === 0 ? (
+      <p class="page-empty">单幅作品整理中，稍后更新。</p>
     ) : (
-      <Gallery photos={singles} seriesName="单图作品" />
+      groups.map(({ category, photos }) => (
+        <section style="margin-bottom: 48px;">
+          <h2 style="color: var(--title); letter-spacing: 0.15em; font-size: 18px; margin: 0 0 18px;">
+            {category.title}
+            <span style="color: var(--muted); font-size: 13px; margin-left: 8px;">{category.subtitle}</span>
+          </h2>
+          <Gallery photos={photos} seriesName={category.title} />
+        </section>
+      ))
     )}
   </div>
 </Base>
