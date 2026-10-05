@@ -5,3 +5,7 @@ dist/
 
 # 照片母版体量大且涉版权，不进 git；用自己的移动硬盘/NAS 备份管理
 _masters/
+
+# Anaconda / Jupyter 在这个目录留下的杂物，与网站无关
+anaconda_projects/
+.ipynb_checkpoints/
