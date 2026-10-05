@@ -1,12 +1,32 @@
 /* ========== 全局样式：深色底 + 衬线中文 + 金色点缀（参考储卫民站气质） ========== */
 
+/* ---------- 明暗主题 ----------
+   每个颜色都写成 light-dark(亮色, 暗色)，按当前 color-scheme 取值：
+   默认 color-scheme: light dark = 跟随设备；顶栏右上角按钮选过之后，
+   html[data-theme] 把 color-scheme 锁成 only light / only dark，两套颜色随之切换。
+   默认值由 <head> 里的内联脚本在首次绘制前写好，不会闪一下白底。
+   注意：灯箱和系列页封面是「照片上的深色界面」，不跟着换主题，见各自区块。 */
 :root {
-  --bg: #0a0a0a;
-  --fg: rgba(255, 255, 255, 0.88);
-  --muted: rgba(255, 255, 255, 0.5);
-  --accent: #c9a558;
+  color-scheme: light dark;
   --max: 1200px;
+
+  --bg: light-dark(#f4f2ee, #0a0a0a);
+  --fg: light-dark(rgba(24, 21, 18, 0.88), rgba(255, 255, 255, 0.88));
+  --title: light-dark(#191510, #ffffff);
+  --muted: light-dark(rgba(24, 21, 18, 0.56), rgba(255, 255, 255, 0.5));
+  --faint: light-dark(rgba(24, 21, 18, 0.4), rgba(255, 255, 255, 0.33));
+  /* 亮底上原来的金色太浅看不清，压深一档 */
+  --accent: light-dark(#8f6f28, #c9a558);
+  --line: light-dark(rgba(24, 21, 18, 0.1), rgba(255, 255, 255, 0.08));
+  --icon-border: light-dark(rgba(24, 21, 18, 0.18), rgba(255, 255, 255, 0.18));
+  --surface: light-dark(rgba(24, 21, 18, 0.035), rgba(255, 255, 255, 0.03));
+  --surface-solid: light-dark(#e6e2db, #161616); /* 图片没加载出来时的占位底色 */
+  --bar-track: light-dark(rgba(24, 21, 18, 0.1), rgba(255, 255, 255, 0.08));
+  --header-bg: light-dark(rgba(244, 242, 238, 0.86), rgba(10, 10, 10, 0.82));
+  --float-bg: light-dark(rgba(244, 242, 238, 0.78), rgba(10, 10, 10, 0.72));
 }
+:root[data-theme='light'] { color-scheme: only light; }
+:root[data-theme='dark'] { color-scheme: only dark; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -33,22 +53,59 @@ img { max-width: 100%; }
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  background: rgba(10, 10, 10, 0.82);
+  gap: 16px;
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--line);
 }
-.brand { font-size: 17px; letter-spacing: 0.12em; color: #fff; font-weight: 700; }
+.brand { font-size: 17px; letter-spacing: 0.12em; color: var(--title); font-weight: 700; }
 .brand:hover { text-decoration: none; }
+/* 导航和明暗按钮靠右成一组 */
+.header-tools { display: flex; align-items: center; gap: 18px; }
 .site-nav { display: flex; gap: 22px; font-size: 14px; }
 .site-nav a { color: var(--muted); letter-spacing: 0.08em; }
 .site-nav a:hover,
-.site-nav a[aria-current] { color: #fff; text-decoration: none; }
+.site-nav a[aria-current] { color: var(--title); text-decoration: none; }
+
+/* 明暗切换：圆形图标按钮，暗色时显示太阳（点了变亮），亮色时显示月亮 */
+.theme-toggle {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--icon-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.theme-toggle:hover { color: var(--title); border-color: var(--accent); }
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .ico-moon { display: none; }
+:root[data-theme='light'] .theme-toggle .ico-sun { display: none; }
+:root[data-theme='light'] .theme-toggle .ico-moon { display: block; }
 
 .container { max-width: var(--max); margin: 0 auto; padding: 48px 24px; }
 
 /* ---------- 首页 hero ---------- */
-.hero { position: relative; height: 88vh; min-height: 480px; overflow: hidden; }
-.hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* 整屏铺满：svh 是「浏览器工具栏还在时」的视口高度，用它做高度，
+   图片始终填满首屏，底下不会露出一条页面底色（亮色主题下就是一条白边） */
+.hero { position: relative; height: 100svh; min-height: 480px; overflow: hidden; }
+/* 首页背景图由脚本随机挑一张再写 src（见 Base.astro 的 applyRandomHero），
+   所以这里先透明，图load出来再加 .ready 淡入，避免先闪一张再换 */
+.hero img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.6s ease; }
+.hero img.ready { opacity: 1; }
 .hero-text {
   position: absolute;
   inset: 0;
@@ -69,7 +126,7 @@ img { max-width: 100%; }
 .hero p { color: rgba(255, 255, 255, 0.75); letter-spacing: 0.25em; font-size: 14px; margin: 0; }
 
 /* ---------- 系列卡片 ---------- */
-.section-title { font-size: 22px; letter-spacing: 0.2em; margin: 0 0 28px; color: #fff; }
+.section-title { font-size: 22px; letter-spacing: 0.2em; margin: 0 0 28px; color: var(--title); }
 .series-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -81,7 +138,7 @@ img { max-width: 100%; }
   overflow: hidden;
   border-radius: 4px;
   aspect-ratio: 3 / 2;
-  background: #161616;
+  background: var(--surface-solid);
 }
 .series-card img {
   width: 100%;
@@ -98,22 +155,38 @@ img { max-width: 100%; }
   background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
 }
 .card-text h3 { margin: 0; color: #fff; font-size: 18px; letter-spacing: 0.12em; }
-.card-text p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+/* 卡片文字压在照片上，两套主题下都要浅色，所以不走 --muted */
+.card-text p { margin: 4px 0 0; color: rgba(255, 255, 255, 0.72); font-size: 13px; }
 
-/* ---------- 画廊：CSS 多列瀑布流，横竖图混排不裁切 ---------- */
-.gallery { columns: 3 300px; column-gap: 14px; }
+/* ---------- 画廊：有序瀑布流 ----------
+   分栏由 JS 按「当前最短列优先」完成（顺序即 photos.json 的顺序），
+   所以样式和分栏脚本都放在全局，不依赖组件样式/脚本——局部换页后依然生效 */
+.gallery {
+  display: flex;
+  flex-direction: column; /* JS 执行前：单列平铺兜底 */
+  gap: 14px;
+}
+.gallery.ready {
+  flex-direction: row;
+  align-items: flex-start;
+}
+.g-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 .g-item {
   display: block;
-  margin: 0 0 14px;
-  break-inside: avoid;
   border-radius: 3px;
   overflow: hidden;
-  background: #141414;
+  background: var(--surface-solid);
 }
 .g-item img { width: 100%; height: auto; display: block; transition: opacity 0.3s; }
 .g-item:hover img { opacity: 0.85; }
 
-/* ---------- 灯箱 ---------- */
+/* ---------- 灯箱查看器（仿储卫民 Thomas 站）：大图为主体，同图重度虚化做背景 ---------- */
 #lightbox {
   position: fixed;
   inset: 0;
@@ -121,51 +194,537 @@ img { max-width: 100%; }
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.94);
+  background: #050505;
+  /* 看图的界面永远是深色（照片为主体），所以这里把金色锁回深色版 */
+  --accent: #c9a558;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
-#lightbox.open { display: flex; }
-#lightbox figure { margin: 0; }
-#lightbox img { max-width: 92vw; max-height: 86vh; object-fit: contain; }
-#lightbox figcaption {
+#lightbox.open {
+  display: flex;
+  opacity: 1;
+}
+
+/* 背景：当前图片重度虚化铺满全屏，压暗后让大图更突出 */
+.lb-bg {
   position: absolute;
-  bottom: 18px;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(34px) saturate(1.15) brightness(0.42);
+  transform: scale(1.18);
+}
+
+#lightbox figure {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#lightbox img {
+  max-width: 78vw;
+  max-height: 68vh;
+  object-fit: contain;
+  display: block;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  /* 放大后按住左键拖动平移，别让浏览器顺手选中图片或拖走它 */
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* 放大到超出屏幕时，光标提示「可以拖」；拖动中变成抓紧的手。
+   touch-action:none 是给触屏用的：手指按住拖画面，而不是被浏览器当成翻页手势 */
+#lightbox figure.can-pan { cursor: grab; touch-action: none; }
+#lightbox figure.can-pan.panning { cursor: grabbing; }
+
+/* ---------- 顶栏：左上 返回 + 序号，右上 工具按钮 ---------- */
+.lb-top {
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 0.1em;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
 }
-.lb-btn {
+.lb-left { display: flex; align-items: center; gap: 16px; }
+.lb-counter {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.55);
+}
+.lb-tools { display: flex; align-items: center; gap: 10px; }
+
+/* 圆形图标按钮（与参考站右上角一致） */
+.lb-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.82);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.lb-icon:hover, .lb-icon:focus-visible {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+.lb-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* 播放 / 暂停、进入 / 退出全屏 两套图标按状态切换 */
+.lb-icon .ico-pause,
+.lb-icon .ico-exit { display: none; }
+.lb-play.playing { color: var(--accent); border-color: rgba(201, 165, 88, 0.55); }
+.lb-play.playing .ico-play { display: none; }
+.lb-play.playing .ico-pause { display: block; }
+.lb-full.on .ico-full { display: none; }
+.lb-full.on .ico-exit { display: block; }
+
+/* ---------- 两侧翻页箭头 ---------- */
+.lb-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
-  border: 0;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 42px;
-  padding: 20px;
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  user-select: none;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
-.lb-btn:hover { color: #fff; }
-.lb-prev { left: 8px; }
-.lb-next { right: 8px; }
-.lb-close { top: 10px; right: 18px; font-size: 34px; transform: none; }
+.lb-arrow:hover, .lb-arrow:focus-visible {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+.lb-arrow svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.lb-prev { left: 32px; }
+.lb-next { right: 32px; }
+
+/* ---------- 底部：标题 + EXIF、缩略图条、快捷键提示 ---------- */
+.lb-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent);
+}
+.lb-info { padding: 0 40px; }
+.lb-title {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+.lb-title:empty { display: none; }
+.lb-exif {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  pointer-events: none;
+}
+.lb-exif[hidden] { display: none; }
+
+/* 该系列全部图片的缩略图，点击跳转；当前张白色描边 */
+.lb-thumbs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.lb-thumbs::-webkit-scrollbar { display: none; }
+.lb-thumb {
+  flex: 0 0 auto;
+  position: relative;
+  width: 84px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.06);
+  opacity: 0.5;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+.lb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lb-thumb:hover { opacity: 1; }
+.lb-thumb.active { opacity: 1; border-color: #fff; }
+
+/* 自动轮播进度层：从左到右由半透明渐变为黑，扫完整块缩略图即切下一张 */
+.lb-thumb-progress {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.92));
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.lb-thumb.ticking .lb-thumb-progress {
+  opacity: 1;
+  animation: lbSweep var(--sweep, 4000ms) linear forwards;
+}
+@keyframes lbSweep {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
 
 /* ---------- 文字页 ---------- */
-.prose { max-width: 720px; margin: 0 auto; }
-.prose h1 { color: #fff; letter-spacing: 0.1em; }
+/* 关于 + 联系：并排两栏（左宽右窄），整体左对齐；窄屏自动堆叠，见文件末尾的媒体查询 */
+.about-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 44px 72px;
+  align-items: start;
+  text-align: left;
+}
+.prose h1 { color: var(--title); letter-spacing: 0.1em; margin: 0 0 20px; }
+.prose h2 { color: var(--title); letter-spacing: 0.12em; font-size: 20px; margin: 0 0 16px; }
+.prose ul { padding-left: 20px; }
+.prose li { margin: 6px 0; }
+.contact-note { color: var(--faint); font-size: 13px; }
 
-/* ---------- 系列页头 ---------- */
-.series-head { text-align: center; margin-bottom: 40px; }
-.series-head h1 { color: #fff; letter-spacing: 0.2em; margin: 0 0 6px; }
-.series-head .sub { color: var(--accent); letter-spacing: 0.15em; font-size: 14px; margin: 0; }
-.series-head .desc { max-width: 640px; margin: 16px auto 0; color: var(--muted); font-size: 15px; }
+/* ---------- 栏目空状态（获奖、单图这类还不知道有没有内容的栏目共用） ---------- */
+.page-empty { color: var(--muted); font-size: 15px; letter-spacing: 0.08em; }
+.award-list { list-style: none; margin: 0; padding: 0; }
+.award-item {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px 24px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.award-item:last-child { border-bottom: 1px solid var(--line); }
+.award-year {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.award-title { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: 0.08em; color: var(--title); }
+.award-meta { margin: 6px 0 0; font-size: 13px; color: var(--muted); letter-spacing: 0.06em; }
+.award-link { font-size: 13px; letter-spacing: 0.1em; white-space: nowrap; }
+
+@media (max-width: 640px) {
+  /* 手机端：年份单独一行，标题和赛事跟在下面 */
+  .award-item { grid-template-columns: 1fr auto; gap: 4px 12px; padding: 18px 0; }
+  .award-year { grid-column: 1 / -1; }
+  .award-title { font-size: 16px; }
+}
+
+@media (max-width: 860px) {
+  /* 窄屏：关于和联系改成上下排，仍然左对齐 */
+  .about-top { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ---------- 拍摄档案：参数总览 + 分布图（关于页） ---------- */
+.exif-stats { margin-top: 72px; }
+.stats-empty { color: var(--muted); font-size: 14px; }
+
+/* 总览：窄屏自动换行的小卡片 */
+.stat-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.stat-card {
+  padding: 20px 22px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+.stat-value {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--title);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label { margin-top: 8px; font-size: 13px; color: var(--muted); letter-spacing: 0.18em; }
+.stat-hint { margin-top: 4px; font-size: 11px; color: var(--faint); letter-spacing: 0.06em; }
+
+/* 分布图：宽屏三列（光圈 / 快门 / 感光度 一行），焦段独占第二行 */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 32px 44px;
+  margin-top: 44px;
+}
+/* 焦段档位多、标签长，独占整行；行内再分两列，免得一根条拉得过长 */
+.stat-panel-wide { grid-column: 1 / -1; }
+.stat-panel-wide .stat-rows {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 64px;
+}
+.stat-panel-title {
+  margin: 0 0 16px;
+  padding-left: 12px;
+  border-left: 2px solid var(--accent);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--title);
+}
+.stat-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.stat-row {
+  display: grid;
+  grid-template-columns: minmax(76px, 116px) 1fr auto;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+}
+.stat-row-label {
+  color: var(--fg);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stat-row-bar {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--bar-track);
+  overflow: hidden;
+}
+.stat-row-fill {
+  display: block;
+  height: 100%;
+  min-width: 3px; /* 占比极小时也留一点痕迹 */
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(201, 165, 88, 0.45), var(--accent));
+  transform-origin: left center;
+  animation: statGrow 0.6s ease both;
+}
+/* 这一档张数为 0：留空的条轨，别在起点留一小截看着像有数据 */
+.stat-row-fill.is-zero {
+  min-width: 0;
+  background: none;
+  animation: none;
+}
+@keyframes statGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.stat-row-value {
+  min-width: 56px;
+  text-align: right;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.stat-row-pct { margin-left: 8px; font-size: 11px; color: var(--faint); }
+.stat-note { margin: 14px 0 0; font-size: 12px; color: var(--faint); letter-spacing: 0.06em; }
+
+/* 「其余 N 档」折叠：默认收起，点标题展开。
+   用原生 <details> 而不是自定义脚本，站内局部换页（只换 <main>）也不会失效 */
+.stat-more { margin-top: 14px; }
+.stat-more > summary {
+  display: inline-block;
+  cursor: pointer;
+  list-style: none;
+  padding: 3px 0;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.stat-more > summary::-webkit-details-marker { display: none; }
+.stat-more > summary::after { content: '  ▾'; font-size: 10px; color: var(--faint); }
+.stat-more[open] > summary::after { content: '  ▴'; }
+.stat-more > summary:hover { color: var(--accent); border-bottom-color: var(--line); }
+.stat-more .stat-rows { margin-top: 14px; }
+
+/* ---------- 系列页：整屏封面 + 超大标题（参考储卫民站的系列页结构） ---------- */
+/* 顶栏改成透明浮在整屏大图上（系列页封面 + 首页 hero），和参考站一致。
+   首页也一起浮：不浮的话大图上方会压着一条顶栏底色，同样像是「少了一块」。 */
+body:has(.series-hero) .site-header,
+body:has(.hero) .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.72), rgba(5, 5, 5, 0));
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+/* 滚过大图后加回底色，避免导航压在照片上看不清；底色跟着主题走 */
+body:has(.series-hero) .site-header.scrolled,
+body:has(.hero) .site-header.scrolled {
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--line);
+}
+/* 还没滚动、顶栏压在照片上的时候：两套主题下都保持浅色字，
+   否则亮色主题里深色文字落到深色照片上会看不见 */
+body:has(.series-hero) .site-header:not(.scrolled) .brand,
+body:has(.hero) .site-header:not(.scrolled) .brand { color: #fff; }
+body:has(.series-hero) .site-header:not(.scrolled) .site-nav a,
+body:has(.hero) .site-header:not(.scrolled) .site-nav a { color: rgba(255, 255, 255, 0.62); }
+body:has(.series-hero) .site-header:not(.scrolled) .site-nav a:hover,
+body:has(.series-hero) .site-header:not(.scrolled) .site-nav a[aria-current],
+body:has(.hero) .site-header:not(.scrolled) .site-nav a:hover,
+body:has(.hero) .site-header:not(.scrolled) .site-nav a[aria-current] { color: #fff; }
+body:has(.series-hero) .site-header:not(.scrolled) .theme-toggle,
+body:has(.hero) .site-header:not(.scrolled) .theme-toggle {
+  color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.series-hero {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.series-hero > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.series-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 5, 5, 0.6),
+    rgba(5, 5, 5, 0.3) 45%,
+    rgba(5, 5, 5, 0.88)
+  );
+}
+.series-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.72);
+}
+.hero-dash {
+  display: inline-block;
+  width: 26px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.series-hero h1 {
+  margin: 0 0 20px;
+  font-size: clamp(40px, 6.4vw, 88px);
+  line-height: 1.06;
+  letter-spacing: 0.06em;
+  font-weight: 900;
+  color: #fff;
+}
+.hero-meta {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.hero-scroll {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26px;
+  z-index: 1;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.hero-scroll .chev { display: block; margin-top: 6px; font-size: 16px; }
+.series-desc {
+  max-width: 720px;
+  margin: 0 auto 44px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+@media (max-width: 640px) {
+  .series-hero-inner { padding: 0 22px; }
+  .hero-scroll { letter-spacing: 0.2em; }
+  /* 拍摄档案：总览两列，条形行的标签和数字占一行、条独占下一行 */
+  .stat-summary { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-card { padding: 16px; }
+  .stat-value { font-size: 24px; }
+  .stat-label { font-size: 12px; letter-spacing: 0.1em; }
+  .stat-row { grid-template-columns: 1fr auto; gap: 8px 12px; }
+  .stat-row-bar { grid-column: 1 / -1; }
+  .stat-grid { gap: 32px; margin-top: 32px; }
+  .stat-panel-wide .stat-rows { grid-template-columns: 1fr; gap: 12px 0; }
+}
 
 /* ---------- 页脚 ---------- */
 .site-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--line);
   margin-top: 60px;
   padding: 28px 24px;
   text-align: center;
@@ -175,6 +734,116 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 640px) {
-  .site-nav { gap: 14px; font-size: 13px; }
-  .lb-btn { font-size: 30px; padding: 10px; }
+  /* 手机端：站名和明暗按钮占第一行，导航落到第二行。
+     栏目变多之后一行排不下，硬挤会把字缩小到看不清。 */
+  .site-header { flex-wrap: wrap; padding: 10px 16px; gap: 6px 12px; }
+  .brand { order: 1; flex: 1 1 auto; font-size: 14px; letter-spacing: 0.06em; line-height: 1.2; }
+  /* 拆掉外层包裹，让导航能自己换到第二行 */
+  .header-tools { display: contents; }
+  .theme-toggle { order: 2; width: 32px; height: 32px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .site-nav {
+    order: 3;
+    flex: 1 0 100%;
+    gap: 9px;
+    font-size: 11px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    line-height: 1.4;
+    scrollbar-width: none;
+  }
+  .site-nav::-webkit-scrollbar { display: none; }
+  .lb-top { padding: 10px; }
+  .lb-left { gap: 8px; }
+  .lb-counter { font-size: 11px; letter-spacing: 0.08em; white-space: nowrap; }
+  .lb-icon { width: 34px; height: 34px; }
+  .lb-icon svg { width: 17px; height: 17px; }
+  .lb-tools { gap: 5px; }
+  /* 手机端用左右滑动翻页，隐藏两侧箭头避免压住图片 */
+  .lb-arrow { display: none; }
+  #lightbox img { max-width: 94vw; max-height: 56vh; }
+  .lb-info { padding: 0 10px; }
+  /* EXIF 单行在窄屏容易溢出，收紧间距和字号保证一行完整显示 */
+  .lb-exif { font-size: 9px; letter-spacing: 0; }
+  .lb-thumbs { justify-content: flex-start; }
 }
+
+/* ---------- 页面切换过渡动画：导航切页、系列互开时内容淡入 ---------- */
+main {
+  animation: pageIn 0.45s ease both;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+html { scroll-behavior: smooth; }
+
+/* ---------- 无障碍：键盘焦点可见 + 弱动效用户关闭动画 ---------- */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.g-item:focus-visible img { opacity: 0.85; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+    scroll-behavior: auto !important;
+  }
+  .series-card:hover img { transform: none; }
+}
+
+/* ---------- 背景音乐开关：浮动在顶栏下方的圆形按钮，播放时金色音符旋转 ---------- */
+.bgm-toggle {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 18px;
+  z-index: 55;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--icon-border);
+  background: var(--float-bg);
+  backdrop-filter: blur(6px);
+  color: var(--muted);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+.bgm-toggle:hover { border-color: var(--accent); color: var(--title); }
+.bgm-toggle.on { color: var(--accent); border-color: rgba(201, 165, 88, 0.6); }
+.bgm-toggle .ico { display: inline-block; }
+.bgm-toggle.on .ico { animation: bgmSpin 4s linear infinite; }
+@keyframes bgmSpin { to { transform: rotate(360deg); } }
+
+/* 自动播放被浏览器拦住时出现的一行小提示，挨着音符按钮（脚本控制显示）。
+   pointer-events:none —— 点它本身也算「点了页面」，不挡这一下 */
+.bgm-hint {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 70px;
+  z-index: 55;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 22px;
+  border: 1px solid var(--icon-border);
+  background: var(--float-bg);
+  backdrop-filter: blur(6px);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: bgmHintIn 0.4s ease both;
+}
+.bgm-hint[hidden] { display: none; }
+@keyframes bgmHintIn { from { opacity: 0; transform: translateX(6px); } }

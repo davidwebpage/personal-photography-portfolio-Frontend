@@ -1,0 +1,52 @@
+---
+// 获奖作品页：内容全部来自 src/data/awards.json，按年份从新到旧排。
+// 每条记录的写法（字段都可留空，但 year / title 建议填）：
+//   {
+//     "year": "2026",
+//     "title": "作品标题",
+//     "competition": "赛事 / 展览名称",
+//     "award": "金奖",
+//     "link": "https://…（可选，填了就显示「查看」按钮）"
+//   }
+import Base from '../layouts/Base.astro';
+import raw from '../data/awards.json';
+
+interface Award {
+  year?: string;
+  title?: string;
+  competition?: string;
+  award?: string;
+  link?: string;
+}
+
+const awards = (raw as Award[])
+  .slice()
+  .sort((a, b) => String(b.year ?? '').localeCompare(String(a.year ?? '')));
+---
+
+<Base title="获奖作品 · 摄影作品集" description="摄影获奖、入展与提名记录">
+  <div class="container">
+    <h1 class="section-title">获奖作品</h1>
+
+    {awards.length === 0 ? (
+      <p class="page-empty">获奖与入展记录整理中，稍后更新。</p>
+    ) : (
+      <ul class="award-list">
+        {awards.map((a) => (
+          <li class="award-item">
+            <span class="award-year">{a.year}</span>
+            <div class="award-body">
+              <h2 class="award-title">{a.title}</h2>
+              {(a.competition || a.award) && (
+                <p class="award-meta">{[a.competition, a.award].filter(Boolean).join(' · ')}</p>
+              )}
+            </div>
+            {a.link && (
+              <a class="award-link" href={a.link} target="_blank" rel="noopener">查看</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</Base>

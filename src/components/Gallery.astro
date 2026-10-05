@@ -1,6 +1,15 @@
 ---
-// 画廊组件：接收照片数组，渲染瀑布流网格，点击图片打开灯箱
-// 照片数据来自 src/data/photos.json（由 npm run placeholders / npm run photos 生成）
+// 画廊组件：有序瀑布流
+//
+// 思路：
+//  1. 服务端按 photos.json 顺序渲染成平铺列表（DOM 顺序 = 照片顺序，
+//     灯箱的翻页顺序自然正确，无需额外处理）
+//  2. 浏览器端用少量 JS 按视口宽度把元素分进 N 列容器，分配策略是
+//     「当前最短列优先」，于是视觉上从左到右、从上到下就是数组顺序
+//  3. 无 JS 时退化为单列平铺，顺序依然正确
+//
+// 样式与分栏脚本都在 global.css / Base.astro（全局），不放组件里：
+// 站内是局部换页（不刷新页面），组件级样式和脚本在换页后不一定生效
 interface Photo {
   id: string;
   src: string;
@@ -8,20 +17,40 @@ interface Photo {
   width: number;
   height: number;
   title?: string;
+  exif?: {
+    camera?: string;
+    focal?: string;
+    aperture?: string;
+    shutter?: string;
+    iso?: string;
+    taken?: string;
+  } | null;
 }
 interface Props {
   photos: Photo[];
+  // 系列名，灯箱左上角序号后面显示；不传（如全部照片页）则显示「全部照片」
+  seriesName?: string;
 }
-const { photos } = Astro.props;
+const { photos, seriesName = '全部照片' } = Astro.props;
 ---
 
-<div class="gallery">
+<div class="gallery" data-gallery>
   {photos.map((p) => (
-    <a href={p.src} data-lightbox data-title={p.title ?? ''} class="g-item">
+    <a
+      href={p.src}
+      data-lightbox
+      data-title={p.title ?? ''}
+      data-series={seriesName}
+      data-srcset={p.srcset}
+      data-width={p.width}
+      data-height={p.height}
+      data-exif={p.exif ? JSON.stringify(p.exif) : undefined}
+      class="g-item"
+    >
       <img
         src={p.src}
         srcset={p.srcset}
-        sizes={p.srcset ? '(max-width: 768px) 100vw, 33vw' : undefined}
+        sizes="(max-width: 448px) 100vw, (max-width: 816px) 50vw, (max-width: 1048px) 33vw, 288px"
         width={p.width}
         height={p.height}
         alt={p.title ?? '摄影作品'}

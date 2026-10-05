@@ -1,0 +1,55 @@
+---
+// 拍摄档案：参数总览 + 焦段/光圈/快门/ISO 分布
+//
+// 全部在构建时算好、服务端渲染，页面里没有 <script>，也没有 <style>：
+// 站内是局部换页（Base.astro 的 switchView 只替换 <main>，不引入目标页的 head），
+// 组件级样式在换页后会失效，所以这里只输出行内 style="width:%"，样式全部在 global.css
+import { computeExifStats, type ExifPhoto } from '../lib/exif-stats';
+import StatRows from './StatRows.astro';
+
+interface Props {
+  photos: ExifPhoto[];
+}
+const { photos } = Astro.props;
+const stats = computeExifStats(photos);
+---
+
+<section class="exif-stats" id="exif" aria-labelledby="exif-title">
+  <h2 class="section-title" id="exif-title">拍摄档案</h2>
+
+  {stats.total === 0 ? (
+    <p class="stats-empty">还没有照片数据。把作品放进 photos.json 后，这里会自动生成拍摄统计。</p>
+  ) : (
+    <>
+      <div class="stat-summary">
+        {stats.summary.map((s) => (
+          <div class="stat-card">
+            <div class="stat-value">{s.value}</div>
+            <div class="stat-label">{s.label}</div>
+            {s.hint && <div class="stat-hint">{s.hint}</div>}
+          </div>
+        ))}
+      </div>
+
+      <div class="stat-grid">
+        {stats.panels.map((panel) => (
+          <section class={`stat-panel${panel.wide ? ' stat-panel-wide' : ''}`}>
+            <h3 class="stat-panel-title">{panel.title}</h3>
+            <StatRows rows={panel.rows} />
+            {panel.more && (
+              <details class="stat-more">
+                <summary>其余 {panel.more.length} 档</summary>
+                <StatRows rows={panel.more} />
+              </details>
+            )}
+            {panel.missing > 0 && (
+              <p class="stat-note">
+                另有 {panel.missing} 张未记录该项，百分比按可统计的 {panel.parsed} 张计算。
+              </p>
+            )}
+          </section>
+        ))}
+      </div>
+    </>
+  )}
+</section>

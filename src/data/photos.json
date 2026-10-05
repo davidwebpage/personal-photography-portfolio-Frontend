@@ -1,122 +1,192 @@
 [
   {
-    "id": "m01",
-    "series": "mountains",
-    "title": "山野之间 · 示例 1",
-    "src": "/photos/mountains/m01.svg",
+    "id": "水陆庵排队",
+    "series": "city",
+    "title": "",
+    "src": "/photos/city/水陆庵排队-1600.webp",
+    "srcset": "/photos/city/水陆庵排队-800.webp 800w, /photos/city/水陆庵排队-1600.webp 1600w, /photos/city/水陆庵排队-2560.webp 2560w",
     "width": 1600,
     "height": 1067,
-    "year": 2024,
-    "location": ""
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "165mm",
+      "aperture": "f/5.6",
+      "shutter": "1/15s",
+      "iso": "ISO 4000",
+      "taken": "2026-02-18"
+    }
   },
   {
-    "id": "m02",
-    "series": "mountains",
-    "title": "山野之间 · 示例 2",
-    "src": "/photos/mountains/m02.svg",
+    "id": "转角小巷",
+    "series": "city",
+    "title": "",
+    "src": "/photos/city/转角小巷-1600.webp",
+    "srcset": "/photos/city/转角小巷-800.webp 533w, /photos/city/转角小巷-1600.webp 1067w, /photos/city/转角小巷-2560.webp 1707w",
     "width": 1067,
     "height": 1600,
-    "year": 2024,
-    "location": ""
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "16mm",
+      "aperture": "f/2.2",
+      "shutter": "1/50s",
+      "iso": "ISO 800",
+      "taken": "2026-08-18"
+    }
   },
   {
-    "id": "m03",
-    "series": "mountains",
-    "title": "山野之间 · 示例 3",
-    "src": "/photos/mountains/m03.svg",
-    "width": 1600,
-    "height": 900,
-    "year": 2024,
-    "location": ""
-  },
-  {
-    "id": "m04",
-    "series": "mountains",
-    "title": "山野之间 · 示例 4",
-    "src": "/photos/mountains/m04.svg",
-    "width": 1280,
-    "height": 1600,
-    "year": 2024,
-    "location": ""
-  },
-  {
-    "id": "c01",
+    "id": "鱼龙舞",
     "series": "city",
-    "title": "城市切片 · 示例 1",
-    "src": "/photos/city/c01.svg",
-    "width": 1600,
-    "height": 1067,
-    "year": 2024,
-    "location": ""
-  },
-  {
-    "id": "c02",
-    "series": "city",
-    "title": "城市切片 · 示例 2",
-    "src": "/photos/city/c02.svg",
-    "width": 1600,
-    "height": 1067,
-    "year": 2024,
-    "location": ""
-  },
-  {
-    "id": "c03",
-    "series": "city",
-    "title": "城市切片 · 示例 3",
-    "src": "/photos/city/c03.svg",
+    "title": "",
+    "src": "/photos/city/鱼龙舞-1600.webp",
+    "srcset": "/photos/city/鱼龙舞-800.webp 533w, /photos/city/鱼龙舞-1600.webp 1067w, /photos/city/鱼龙舞-2560.webp 1707w",
     "width": 1067,
     "height": 1600,
-    "year": 2024,
-    "location": ""
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/60s",
+      "iso": "ISO 800",
+      "taken": "2026-08-19"
+    }
   },
   {
-    "id": "c04",
-    "series": "city",
-    "title": "城市切片 · 示例 4",
-    "src": "/photos/city/c04.svg",
+    "id": "峰林布依",
+    "series": "mountains",
+    "title": "",
+    "src": "/photos/mountains/峰林布依-1600.webp",
+    "srcset": "/photos/mountains/峰林布依-800.webp 800w, /photos/mountains/峰林布依-1600.webp 1600w, /photos/mountains/峰林布依-2560.webp 2560w",
     "width": 1600,
-    "height": 900,
-    "year": 2024,
-    "location": ""
+    "height": 1200,
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/2000s",
+      "iso": "ISO 210",
+      "taken": "2026-07-25"
+    }
   },
   {
-    "id": "s01",
-    "series": "sea",
-    "title": "海岸线 · 示例 1",
-    "src": "/photos/sea/s01.svg",
-    "width": 1280,
-    "height": 1600,
-    "year": 2024,
-    "location": ""
-  },
-  {
-    "id": "s02",
-    "series": "sea",
-    "title": "海岸线 · 示例 2",
-    "src": "/photos/sea/s02.svg",
+    "id": "达古冰川东措日月海",
+    "series": "mountains",
+    "title": "",
+    "src": "/photos/mountains/达古冰川东措日月海-1600.webp",
+    "srcset": "/photos/mountains/达古冰川东措日月海-800.webp 800w, /photos/mountains/达古冰川东措日月海-1600.webp 1600w, /photos/mountains/达古冰川东措日月海-2560.webp 2560w",
     "width": 1600,
-    "height": 1067,
-    "year": 2024,
-    "location": ""
+    "height": 1200,
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/6000s",
+      "iso": "ISO 140",
+      "taken": "2026-09-20"
+    }
   },
   {
-    "id": "s03",
-    "series": "sea",
-    "title": "海岸线 · 示例 3",
-    "src": "/photos/sea/s03.svg",
-    "width": 1600,
-    "height": 900,
-    "year": 2024,
-    "location": ""
-  },
-  {
-    "id": "s04",
-    "series": "sea",
-    "title": "海岸线 · 示例 4",
-    "src": "/photos/sea/s04.svg",
+    "id": "风，像流动的乐章",
+    "series": "mountains",
+    "title": "",
+    "src": "/photos/mountains/风，像流动的乐章-1600.webp",
+    "srcset": "/photos/mountains/风，像流动的乐章-800.webp 533w, /photos/mountains/风，像流动的乐章-1600.webp 1067w, /photos/mountains/风，像流动的乐章-2560.webp 1707w",
     "width": 1067,
     "height": 1600,
-    "year": 2024,
-    "location": ""
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "82mm",
+      "aperture": "f/6",
+      "shutter": "1/250s",
+      "iso": "ISO 640",
+      "taken": "2026-07-31"
+    }
+  },
+  {
+    "id": "鹿隐",
+    "series": "mountains",
+    "title": "",
+    "src": "/photos/mountains/鹿隐-1600.webp",
+    "srcset": "/photos/mountains/鹿隐-800.webp 533w, /photos/mountains/鹿隐-1600.webp 1067w, /photos/mountains/鹿隐-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "180mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 640",
+      "taken": "2026-05-16"
+    }
+  },
+  {
+    "id": "劳力士",
+    "series": "sea",
+    "title": "",
+    "src": "/photos/sea/劳力士-1600.webp",
+    "srcset": "/photos/sea/劳力士-800.webp 800w, /photos/sea/劳力士-1600.webp 1600w, /photos/sea/劳力士-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "16mm",
+      "aperture": "f/1.8",
+      "shutter": "1/200s",
+      "iso": "ISO 250",
+      "taken": "2026-08-19"
+    }
+  },
+  {
+    "id": "火焰腾升",
+    "series": "sea",
+    "title": "",
+    "src": "/photos/sea/火焰腾升-1600.webp",
+    "srcset": "/photos/sea/火焰腾升-800.webp 533w, /photos/sea/火焰腾升-1600.webp 1067w, /photos/sea/火焰腾升-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "21mm",
+      "aperture": "f/3.7",
+      "shutter": "1/100s",
+      "iso": "ISO 4000",
+      "taken": "2026-08-04"
+    }
+  },
+  {
+    "id": "群像时刻",
+    "series": "sea",
+    "title": "",
+    "src": "/photos/sea/群像时刻-1600.webp",
+    "srcset": "/photos/sea/群像时刻-800.webp 800w, /photos/sea/群像时刻-1600.webp 1600w, /photos/sea/群像时刻-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/4.5",
+      "shutter": "1/640s",
+      "iso": "ISO 800",
+      "taken": "2026-07-16"
+    }
   }
 ]

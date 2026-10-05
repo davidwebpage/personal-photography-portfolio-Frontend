@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
 import allSeries from '../data/series.json';
 import allPhotos from '../data/photos.json';
+import { singles } from '../lib/singles';
 ---
 
 <Base title="全部照片 · 摄影作品集" description="全部摄影作品索引">
@@ -11,11 +12,19 @@ import allPhotos from '../data/photos.json';
     <h1 class="section-title">全部照片</h1>
     {allSeries.map((s) => (
       <section style="margin-bottom: 48px;">
-        <h2 style="color: #fff; letter-spacing: 0.15em; font-size: 18px; margin: 0 0 18px;">
+        <h2 style="color: var(--title); letter-spacing: 0.15em; font-size: 18px; margin: 0 0 18px;">
           <a href={`/series/${s.slug}/`}>{s.title}</a>
         </h2>
         <Gallery photos={allPhotos.filter((p) => p.series === s.slug)} />
       </section>
     ))}
+    {singles.length > 0 && (
+      <section style="margin-bottom: 48px;">
+        <h2 style="color: var(--title); letter-spacing: 0.15em; font-size: 18px; margin: 0 0 18px;">
+          <a href="/single/">单图作品</a>
+        </h2>
+        <Gallery photos={singles} />
+      </section>
+    )}
   </div>
 </Base>

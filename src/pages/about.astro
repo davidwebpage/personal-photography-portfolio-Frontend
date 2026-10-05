@@ -1,20 +1,43 @@
 ---
+// 关于页：关于 + 联系（并排一块，整体左对齐）+ 拍摄档案（EXIF 统计）
+// 顶栏只占「关于」一项；联系不再单独成页
 import Base from '../layouts/Base.astro';
+import ExifStats from '../components/ExifStats.astro';
+import allPhotos from '../data/photos.json';
 ---
 
-<Base title="关于 · 摄影作品集" description="关于摄影师">
-  <div class="container prose">
-    <h1>关于</h1>
-    <p>这里写你的个人介绍（占位文字，改成你自己的）。建议包含：</p>
-    <ul>
-      <li>你是谁、base 在哪个城市</li>
-      <li>拍什么题材、拍了多少年</li>
-      <li>重要经历 / 奖项 / 合作过的品牌（这一栏对商业获客很关键）</li>
-      <li>一张你的肖像照或工作照</li>
-    </ul>
-    <p>
-      示例：xxx，现居重庆的职业摄影师，专注风光与纪实摄影。
-      作品曾发表于……，曾为……等品牌提供视觉服务。
-    </p>
+<Base title="关于 · 摄影作品集" description="关于摄影师、拍摄档案与联系方式">
+  <div class="container">
+    <div class="about-top">
+      <div class="prose about-bio">
+        <h1>关于</h1>
+        <p>这里写你的个人介绍（占位文字，改成你自己的）。建议包含：</p>
+        <ul>
+          <li>你是谁、base 在哪个城市</li>
+          <li>拍什么题材、拍了多少年</li>
+          <li>重要经历 / 奖项 / 合作过的品牌（这一栏对商业获客很关键）</li>
+          <li>一张你的肖像照或工作照</li>
+        </ul>
+        <p>
+          示例：xxx，现居重庆的职业摄影师，专注风光与纪实摄影。
+          作品曾发表于……，曾为……等品牌提供视觉服务。
+        </p>
+      </div>
+
+      <div class="prose" id="contact">
+        <h2>联系</h2>
+        <p>商业拍摄、图片授权、合作洽谈，欢迎通过以下方式联系：</p>
+        <ul>
+          <li>邮箱：<a href="mailto:davidrushgo@163.com">davidrushgo@163.com</a></li>
+          <li>
+            小红书：<a href="https://xhslink.cn/o/6TEPWvvhk6i" target="_blank" rel="noopener">-Kk-📷</a>
+            <span class="contact-note">（1573967269）</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 拍摄档案：数据来自 photos.json，随照片增加自动更新 -->
+    <ExifStats photos={allPhotos} />
   </div>
 </Base>

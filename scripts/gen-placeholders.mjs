@@ -56,9 +56,7 @@ for (const plan of PLAN) {
   }
 }
 
-// 首页 hero 大图
-await writeFile(path.join(OUT, 'hero.svg'), svg(2560, 1440, '你的名字 · 摄影作品集', 210), 'utf8');
-
+// 首页背景改成每次打开随机抽一张作品（见 pages/index.astro），不再需要 hero 占位图
 await mkdir(path.dirname(DATA), { recursive: true });
 await writeFile(DATA, JSON.stringify(photos, null, 2) + '\n', 'utf8');
-console.log(`✓ 已生成 ${photos.length} 张占位图 + 1 张 hero，photos.json 已更新`);
+console.log(`✓ 已生成 ${photos.length} 张占位图，photos.json 已更新`);

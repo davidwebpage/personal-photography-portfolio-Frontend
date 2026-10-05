@@ -3,15 +3,25 @@
 // 系列数据来自 src/data/series.json，增删系列只改那个文件
 import Base from '../layouts/Base.astro';
 import allSeries from '../data/series.json';
+import allPhotos from '../data/photos.json';
+
+// 首页背景的候选池：每次打开随机抽一张（抽取逻辑在 Base.astro 的 applyRandomHero）。
+// 只用横构图——竖图铺满整屏会被裁掉大半；横图不够时再退回全部照片。
+const landscape = allPhotos.filter((p) => p.width >= p.height);
+const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
+  src: p.src,
+  srcset: p.srcset,
+}));
 ---
 
-<Base title="你的名字 · 摄影作品集" description="个人摄影作品集：风光、纪实、旅行摄影系列">
+<Base title="David photograph · 摄影作品集" description="个人摄影作品集：风光、纪实、旅行摄影系列">
   <section class="hero">
-    <!-- 占位图，之后换成你最有代表性的一张作品（public/photos/hero.svg 改文件即可） -->
-    <img src="/photos/hero.svg" alt="" fetchpriority="high" />
+    <!-- 背景图不写死 src，由脚本从下面这个池子里随机挑一张再写上 -->
+    <img data-hero-random alt="" fetchpriority="high" decoding="async" />
+    <template data-hero-pool set:html={JSON.stringify(heroPool)}></template>
     <div class="hero-text">
-      <h1>用影像记录世界</h1>
-      <p>你的名字 · 摄影作品集</p>
+      <h1>用影像和时间做朋友</h1>
+      <p>David photograph · 摄影作品集</p>
     </div>
   </section>
 

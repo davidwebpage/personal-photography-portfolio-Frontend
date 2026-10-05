@@ -1,0 +1,32 @@
+---
+// 拍摄档案里的一组分布行（标签 / 条形 / 张数+百分比）
+//
+// 单独拎出来是因为一个面板要用两次：露在外面的几行、以及折进「其余 N 档」里的那几行，
+// 两处的行结构必须一模一样，复制一份迟早会改歪。
+// 和 ExifStats.astro 一样不带 <script>/<style>——站内换页只替换 <main>，
+// 组件级样式会失效，条形宽度只能用行内 style。
+import type { StatRow } from '../lib/exif-stats';
+
+interface Props {
+  rows: StatRow[];
+}
+const { rows } = Astro.props;
+---
+
+<ul class="stat-rows">
+  {rows.map((row) => (
+    <li class="stat-row">
+      <span class="stat-row-label">{row.label}</span>
+      <span class="stat-row-bar" aria-hidden="true">
+        <span
+          class={`stat-row-fill${row.count === 0 ? ' is-zero' : ''}`}
+          style={`width:${row.percent}%`}
+        ></span>
+      </span>
+      <span class="stat-row-value">
+        {row.count}
+        <span class="stat-row-pct">{Math.round(row.ratio * 100)}%</span>
+      </span>
+    </li>
+  ))}
+</ul>

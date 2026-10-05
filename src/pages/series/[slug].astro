@@ -17,12 +17,20 @@ const photos = allPhotos.filter((p) => p.series === s.slug);
 ---
 
 <Base title={`${s.title} · 摄影作品集`} description={s.subtitle}>
-  <div class="container">
-    <header class="series-head">
+  <!-- 整屏封面：小标题 / 超大主标题 / 年份·张数 / 向下滚动提示 -->
+  <section class="series-hero">
+    <img src={s.cover} alt={s.title} />
+    <div class="series-hero-veil"></div>
+    <div class="series-hero-inner">
+      <p class="hero-kicker"><span class="hero-dash"></span>{s.subtitle}</p>
       <h1>{s.title}</h1>
-      <p class="sub">{s.subtitle} · {s.year}</p>
-      <p class="desc">{s.description}</p>
-    </header>
-    <Gallery photos={photos} />
+      <p class="hero-meta">{s.year} · 共 {photos.length} 张作品</p>
+    </div>
+    <div class="hero-scroll">向下滚动探索<span class="chev">⌄</span></div>
+  </section>
+
+  <div class="container">
+    <p class="series-desc">{s.description}</p>
+    <Gallery photos={photos} seriesName={s.title} />
   </div>
 </Base>
