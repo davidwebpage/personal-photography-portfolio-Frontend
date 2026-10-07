@@ -15,6 +15,22 @@ export function getStaticPaths() {
 const { s } = Astro.props;
 const photos = allPhotos.filter((p) => p.series === s.slug);
 const isEmpty = photos.length === 0;
+
+// 系列阐述：首字单独包一层，做首字下沉（只放大这个字，不含后面的标点）
+const descText = (s.description ?? '').trim();
+const descCap = descText.slice(0, 1);
+const descRest = descText.slice(1);
+
+// 时间涵盖范围：全部照片拍摄日期的最早~最晚年份，跨年显示「2023–2026」。
+const spanYears = photos
+  .map((p) => p.exif?.taken)
+  .filter(Boolean)
+  .map((d) => d.slice(0, 4))
+  .sort();
+const span =
+  spanYears.length === 0 ? '' : spanYears[0] === spanYears[spanYears.length - 1]
+    ? spanYears[0]
+    : `${spanYears[0]}–${spanYears[spanYears.length - 1]}`;
 ---
 
 <Base title={`${s.title} · 摄影作品集`} description={s.subtitle}>
@@ -29,15 +45,14 @@ const isEmpty = photos.length === 0;
     <img src={s.cover} alt={s.title} />
     <div class="series-hero-veil"></div>
     <div class="series-hero-inner">
-      <p class="hero-kicker"><span class="hero-dash"></span>{s.subtitle}</p>
       <h1>{s.title}</h1>
-      <p class="hero-meta">{s.year} · 共 {photos.length} 张作品</p>
+      <p class="hero-meta">{span} · 共 {photos.length} 张作品</p>
     </div>
     <div class="hero-scroll">向下滚动探索<span class="chev">⌄</span></div>
   </section>
 
   <div class="container">
-    <p class="series-desc">{s.description}</p>
+    <p class="series-desc">{descCap ? <span class="desc-cap">{descCap}</span> : null}{descRest}</p>
     <Gallery photos={photos} seriesName={s.title} />
   </div>
   )}

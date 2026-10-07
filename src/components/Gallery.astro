@@ -17,6 +17,9 @@ interface Photo {
   width: number;
   height: number;
   title?: string;
+  // 拍摄地（如 "四川 成都"），灯箱里显示
+  location?: string;
+  // taken 是拍摄日期（"2026-09-20"），画廊里取前四位当「拍摄年份」用于筛选
   exif?: {
     camera?: string;
     focal?: string;
@@ -25,22 +28,31 @@ interface Photo {
     iso?: string;
     taken?: string;
   } | null;
+  // 色调标签（1–2 个，如 ["橙", "蓝"]），由 scripts/color-tags.mjs 生成，
+  // 供单幅作品页按色调筛选。为空表示还没打过标，那张照片不参与色调筛选。
+  colors?: string[] | null;
 }
 interface Props {
   photos: Photo[];
   // 系列名，灯箱左上角序号后面显示；不传（如全部照片页）则显示「全部照片」
   seriesName?: string;
+  // 整页最靠前的 N 张用 eager + fetchpriority=high 提前加载（首屏 LCP 图片），
+  // 其余保持 lazy。只对页面第一个分组传 1~2，避免全站 eager 互相抢带宽。
+  eager?: number;
 }
-const { photos, seriesName = '全部照片' } = Astro.props;
+const { photos, seriesName = '全部照片', eager = 0 } = Astro.props;
 ---
 
 <div class="gallery" data-gallery>
-  {photos.map((p) => (
+  {photos.map((p, i) => (
     <a
       href={p.src}
       data-lightbox
       data-title={p.title ?? ''}
       data-series={seriesName}
+      data-location={p.location ?? ''}
+      data-year={p.exif?.taken ? p.exif.taken.slice(0, 4) : ''}
+      data-color={p.colors?.join(' ') || ''}
       data-srcset={p.srcset}
       data-width={p.width}
       data-height={p.height}
@@ -50,11 +62,12 @@ const { photos, seriesName = '全部照片' } = Astro.props;
       <img
         src={p.src}
         srcset={p.srcset}
-        sizes="(max-width: 448px) 100vw, (max-width: 816px) 50vw, (max-width: 1048px) 33vw, 288px"
+        sizes="(max-width: 767px) 50vw, (max-width: 999px) 34vw, 259px"
         width={p.width}
         height={p.height}
         alt={p.title ?? '摄影作品'}
-        loading="lazy"
+        loading={i < eager ? 'eager' : 'lazy'}
+        fetchpriority={i < eager ? 'high' : undefined}
         decoding="async"
       />
     </a>

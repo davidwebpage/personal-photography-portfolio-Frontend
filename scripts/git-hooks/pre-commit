@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# pre-commit 钩子：强制更新 CHANGELOG.md
+#
+# 规则：如果本次提交改了"实质内容"（src/ scripts/ public/ package.json），
+# 却没有同时更新 CHANGELOG.md，就阻止提交——确保每次更新都留下日志，
+# 无论用哪个 agent 或谁手动提交。
+#
+# 跳过方式（仅当确实不需要记录时）：
+#   SKIP_CHANGELOG=1 git commit ...
+#   或  git commit --no-verify
+
+if [ "$SKIP_CHANGELOG" = "1" ]; then
+  exit 0
+fi
+
+# 本次暂存区改动的文件
+staged=$(git diff --cached --name-only)
+
+# 其中属于"实质内容"的路径（需要记日志）
+needs_log=$(printf '%s\n' "$staged" | grep -E '^(src/|scripts/|public/|package\.json$)' || true)
+
+# 是否同时改了 CHANGELOG.md
+changed_log=$(printf '%s\n' "$staged" | grep -E '^CHANGELOG\.md$' || true)
+
+if [ -n "$needs_log" ] && [ -z "$changed_log" ]; then
+  echo ""
+  echo "❌ 提交被拦截：本次改动涉及网站内容，但 CHANGELOG.md 没有更新。"
+  echo ""
+  echo "请先记录更新日志："
+  echo "  node scripts/changelog.mjs \"更新内容\" \"实现方式\""
+  echo "  然后 git add CHANGELOG.md 再重新提交。"
+  echo ""
+  echo "如果确实不需要记录（例如只是改文档/配置），可跳过："
+  echo "  SKIP_CHANGELOG=1 git commit ..."
+  echo ""
+  exit 1
+fi
+
+exit 0

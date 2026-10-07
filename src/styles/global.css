@@ -8,22 +8,37 @@
    注意：灯箱和系列页封面是「照片上的深色界面」，不跟着换主题，见各自区块。 */
 :root {
   color-scheme: light dark;
-  --max: 1200px;
+  --max: 1400px;
 
   --bg: light-dark(#f4f2ee, #0a0a0a);
   --fg: light-dark(rgba(24, 21, 18, 0.88), rgba(255, 255, 255, 0.88));
   --title: light-dark(#191510, #ffffff);
-  --muted: light-dark(rgba(24, 21, 18, 0.56), rgba(255, 255, 255, 0.5));
+  --muted: light-dark(rgba(24, 21, 18, 0.64), rgba(255, 255, 255, 0.5));
   --faint: light-dark(rgba(24, 21, 18, 0.4), rgba(255, 255, 255, 0.33));
   /* 亮底上原来的金色太浅看不清，压深一档 */
   --accent: light-dark(#8f6f28, #c9a558);
   --line: light-dark(rgba(24, 21, 18, 0.1), rgba(255, 255, 255, 0.08));
+  /* 比 --line 明显一档的分隔线：手机端屏幕小、亮度低，原来那条太淡看不见，
+     顶栏下沿和筛选按钮的边框在手机上改用这一条 */
+  --line-strong: light-dark(rgba(24, 21, 18, 0.24), rgba(255, 255, 255, 0.24));
   --icon-border: light-dark(rgba(24, 21, 18, 0.18), rgba(255, 255, 255, 0.18));
   --surface: light-dark(rgba(24, 21, 18, 0.035), rgba(255, 255, 255, 0.03));
   --surface-solid: light-dark(#e6e2db, #161616); /* 图片没加载出来时的占位底色 */
   --bar-track: light-dark(rgba(24, 21, 18, 0.1), rgba(255, 255, 255, 0.08));
   --header-bg: light-dark(rgba(244, 242, 238, 0.86), rgba(10, 10, 10, 0.82));
   --float-bg: light-dark(rgba(244, 242, 238, 0.78), rgba(10, 10, 10, 0.72));
+
+  /* ---------- 色调筛选的色值（单幅作品页的色带） ----------
+     都是中等明度、中等饱和度。亮底上纯黄几乎看不见，所以亮色那一列压成暗金；
+     暗色那一列整体提亮，保证七段在深色底上也能分出相邻色。 */
+  /* 柔和色相 7 原色：固定单色，不随明暗主题切换 */
+  --c-red: #c93f3f;
+  --c-orange: #cc6a1f;
+  --c-yellow: #e19f05;
+  --c-green: #3a8f3f;
+  --c-cyan: #00bcd4;
+  --c-blue: #2f6fbf;
+  --c-purple: #9b1e64;
 }
 :root[data-theme='light'] { color-scheme: only light; }
 :root[data-theme='dark'] { color-scheme: only dark; }
@@ -58,7 +73,15 @@ img { max-width: 100%; }
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
-.brand { font-size: 17px; letter-spacing: 0.12em; color: var(--title); font-weight: 700; }
+.brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.36em; /* 两块之间的间隔（手机端改成上下两行后这个间隔归零） */
+  font-size: 17px;
+  letter-spacing: 0.12em;
+  color: var(--title);
+  font-weight: 700;
+}
 .brand:hover { text-decoration: none; }
 /* 导航和明暗按钮靠右成一组 */
 .header-tools { display: flex; align-items: center; gap: 18px; }
@@ -66,6 +89,43 @@ img { max-width: 100%; }
 .site-nav a { color: var(--muted); letter-spacing: 0.08em; }
 .site-nav a:hover,
 .site-nav a[aria-current] { color: var(--title); text-decoration: none; }
+
+/* 汉堡按钮：只在窄屏出现（电脑端整排栏目直接摊开，不需要它）。
+   三条横杠用一个 span 的两个伪元素画出来，点开后交叉成 × */
+.nav-toggle {
+  display: none;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--icon-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--title);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-toggle:hover { border-color: var(--accent); }
+.nav-toggle .bars,
+.nav-toggle .bars::before,
+.nav-toggle .bars::after {
+  display: block;
+  width: 16px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.28s ease, background 0.2s ease;
+}
+.nav-toggle .bars { position: relative; }
+.nav-toggle .bars::before,
+.nav-toggle .bars::after { content: ''; position: absolute; left: 0; }
+.nav-toggle .bars::before { top: -5px; }
+.nav-toggle .bars::after { top: 5px; }
+/* 展开时中间的横杠淡出，上下两条转成 ×（两半严格对称） */
+.site-header.nav-open .nav-toggle .bars { background: transparent; }
+.site-header.nav-open .nav-toggle .bars::before { transform: translateY(5px) rotate(45deg); }
+.site-header.nav-open .nav-toggle .bars::after { transform: translateY(-5px) rotate(-45deg); }
 
 /* 明暗切换：圆形图标按钮，暗色时显示太阳（点了变亮），亮色时显示月亮 */
 .theme-toggle {
@@ -102,13 +162,27 @@ img { max-width: 100%; }
 /* 整屏铺满：svh 是「浏览器工具栏还在时」的视口高度，用它做高度，
    图片始终填满首屏，底下不会露出一条页面底色（亮色主题下就是一条白边） */
 .hero { position: relative; height: 100svh; min-height: 480px; overflow: hidden; }
-/* 首页背景图由脚本随机挑一张再写 src（见 Base.astro 的 applyRandomHero），
-   所以这里先透明，图load出来再加 .ready 淡入，避免先闪一张再换 */
-.hero img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.6s ease; }
-.hero img.ready { opacity: 1; }
+/* 首页背景图由脚本随机挑 5 张、叠放轮播（见 Base.astro 的 applyRandomHero），
+   所以这里先透明，图load出来再加 .ready 淡入，避免先闪一张再换。
+   切换动画：新图从轻微放大淡入（scale 1.06→1），旧图淡出，交叉过渡 */
+/* 只作用于背景轮播图（.hero-slide）。不能写成 .hero img：
+   那会连带命中 .hero-text 里的字标图，把它的 opacity 也压成 0，导致字标隐形 */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.hero-slide.ready { opacity: 1; transform: scale(1); }
 .hero-text {
   position: absolute;
   inset: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -123,10 +197,157 @@ img { max-width: 100%; }
   letter-spacing: 0.15em;
   font-weight: 900;
 }
+/* 首页字标图：替换原来的 h1 文字。横向字标，宽度自适应、保持比例，
+   上限 560px 避免在超宽屏上过大；下方留 12px 间距接副标题 */
+.hero-wordmark {
+  width: min(560px, 78vw);
+  height: auto;
+  display: block;
+  margin: 0 0 12px;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35));
+}
 .hero p { color: rgba(255, 255, 255, 0.75); letter-spacing: 0.25em; font-size: 14px; margin: 0; }
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.hero-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: #fff;
+  transform: translateY(-1px);
+}
+.hero-btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.hero-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* 首页右下角横杠指示器：每张背景图一个，点击手动切换 */
+.hero-dots {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.hero-dot {
+  position: relative;
+  width: 32px;
+  height: 4px;
+  border: none;
+  border-radius: 2px;
+  padding: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.3s ease, width 0.3s ease;
+}
+/* 视觉横杠只有 4px 高，直接点很难点中（尤其手机上）。
+   这里套一层隐形的命中区把可点击范围撑到约 38×44px，横杠本身保持纤细不变。
+   左右各外扩 3px（不超过相邻横杠的间距，避免两个命中区重叠抢点击）。 */
+.hero-dot::before {
+  content: "";
+  position: absolute;
+  inset: -20px -3px;
+}
+.hero-dot:hover { background: rgba(255, 255, 255, 0.6); }
+.hero-dot.active {
+  background: #fff;
+  width: 48px; /* 当前激活的横杠 1.5 倍（32px → 48px） */
+}
 
 /* ---------- 系列卡片 ---------- */
 .section-title { font-size: 22px; letter-spacing: 0.2em; margin: 0 0 28px; color: var(--title); }
+
+/* ---------- 筛选条（单幅作品页标题下的年份 + 色调） ---------- */
+/* 标题自带 28px 下边距，这里收回 10px，让按钮离标题近、离内容远 */
+.filters { margin: -10px 0 34px; }
+.year-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.year-btn {
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  padding: 5px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+.year-btn:hover { color: var(--title); border-color: var(--muted); }
+.year-btn.is-on { color: var(--accent); border-color: var(--accent); }
+
+/* 色调：七个色相排成一条圆点带。无彩色照片不打标，所以没有中性档 */
+.color-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+.color-band {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* 选中的那个点会往外扩一圈，这个容器不能把它裁掉 */
+  overflow: visible;
+}
+.color-seg {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--c, #888);
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+}
+.color-seg:hover:not(:disabled) { transform: translateY(-2px); }
+/* 这一档一张照片都没有：不给点，但外观和别的色点完全一样（只靠 cursor 和
+   title 提示）。不做变淡／空心之类的区分——任何叠色都会和底色混合，
+   亮底暗底混出来的颜色不一样，同一个色值看着像两个颜色。 */
+.color-seg:disabled { cursor: default; }
+/* 选中的那个点：往外扩一圈 + 内嵌对勾。
+   刻意不用外描边——相邻两个点离得近，外描边会糊进邻点里，看不出是哪个被选中。 */
+.color-seg[aria-pressed='true'] {
+  position: relative;
+  z-index: 1;
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 0 0 2px light-dark(#fff, #0a0a0a),
+    inset 0 0 0 4px light-dark(#0a0a0a, #fff);
+}
+/* 对勾，让不依赖颜色的人也能看出选了哪个点 */
+.color-seg[aria-pressed='true']::after {
+  content: '✓';
+  font-size: 12px;
+  line-height: 1;
+  color: light-dark(#fff, #0a0a0a);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+/* 键盘焦点落在色带上时，让轮廓压在邻点之上，不然同样会被邻点盖住 */
+.color-band button:focus-visible { position: relative; z-index: 2; }
+
+/* 给屏幕阅读器播报当前筛选状态；色块本身没有文字，这是唯一不依赖颜色的线索 */
+.filter-status { margin: 0; color: var(--faint); font-size: 12px; letter-spacing: 0.08em; }
+.filter-empty { margin-top: 0; }
+
+/* 单幅作品的类别分组 */
+.single-group { margin-bottom: 48px; }
 .series-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -157,6 +378,24 @@ img { max-width: 100%; }
 .card-text h3 { margin: 0; color: #fff; font-size: 18px; letter-spacing: 0.12em; }
 /* 卡片文字压在照片上，两套主题下都要浅色，所以不走 --muted */
 .card-text p { margin: 4px 0 0; color: rgba(255, 255, 255, 0.72); font-size: 13px; }
+
+/* 还没有内容的系列（series.json 里标了 "pending"，如「商业拍摄」）：先占一个位。
+   它没有封面图，不能沿用"压在照片上的白字"那套，改成浅底虚框 + 标题居中 */
+.series-card-empty {
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+}
+.series-card-empty:hover { border-color: var(--accent); }
+.series-card-empty .card-text {
+  inset: 0;
+  padding: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: none;
+}
+.series-card-empty .card-text h3 { color: var(--title); }
+.series-card-empty .card-text p { color: var(--faint); }
 
 /* ---------- 画廊：有序瀑布流 ----------
    分栏由 JS 按「当前最短列优先」完成（顺序即 photos.json 的顺序），
@@ -225,8 +464,10 @@ img { max-width: 100%; }
   justify-content: center;
 }
 #lightbox img {
-  max-width: 78vw;
-  max-height: 68vh;
+  /* 大图尽量占满屏幕，上下留出顶栏和底部信息条的位置：
+     底部那条（标题/参数/缩略图）大约占 120px，所以高度封在 72vh */
+  max-width: 82vw;
+  max-height: 72vh;
   object-fit: contain;
   display: block;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.65);
@@ -293,14 +534,28 @@ img { max-width: 100%; }
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-/* 播放 / 暂停、进入 / 退出全屏 两套图标按状态切换 */
+/* 播放 / 暂停、进入 / 退出全屏、循环 / 随机 几套图标按状态切换 */
 .lb-icon .ico-pause,
-.lb-icon .ico-exit { display: none; }
+.lb-icon .ico-exit,
+.lb-icon .ico-unfill,
+.lb-icon .ico-rand { display: none; }
 .lb-play.playing { color: var(--accent); border-color: rgba(201, 165, 88, 0.55); }
 .lb-play.playing .ico-play { display: none; }
 .lb-play.playing .ico-pause { display: block; }
+.lb-shuffle.on { color: var(--accent); border-color: rgba(201, 165, 88, 0.55); }
+.lb-shuffle.on .ico-loop { display: none; }
+.lb-shuffle.on .ico-rand { display: block; }
 .lb-full.on .ico-full { display: none; }
 .lb-full.on .ico-exit { display: block; }
+.lb-fill.on .ico-fill { display: none; }
+.lb-fill.on .ico-unfill { display: block; }
+
+/* 触屏设备（手机 / 平板，横竖屏都算）不显示放大 / 缩小按钮：
+   这两个按钮是给鼠标准备的，手指有更直接的双指捏合（见 Base.astro 的缩放逻辑）。
+   按指针类型判断而不是按屏幕宽度——横屏手机的宽度达到 800+px，按宽度写会漏掉。 */
+@media (hover: none) and (pointer: coarse) {
+  .lb-zoomout, .lb-zoomin { display: none; }
+}
 
 /* ---------- 两侧翻页箭头 ---------- */
 .lb-arrow {
@@ -353,13 +608,24 @@ img { max-width: 100%; }
   background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent);
 }
 .lb-info { padding: 0 40px; }
-.lb-title {
-  color: rgba(255, 255, 255, 0.85);
+/* 名称 / 拍摄地 / 拍摄时间同一行：行内排列，段间用大间隔拉开层次。
+   各段 :empty 时隐藏，空段前后的间隔也随之消失（间隔做在段自身上）。
+   字号、字重、字间距、颜色全部统一写在容器上，三段只负责间距——
+   这样三段永远完全一致（比下一行的 EXIF 参数行亮一档，保住两行的层次）。 */
+.lb-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
   font-size: 13px;
-  letter-spacing: 0.1em;
-  margin-bottom: 2px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
 }
 .lb-title:empty { display: none; }
+.lb-location { margin-left: 28px; } /* 与名称的明显间隔 */
+.lb-location:empty { display: none; }
+.lb-taken { margin-left: 28px; } /* 与拍摄地的明显间隔 */
+.lb-taken:empty { display: none; }
+.lb-taken:empty { display: none; }
 .lb-exif {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 12px;
@@ -384,6 +650,9 @@ img { max-width: 100%; }
   scrollbar-width: none;
 }
 .lb-thumbs::-webkit-scrollbar { display: none; }
+/* 内容溢出时 justify-content:center 会把左侧裁掉且够不到（scrollLeft 到不了负值），
+   所以溢出时改回 flex-start，让所有缩略图都能滚到。由 JS 按是否溢出切换。 */
+.lb-thumbs.overflow { justify-content: flex-start; }
 .lb-thumb {
   flex: 0 0 auto;
   position: relative;
@@ -432,6 +701,15 @@ img { max-width: 100%; }
 }
 .prose h1 { color: var(--title); letter-spacing: 0.1em; margin: 0 0 20px; }
 .prose h2 { color: var(--title); letter-spacing: 0.12em; font-size: 20px; margin: 0 0 16px; }
+/* 关于页：「关于」(h1) 与「联系」(h2) 是并列的两个区块，标题必须同规格。
+   原来 h1 走浏览器默认 2em = 32px，h2 被上面那条压到 20px，看着像差了一级。
+   必须写在这两条之后——与 .prose h1/h2 特异性相同（0,1,1），靠书写顺序覆盖。 */
+.about-top h1,
+.about-top h2 {
+  font-size: 32px;
+  letter-spacing: 0.1em;
+  margin: 0 0 20px;
+}
 .prose ul { padding-left: 20px; }
 .prose li { margin: 6px 0; }
 .contact-note { color: var(--faint); font-size: 13px; }
@@ -440,14 +718,18 @@ img { max-width: 100%; }
 .page-empty { color: var(--muted); font-size: 15px; letter-spacing: 0.08em; }
 .award-list { list-style: none; margin: 0; padding: 0; }
 .award-item {
+  /* 年月那一栏的宽度和间距抽成变量：作品组里每个奖的年月要跟它对齐同一列 */
+  --year-w: 96px;
+  --year-gap: 24px;
   display: grid;
-  grid-template-columns: 96px minmax(0, 1fr) auto;
+  grid-template-columns: var(--year-w) minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: 8px 24px;
+  gap: 8px var(--year-gap);
   padding: 22px 0;
-  border-top: 1px solid var(--line);
+  /* 列表项之间通常是不同照片/作品，用比默认更实一档的线隔开，层次更清楚 */
+  border-top: 1px solid var(--line-strong);
 }
-.award-item:last-child { border-bottom: 1px solid var(--line); }
+.award-item:last-child { border-bottom: 1px solid var(--line-strong); }
 .award-year {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 14px;
@@ -456,11 +738,72 @@ img { max-width: 100%; }
   font-variant-numeric: tabular-nums;
 }
 .award-title { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: 0.08em; color: var(--title); }
-.award-meta { margin: 6px 0 0; font-size: 13px; color: var(--muted); letter-spacing: 0.06em; }
+/* 获奖档次跟在赛事名后面同一行，比标题小一号、颜色压暗 */
+.award-level { margin-left: 10px; font-size: 13px; font-weight: 400; color: var(--muted); letter-spacing: 0.06em; }
+/* 等级 + 主办包在标题里：桌面端等级跟在赛事名后同一行，主办换到自己的行。
+   用 display:contents 让 .award-meta 自身不产生盒子，等级和主办直接成为标题
+   流里的子项——这样主办（display:block）另起一行时左缘对齐标题左缘，
+   而不是缩在赛事名后面的内联盒里（之前主办那行会整段右缩、和标题左边对不齐）。
+   手机端在媒体查询里改回 display:flex，等级+主办并到标题下一行。 */
+.award-meta {
+  display: contents;
+}
+.award-organizer {
+  display: block;
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.75;
+  letter-spacing: 0.06em;
+}
+/* 合并条目：同一赛事下分多季 / 多届时，每项一行「名称 · 奖项」 */
+.award-entries { list-style: none; margin: 8px 0 0; padding: 0; }
+.award-entries li {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--title);
+}
+.award-entries li + li { margin-top: 3px; }
+.award-entries .entry-award { color: var(--muted); margin-left: 10px; }
+/* 跨赛事合并：同一张作品拿了不同赛事的奖，共用左边一个年月，右边各赛事独立成块。
+   同一张作品内部用淡虚线隔开，和「不同作品之间的实线」区分开 */
+.award-block + .award-block {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--line);
+}
+/* 作品组：一条记录 = 一张作品，下面每个奖一行。
+   左边那一栏是组里最新的年月（主轴），其余奖项的年月排在它正下方同一列里，
+   往左退回到 .award-item 的年月列上，所以用的是同一套 --year-w / --year-gap。 */
+.award-rows { margin-left: calc(-1 * (var(--year-w) + var(--year-gap))); }
+.award-row {
+  display: grid;
+  grid-template-columns: var(--year-w) minmax(0, 1fr);
+  align-items: baseline;
+  gap: 4px var(--year-gap);
+}
+/* 主轴那一行不写年月（左上角已经写着），但版面要占住第 2 列，才跟其它行的标题对齐 */
+.row-body { grid-column: 2; }
+/* 同一张作品（作品组）里的每个奖一行，用淡虚线隔开，和不同作品之间的实线区分开 */
+.award-row + .award-row {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+.row-date {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.row-title { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: 0.08em; color: var(--title); }
 .award-link { font-size: 13px; letter-spacing: 0.1em; white-space: nowrap; }
+/* 一条记录可能挂多张图（一个展览入选两件作品），并排摆放，窄屏自动换行 */
+.award-photos { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
 .award-photo {
   display: block;
-  margin-top: 12px;
+  flex: 1 1 200px;
   max-width: 320px;
   border-radius: 4px;
   overflow: hidden;
@@ -479,6 +822,26 @@ img { max-width: 100%; }
   .award-item { grid-template-columns: 1fr auto; gap: 4px 12px; padding: 18px 0; }
   .award-year { grid-column: 1 / -1; }
   .award-title { font-size: 16px; }
+  /* 作品组：窄屏上年月那一列取消，日期落到赛事名上面一行 */
+  .award-item { --year-w: 0px; --year-gap: 0px; }
+  .award-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .row-body { grid-column: 1; }
+  .row-title { font-size: 15px; }
+  /* 手机端：获奖等级换到赛事名下面一行，和主办并排（等级在左、主办在右）。
+     字体形式上与主办统一：同字号、同透明度、去掉左边距。 */
+  .award-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    margin-top: 4px;
+  }
+  .award-meta .award-level {
+    margin-left: 0;
+    font-size: 12px;
+    opacity: 0.75;
+  }
+  .award-meta .award-organizer { display: inline; flex-basis: auto; margin: 0; }
 }
 
 @media (max-width: 860px) {
@@ -512,12 +875,18 @@ img { max-width: 100%; }
 .stat-label { margin-top: 8px; font-size: 13px; color: var(--muted); letter-spacing: 0.18em; }
 .stat-hint { margin-top: 4px; font-size: 11px; color: var(--faint); letter-spacing: 0.06em; }
 
-/* 分布图：宽屏三列（光圈 / 快门 / 感光度 一行），焦段独占第二行 */
+/* 分布图：宽屏三列（光圈 / 快门 / 感光度 一行），焦段独占第二行。
+   关键：固定 3 列、各取 1fr，三列才占满整行宽、和下面独占整行的焦段左右对齐；
+   原来用 auto-fit 时，焦段 1/-1 会把网格锁成 4 列，光圈/快门/ISO 只占 3 格、
+   ISO 右边就空出一格。 */
 .stat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 32px 44px;
   margin-top: 44px;
+}
+@media (max-width: 860px) {
+  .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 /* 焦段档位多、标签长，独占整行；行内再分两列，免得一根条拉得过长 */
 .stat-panel-wide { grid-column: 1 / -1; }
@@ -636,7 +1005,9 @@ body:has(.series-hero) .site-header:not(.scrolled) .site-nav a[aria-current],
 body:has(.hero) .site-header:not(.scrolled) .site-nav a:hover,
 body:has(.hero) .site-header:not(.scrolled) .site-nav a[aria-current] { color: #fff; }
 body:has(.series-hero) .site-header:not(.scrolled) .theme-toggle,
-body:has(.hero) .site-header:not(.scrolled) .theme-toggle {
+body:has(.hero) .site-header:not(.scrolled) .theme-toggle,
+body:has(.series-hero) .site-header:not(.scrolled) .nav-toggle,
+body:has(.hero) .site-header:not(.scrolled) .nav-toggle {
   color: rgba(255, 255, 255, 0.85);
   border-color: rgba(255, 255, 255, 0.4);
 }
@@ -718,9 +1089,22 @@ body:has(.hero) .site-header:not(.scrolled) .theme-toggle {
 .series-desc {
   max-width: 720px;
   margin: 0 auto 44px;
-  text-align: center;
+  text-align: justify;
+  text-justify: inter-ideograph;
   color: var(--muted);
   font-size: 15px;
+  line-height: 2;
+}
+/* 首字下沉：只放大第一个字（模板里单独包了 .desc-cap，标点不跟着放大）。
+   字号 = 行高 × 2，cap 自身 line-height 设 1，于是它正好占两行；
+   不要给 margin-top，否则下沉块会多占一点、把第三行也推右 */
+.series-desc .desc-cap {
+  float: left;
+  font-size: 4em;
+  line-height: 1;
+  margin: 0 0.08em 0 0;
+  color: var(--accent);
+  font-weight: 500;
 }
 
 @media (max-width: 640px) {
@@ -733,7 +1117,7 @@ body:has(.hero) .site-header:not(.scrolled) .theme-toggle {
   .stat-label { font-size: 12px; letter-spacing: 0.1em; }
   .stat-row { grid-template-columns: 1fr auto; gap: 8px 12px; }
   .stat-row-bar { grid-column: 1 / -1; }
-  .stat-grid { gap: 32px; margin-top: 32px; }
+  .stat-grid { grid-template-columns: 1fr; gap: 32px; margin-top: 32px; }
   .stat-panel-wide .stat-rows { grid-template-columns: 1fr; gap: 12px 0; }
 }
 
@@ -749,25 +1133,67 @@ body:has(.hero) .site-header:not(.scrolled) .theme-toggle {
 }
 
 @media (max-width: 640px) {
-  /* 手机端：站名和明暗按钮占第一行，导航落到第二行。
-     栏目变多之后一行排不下，硬挤会把字缩小到看不清。 */
-  .site-header { flex-wrap: wrap; padding: 10px 16px; gap: 6px 12px; }
-  .brand { order: 1; flex: 1 1 auto; font-size: 14px; letter-spacing: 0.06em; line-height: 1.2; }
-  /* 拆掉外层包裹，让导航能自己换到第二行 */
-  .header-tools { display: contents; }
-  .theme-toggle { order: 2; width: 32px; height: 32px; }
-  .theme-toggle svg { width: 16px; height: 16px; }
-  .site-nav {
-    order: 3;
-    flex: 1 0 100%;
-    gap: 9px;
-    font-size: 11px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    line-height: 1.4;
-    scrollbar-width: none;
+  /* 手机端顶栏：站名竖排两行在左，音符 / 明暗 / 汉堡在右，整排栏目收进汉堡里。
+     栏目变多之后一行排不下，硬挤会把字缩到看不清，所以改成点开才展开。 */
+  .site-header {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    gap: 8px 10px;
+    /* 手机端把分隔线加实一档：原来那条 0.08 的白线压在毛玻璃上几乎看不见 */
+    border-bottom: 1px solid var(--line-strong);
   }
-  .site-nav::-webkit-scrollbar { display: none; }
+  /* 站名拆成上下两行 */
+  .brand {
+    order: 1;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+  }
+  /* 拆掉外层包裹，让导航和明暗按钮能各自排位 */
+  .header-tools { display: contents; }
+  /* 音符按钮排进顶栏右侧那一组（位置/尺寸的覆盖见文件末尾「音符按钮」那一段：
+     .bgm-toggle 的基础样式在本段之后，写在这里会被它盖回去） */
+  .bgm-toggle { order: 2; }
+  .theme-toggle { order: 3; width: 34px; height: 34px; }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .nav-toggle { order: 4; display: grid; }
+  /* 栏目：默认收起，点汉堡才展开成上下排的一列 */
+  .site-nav {
+    order: 5;
+    flex: 1 0 100%;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    font-size: 15px;
+    line-height: 1.4;
+    margin-top: 4px;
+    border-top: 1px solid var(--line-strong);
+  }
+  .site-header.nav-open .site-nav { display: flex; }
+  /* 展开菜单时顶栏要有实底，否则栏目压在照片上看不清 */
+  .site-header.nav-open { background: var(--header-bg); backdrop-filter: blur(10px); }
+  .site-nav a { padding: 11px 2px; letter-spacing: 0.1em; }
+  .site-nav a + a { border-top: 1px solid var(--line); }
+  /* 音符按钮已挪进顶栏，两条音乐提示跟着贴右边。
+     位置/尺寸的覆盖统一放在文件末尾「背景音乐开关」那一段之后，
+     否则会被那里的基础样式（right: 70px）盖回去。 */
+
+  /* 手机端瀑布流：缝收窄（14px → 6px）。列数由 Base.astro 的 layoutGalleries
+     按屏宽给（手机两列），这里只调缝宽——缝越窄，一屏能多放几张。 */
+  .gallery, .g-col { gap: 6px; }
+
+  /* 年份按钮：电脑端那条浅边框在手机上几乎看不见，加实一档并稍微放大，
+     既是筛选按钮该有的样子，也更好点中 */
+  .year-btn {
+    border-color: var(--line-strong);
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+
   .lb-top { padding: 10px; }
   .lb-left { gap: 8px; }
   .lb-counter { font-size: 11px; letter-spacing: 0.08em; white-space: nowrap; }
@@ -776,20 +1202,74 @@ body:has(.hero) .site-header:not(.scrolled) .theme-toggle {
   .lb-tools { gap: 5px; }
   /* 手机端用左右滑动翻页，隐藏两侧箭头避免压住图片 */
   .lb-arrow { display: none; }
-  #lightbox img { max-width: 94vw; max-height: 56vh; }
+  /* 触屏手势交给脚本处理：单指左右滑 = 翻页，放大后单指拖 = 平移，双指 = 缩放。
+     touch-action:none 是前提，否则浏览器会把双指当成「缩放整个网页」。 */
+  #lightbox { touch-action: none; }
+  #lightbox figure { touch-action: none; }
+  /* 底部缩略图条要能用手指左右滑（它是唯一需要浏览器原生横向滚动的地方） */
+  .lb-thumbs { justify-content: flex-start; touch-action: pan-x; }
+  /* 手机上顶栏和底部信息条更占地方，高度只放到 60vh，免得压住缩略图 */
+  #lightbox img { max-width: 94vw; max-height: 60vh; }
+  /* 照片默认在整个屏幕里垂直居中，可底部那条（标题 + 参数 + 缩略图）压在下面，
+     看上去就是「图片偏低、离顶栏很远」。给 figure 加一段下外边距，flex 居中的
+     是对「外边距框」，于是照片整体上移半个下边距，正好在信息条以上居中。
+     用 margin 而不是 padding/translate：padding 会连 .lb-bg / .lb-top / .lb-bottom
+     这些绝对定位的兄弟一起挪，translate 又会和放大后的拖拽（也写在 figure 的 transform 上）打架。
+     填满屏幕时不偏移——那时照片本来就该铺满整屏。 */
+  #lightbox:not(.fill) figure { margin-bottom: 13vh; }
   .lb-info { padding: 0 10px; }
-  /* EXIF 单行在窄屏容易溢出，收紧间距和字号保证一行完整显示 */
-  .lb-exif { font-size: 9px; letter-spacing: 0; }
-  .lb-thumbs { justify-content: flex-start; }
+  /* 名称/拍摄地/时间同行的段间隔在窄屏收紧，避免早早就折行 */
+  .lb-location, .lb-taken { margin-left: 16px; }
+  /* 手机端参数行和上面那行（名称/拍摄地/时间）字号拉平，两行一样大；
+     超出宽度就按默认的省略号收尾，不再靠缩小字号硬塞 */
+  .lb-exif { font-size: 13px; letter-spacing: 0; }
+}
+
+/* ---------- 手机竖屏 / 横屏：灯箱按手机当前的方向各排一套 ----------
+   横屏时整屏只有 300–450px 高，顶栏 + 底部信息条要占掉四成多；所以横屏把
+   底部条压扁（缩略图变小、字号收紧），腾出来的高度给照片。
+   竖屏正相反：竖向富余、横向紧张，照片可以放得更高。 */
+@media (max-width: 900px) and (orientation: landscape) {
+  #lightbox img { max-width: 74vw; max-height: 62vh; }
+  /* 顶栏也一起压扁：横屏手机的宽度多半超过 640px，那些手机端的小尺寸规则
+     按宽度算不到这里来，顶栏会保持电脑端的 44px 按钮 + 18px 内边距（80px 高），
+     390px 的屏幕光顶栏就吃掉两成。 */
+  .lb-top { padding: 10px; }
+  .lb-left { gap: 8px; }
+  .lb-counter { font-size: 11px; }
+  .lb-icon { width: 34px; height: 34px; }
+  .lb-icon svg { width: 17px; height: 17px; }
+  .lb-tools { gap: 5px; }
+  .lb-info { padding: 0 14px; }
+  .lb-caption { font-size: 11px; }
+  .lb-location, .lb-taken { margin-left: 14px; }
+  /* 横屏手机同样把参数行拉到和标题行一样大 */
+  .lb-exif { font-size: 11px; }
+  .lb-bottom { gap: 6px; padding-bottom: 8px; }
+  .lb-thumb { width: 58px; height: 39px; }
+  /* 横屏手机底部条矮一些，上移量跟着小一点（理由见 640px 那段） */
+  #lightbox:not(.fill) figure { margin-bottom: 9vh; }
+}
+@media (max-width: 640px) and (orientation: portrait) {
+  #lightbox img { max-width: 94vw; max-height: 68vh; }
+}
+/* 全屏（点了全屏按钮）后浏览器自己的工具栏收走了，照片可以用满整屏。
+   这里不锁方向：手机竖着拿就是竖屏版式、横着拿就是横屏版式。 */
+#lightbox:fullscreen img { max-width: 94vw; max-height: 86vh; }
+@media (max-width: 900px) {
+  #lightbox:fullscreen img { max-width: 96vw; max-height: 88vh; }
 }
 
 /* ---------- 页面切换过渡动画：导航切页、系列互开时内容淡入 ---------- */
 main {
+  /* 只用 opacity 淡入，不用 transform——transform 会让 main 成为 fixed 定位的
+     包含块，把里面 position:fixed 的元素（如单幅页左侧导航）从「相对视口」
+     变成「相对 main」，滚动时就会跟着页面走。 */
   animation: pageIn 0.45s ease both;
 }
 @keyframes pageIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 html { scroll-behavior: smooth; }
@@ -831,6 +1311,9 @@ button:focus-visible {
   display: grid;
   place-items: center;
   padding: 0;
+  /* 双击换歌会用到双击：关掉移动端的双击缩放，也顺手去掉点击那 300ms 延迟 */
+  touch-action: manipulation;
+  user-select: none;
 }
 .bgm-toggle:hover { border-color: var(--accent); color: var(--title); }
 .bgm-toggle.on { color: var(--accent); border-color: rgba(201, 165, 88, 0.6); }
@@ -862,3 +1345,353 @@ button:focus-visible {
 }
 .bgm-hint[hidden] { display: none; }
 @keyframes bgmHintIn { from { opacity: 0; transform: translateX(6px); } }
+
+/* 音乐按钮的用法提示：音乐第一次出声后滑入一次，停 4 秒再向右滑出。
+   和 .bgm-hint 同一位置——两者不会同时出现（前者收走之后才轮到它）。
+   待命位置在右边 18px 处：滑入即向左归位，滑出即向右退回去。 */
+.bgm-tip {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 70px;
+  z-index: 55;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-radius: 22px;
+  border: 1px solid var(--icon-border);
+  background: var(--float-bg);
+  backdrop-filter: blur(6px);
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(18px);
+}
+.bgm-tip[hidden] { display: none; }
+.bgm-tip.in { animation: bgmTipIn 0.35s ease both; }
+.bgm-tip.out { animation: bgmTipOut 0.35s ease both; }
+@keyframes bgmTipIn {
+  from { opacity: 0; transform: translateX(18px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes bgmTipOut {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(18px); }
+}
+
+/* 手机端：音符按钮从「浮在顶栏下方」挪进顶栏，和明暗按钮并排一行。
+   这一段必须放在上面 .bgm-toggle / .bgm-hint / .bgm-tip 的基础样式之后——
+   它们和顶栏那段媒体查询里的规则同权重，谁在后面谁生效。 */
+@media (max-width: 640px) {
+  .bgm-toggle { position: static; width: 34px; height: 34px; font-size: 18px; }
+  /* 按钮不再贴右缘 18px，两条提示跟着往左让一点，别伸出屏幕 */
+  .bgm-hint, .bgm-tip { right: 12px; }
+}
+
+
+
+/* ---------- 单幅作品页：左侧类别导航 ----------
+   平时整块藏在左缘外，鼠标移到屏幕左边时从左侧滑入。
+   固定在窗口左边中间，不随滚动移动。
+   背景是一块「从顶到底、整屏高」的矩形渐变：左缘实心，向右线性渐隐到全透明。
+   上下拉满整个屏幕，纵向不渐隐。拖得越长、过渡越柔。
+   当前类别中等字号、金色；鼠标悬停的那个最大。移动端隐藏。 */
+.side-nav {
+  position: fixed;
+  left: 0;
+  /* 蒙版必须从「顶栏下沿」开始，不能从屏幕顶开始。
+     顶栏是 sticky + z-index 50，压在导航（40）上面；它的背景只到 86% 不透明，
+     还带 backdrop-filter。于是屏幕顶部那 63px 里，蒙版被顶栏盖住、只透出 14%，
+     往下则是实心蒙版——两者交界处就是一道刀切般的硬边
+     （亮主题 216→45，暗主题 48→221，反差大到一眼就看见）。
+     改成从顶栏下沿往下铺：上边缘正好落在顶栏本来就有的 border-bottom 上，
+     看着是一条设计边；下边缘落在屏幕底，仍是「顶栏以下拉满整屏」。
+     --header-h 由 single.astro 底部那段行内脚本实测写入，兜底 63px。 */
+  top: var(--header-h, 63px);
+  z-index: 40;
+  /* 触发热区：比视觉上的箭头宽得多，鼠标一进左缘这一竖条就滑出导航 */
+  width: 64px;
+  height: calc(100vh - var(--header-h, 63px));
+  display: flex;
+  align-items: center;
+}
+/* 视觉引导箭头：常驻左缘，提示鼠标放到这里会有导航浮现 */
+.side-nav .nav-hint {
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  /* 它是 <button>（手机端要用它开合抽屉），这里把浏览器默认的按钮外观抹平，
+     电脑端看上去仍是一个纯文字箭头 */
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 48px;
+  line-height: 1;
+  /* 箭头压在页面内容上，给一圈和字色相反的光晕，亮暗照片上都看得清 */
+  color: light-dark(#14120f, #f4f2ee);
+  text-shadow:
+    0 0 10px light-dark(rgba(255, 255, 255, 0.95), rgba(0, 0, 0, 0.9)),
+    0 0 3px light-dark(rgba(255, 255, 255, 0.95), rgba(0, 0, 0, 0.9));
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+/* 箭头字形画在伪元素上：手机端展开后要换成反方向，改 content 最简单 */
+.side-nav .nav-hint::before { content: '›'; }
+/* 电脑端它是装饰、不该被聚焦（手机端会覆盖回可聚焦状态） */
+.side-nav .nav-hint:focus-visible { outline: none; }
+.side-nav:hover .nav-hint,
+.side-nav:focus-within .nav-hint {
+  opacity: 0;
+  transform: translateY(-50%) translateX(8px);
+}
+.side-nav .nav-panel {
+  list-style: none;
+  margin: 0;
+  /* 整块不参与 flex 收缩：宽度自己说了算，纵向由外层 align-items 居中 */
+  flex: none;
+  /* 蒙版的宽度 = 渐隐的坡长。坡越长越柔；窄屏用 58vw 兜住 */
+  width: min(820px, 58vw);
+  /* 撑满外层（顶栏以下整屏），文字靠 flex 垂直居中 */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 每个 li 缩到文字宽：这样 <a> 的命中区只盖文字，蒙版右边一大片不挡点击 */
+  align-items: flex-start;
+  padding: 0 0 0 40px;
+  /* 蒙版只是看得见的背景，本身不吃点击——否则展开时左边一大片照片点不动。
+     真正的命中区在 <a> 上（见下面 a 的 pointer-events）。 */
+  pointer-events: none;
+  /* 用 smoothstep（3s²−2s³）离散出来的曲线，不是两点直线：
+     直线在「实心段结束」的地方斜率从 0 突变成满值，曲线有个折角，
+     眼睛对折角极敏感——那就是「看着突然变淡」的来源。
+     smoothstep 在起点斜率也是 0，和实心段平滑接上，全程没有折角。
+     下面 11 个点就是这条曲线每 10% 的采样值（alpha 从 0.88 平滑降到 0）。
+     结尾必须是「同色、alpha=0」，不能写 transparent——transparent 是
+     「黑色 + 0 透明度」，插值时颜色会先往黑里沉一段，又是一条发暗的带。
+     纵向不做渐隐：上下边缘正好落在顶栏下沿和屏幕底，看不出切口。 */
+  background: linear-gradient(
+    to right,
+    light-dark(rgba(18, 16, 14, 0.88), rgba(244, 242, 238, 0.88)) 0%,
+    light-dark(rgba(18, 16, 14, 0.86), rgba(244, 242, 238, 0.86)) 10%,
+    light-dark(rgba(18, 16, 14, 0.79), rgba(244, 242, 238, 0.79)) 20%,
+    light-dark(rgba(18, 16, 14, 0.69), rgba(244, 242, 238, 0.69)) 30%,
+    light-dark(rgba(18, 16, 14, 0.57), rgba(244, 242, 238, 0.57)) 40%,
+    light-dark(rgba(18, 16, 14, 0.44), rgba(244, 242, 238, 0.44)) 50%,
+    light-dark(rgba(18, 16, 14, 0.31), rgba(244, 242, 238, 0.31)) 60%,
+    light-dark(rgba(18, 16, 14, 0.19), rgba(244, 242, 238, 0.19)) 70%,
+    light-dark(rgba(18, 16, 14, 0.09), rgba(244, 242, 238, 0.09)) 80%,
+    light-dark(rgba(18, 16, 14, 0.03), rgba(244, 242, 238, 0.03)) 90%,
+    light-dark(rgba(18, 16, 14, 0), rgba(244, 242, 238, 0)) 100%
+  );
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  /* 默认藏在左缘外，鼠标进入热区时滑入 */
+  transform: translateX(-100%);
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.45s ease;
+}
+.side-nav:hover .nav-panel,
+.side-nav:focus-within .nav-panel {
+  transform: translateX(0);
+  opacity: 1;
+}
+/* 三个大小层级：其余（最小）→ 当前类别（中等）→ 鼠标悬停（最大） */
+.side-nav .nav-panel a {
+  display: block;
+  /* 命中区：蒙版本身 pointer-events:none，只有文字这一块可点/可 hover。
+     hover 到 <a> 也仍然算 hover 到 .side-nav（祖先），所以导航不会自己收起来。 */
+  pointer-events: auto;
+  padding: 12px 0;
+  /* 和蒙版反色：白底页面（深色蒙版）用浅字，黑底页面（浅色蒙版）用深字 */
+  color: light-dark(#f2efe9, #14120f);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0.4;
+  filter: grayscale(1);
+  transition: font-size 0.25s ease, opacity 0.25s ease, filter 0.25s ease, color 0.25s ease;
+}
+/* 中等：当前滚动到的类别（金色，也是反色的） */
+.side-nav .nav-panel a.is-current {
+  font-size: 26px;
+  opacity: 1;
+  filter: grayscale(0);
+  color: light-dark(#e8c86e, #7d5f1f);
+}
+/* 鼠标进了面板：除「当前类别」外，其余一律回到最小 */
+.side-nav .nav-panel:hover a {
+  font-size: 22px;
+  opacity: 0.4;
+  filter: grayscale(1);
+  color: light-dark(#f2efe9, #14120f);
+}
+/* 但「当前类别」即使这时也保持中等 */
+.side-nav .nav-panel:hover a.is-current {
+  font-size: 26px;
+  opacity: 1;
+  filter: grayscale(0);
+  color: light-dark(#e8c86e, #7d5f1f);
+}
+/* 鼠标正指着的那个：最大 */
+.side-nav .nav-panel:hover a:hover {
+  font-size: 34px;
+  opacity: 1;
+  filter: grayscale(0);
+  color: light-dark(#e8c86e, #7d5f1f);
+}
+/* 锚点滚动时别让固定顶栏盖住类别标题 */
+.single-group { scroll-margin-top: 90px; }
+
+/* ---------- 手机端：左侧类别导航改成「点一下展开 / 再点一下收起」的抽屉 ----------
+   电脑端靠鼠标悬停滑出，手机没有悬停，所以这里换成：
+   左缘一个常驻的箭头按钮，点它把类别面板从左边推进来；再点（这时箭头已经
+   跟着面板移到它右缘、并翻了个方向）收回。 */
+@media (max-width: 860px) {
+  .side-nav {
+    /* 抽屉宽度也决定箭头按钮跟着挪多远，抽成一个变量 */
+    --drawer-w: min(280px, 78vw);
+    /* 手机端不再需要「鼠标进左缘就展开」的热区，整块退成只放两个固定子元素 */
+    display: block;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+  }
+  /* 抽屉拉开时，整屏铺一层透明「接住点击」的膜：点面板以外的地方 = 收起抽屉。
+     膜本身看不见（和电脑端一样不压暗页面，只留渐变的面板），但必须 pointer-events:auto，
+     否则这一下会穿透到页面上去——比如点在照片上，抽屉收起的同时灯箱也被打开了。
+     关的逻辑在 single.astro 的脚本里。 */
+  .side-nav::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 44; /* 面板 45 之下、页面之上 */
+    background: transparent;
+    pointer-events: none;
+  }
+  .side-nav.open::after { pointer-events: auto; }
+
+  /* 常驻箭头：贴着屏幕左缘竖着居中，是打开抽屉的唯一入口。
+     用按钮而不是装饰元素，手机上没有 hover 可以依赖。
+     视觉上只留一个带光晕的箭头字形（和桌面端一致），不再有白底圆角方块——
+     方块浮在照片上太突兀；命中区保持够大，方便点。 */
+  .side-nav .nav-hint {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    z-index: 46;
+    width: 40px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+    pointer-events: auto;
+    appearance: none;
+    background: none;
+    border: 0;
+    /* 箭头压在照片上，给一圈和字色相反的光晕，亮暗照片上都看得清 */
+    color: light-dark(#14120f, #f4f2ee);
+    text-shadow:
+      0 0 10px light-dark(rgba(255, 255, 255, 0.95), rgba(0, 0, 0, 0.9)),
+      0 0 3px light-dark(rgba(255, 255, 255, 0.95), rgba(0, 0, 0, 0.9));
+    transform: translateY(-50%);
+    transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+  }
+  /* 箭头方向跟着开合走 */
+  .side-nav .nav-hint::before { content: '›'; }
+  /* 抽屉拉开后箭头就不显示了：它会跟到面板右缘，而那片渐变已经快透明，
+     白色圆角小方块浮在照片上很突兀。收起状态留着它当入口就够了——
+     收起抽屉靠「点/滑面板以外的区域」（见 single.astro 的手势脚本）。
+     要连 hover / focus-within 一起覆盖：手机上点过之后浏览器会留着伪 hover。 */
+  .side-nav.open .nav-hint,
+  .side-nav.open:hover .nav-hint,
+  .side-nav.open:focus-within .nav-hint {
+    left: var(--drawer-w);
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* 手机端不用「鼠标移上去提示」那一套 */
+  .side-nav:hover .nav-hint,
+  .side-nav:focus-within .nav-hint { opacity: 1; transform: translateY(-50%); }
+  /* 手机端它是真按钮，键盘焦点得看得见 */
+  .side-nav .nav-hint:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* 面板：从左边推进来的实底抽屉，纵向可滚（类别多了也不怕） */
+  .side-nav .nav-panel,
+  .side-nav:hover .nav-panel,
+  .side-nav:focus-within .nav-panel {
+    position: fixed;
+    top: var(--header-h, 63px);
+    left: 0;
+    bottom: 0;
+    z-index: 45;
+    width: var(--drawer-w);
+    height: auto;
+    padding: 16px 26px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+    /* 和电脑端一样：蒙版只负责「看得见的背景」，本身不吃点击（命中区在下面的 <a> 上）。
+       这样点在渐变右侧那片透明区域 = 点在膜上 → 收起抽屉。 */
+    pointer-events: none;
+    /* 背景不在这里覆盖：直接用基础规则里那条「左实右虚」的渐变，
+       手机端和电脑端就是同一块蒙版。注意配色要跟着基础规则走（浅字配深蒙版），
+       不能再写 var(--title)——亮色主题下蒙版是深的，深字会看不见。 */
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+  .side-nav.open .nav-panel,
+  .side-nav.open:hover .nav-panel,
+  .side-nav.open:focus-within .nav-panel { transform: translateX(0); }
+
+  /* 抽屉里的类别项：整行可点，不再玩「悬停放大」那套字号变化。
+     颜色用基础规则那套「和蒙版反色」的配色（亮色主题 = 深蒙版 + 浅字），不要写 --title。 */
+  .side-nav .nav-panel a,
+  .side-nav .nav-panel:hover a,
+  .side-nav .nav-panel:hover a:hover {
+    width: 100%;
+    padding: 14px 2px;
+    font-size: 18px;
+    opacity: 1;
+    filter: none;
+    color: light-dark(#f2efe9, #14120f);
+  }
+  /* 分隔线也按蒙版反色，深浅主题下都看得见 */
+  .side-nav .nav-panel a + a {
+    border-top: 1px solid light-dark(rgba(255, 255, 255, 0.14), rgba(0, 0, 0, 0.12));
+  }
+  /* 「当前所在类别」在手机上只用金色区分（没有鼠标，不需要第三个字号层级） */
+  .side-nav .nav-panel a.is-current,
+  .side-nav .nav-panel:hover a.is-current,
+  .side-nav .nav-panel:hover a:hover.is-current {
+    font-size: 20px;
+    opacity: 1;
+    filter: none;
+    color: light-dark(#e8c86e, #7d5f1f);
+  }
+  /* 手机端顶栏更高，锚点留白跟着顶栏实测高度走 */
+  .single-group { scroll-margin-top: calc(var(--header-h, 63px) + 16px); }
+
+  /* 单幅作品页：顶栏本身就比电脑端高（站名和按钮分行），再叠上 48px 的容器上内边距，
+     标题就被推得离导航很远。这里把上边距收到 18px，左右也跟着窄屏收紧。 */
+  body:has(.side-nav) .container { padding: 18px 16px 48px; }
+  /* 获奖页、系列页和单幅页共用同一套顶部间距：手机端顶栏高，48px 上边距把标题
+     推得离导航太远，统一收到 18px，和单幅页保持一致。 */
+  .page-container { padding: 18px 16px 48px; }
+}

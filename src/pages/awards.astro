@@ -1,39 +1,109 @@
 ---
-// 获奖作品页：内容全部来自 src/data/awards.json，按年份从新到旧排。
-// 每条记录的写法（字段都可留空，但 year / title 建议填）：
+// 获奖作品页：内容全部来自 src/data/awards.json，按时间（date）从新到旧排。
+// 每条记录的写法（字段都可留空，但 date / competition 建议填）：
 //   {
-//     "year": "2026",
-//     "title": "作品标题",
-//     "competition": "赛事 / 展览名称",
-//     "award": "金奖",
+//     "date": "2026-05",           // 年月，取截稿日期；排序就看它
+//     "competition": "赛事 / 展览全称",
+//     "award": "奖项（如 优秀奖 / 入展 / 入围终评）",
+//     "organizer": "主办单位（可选）",
 //     "link": "https://…（可选，填了就显示「查看」按钮）",
 //     "photoId": "照片 id（可选，填了就在获奖页显示这张照片，可点击放大）"
 //   }
+// 同一赛事分几季 / 几届、想合并成一条时，把 `award` 换成 `entries`：
+//   "entries": [
+//     { "name": "第十二季·绿动成都", "award": "优秀奖" },
+//     { "name": "第七季·跃动成都",   "award": "优秀奖" }
+//   ]
+// 页面会把每项渲染成一行「名称 · 奖项」，共用同一个日期和主办。
+//
+// 同一张作品拿了不同赛事的奖、想共用一个日期和一张配图时，写 entries 但不写
+// `competition`，每个 entry 带上自己的 organizer，就会各自渲染成一个完整区块：
+//   {
+//     "date": "2025-07",
+//     "entries": [
+//       { "name": "四川省2025年“新人新作”摄影展", "award": "入展", "organizer": "四川省摄影家协会" },
+//       { "name": "“好拍成都”摄影大赛第十季·热力成都", "award": "优秀奖", "organizer": "成都发布" }
+//     ]
+//   }
+//
+// 跨年份的同一张作品用 `awards` 归成一个「作品组」：一条记录 = 一张作品，
+// 组里每个奖一行。排序、以及左边那一栏的年月，都取组里最新的那个奖（主轴）；
+// 行内的日期只在年月和主轴不同时才标出来，同一个月份不会写两遍。
+// 配图 photoId 挂在整个组上：
+//   {
+//     "awards": [
+//       { "date": "2026-07", "competition": "四川省第20届摄影艺术展", "award": "入围终评", "organizer": "四川省摄影家协会" },
+//       { "date": "2025-09", "competition": "“好拍成都”城市摄影大赛", "organizer": "成都发布",
+//         "entries": [{ "name": "第十二季·绿动成都", "award": "优秀奖" }] }
+//     ]
+//   }
+//
+// photoId 也可以是数组，一条记录挂多张图（比如一个展览入选了两件作品）：
+//   "photoId": ["砚湖御镜", "筑梦献国"]
+//
 // photoId 对应 src/data/photos.json 里某张照片的 id。同一张照片在类别页和
 // 获奖页都会出现，但文件只有一份——获奖只是「附加在照片上的一层信息」。
 import Base from '../layouts/Base.astro';
 import raw from '../data/awards.json';
 import allPhotos from '../data/photos.json';
 
-interface Award {
-  year?: string;
-  title?: string;
+interface AwardEntry {
+  name?: string;
+  award?: string;
+  organizer?: string;
+}
+
+// 组里的一个奖项：字段和普通条目一样，只是多了 date（每条自带日期）
+interface AwardRow {
+  date?: string;
   competition?: string;
   award?: string;
+  entries?: AwardEntry[];
+  organizer?: string;
   link?: string;
-  photoId?: string;
 }
+
+interface Award extends AwardRow {
+  awards?: AwardRow[]; // 同一张作品拿到的多个奖：填了它就不用填 competition
+  work?: string; // 组标题（作品名）；不写就默认「同一作品」
+  photoId?: string | string[];
+}
+
+// 排序用的时间：普通条目看自己的 date；作品组看组里最新的那个奖。
+// 年月字符串（YYYY-MM）直接字典序比较即可排对。
+// 同月的两条保持文件里的先后顺序（Array.sort 是稳定的）。
+const sortKey = (a: Award) =>
+  a.awards?.length
+    ? a.awards.reduce((max, r) => (String(r.date ?? '') > max ? String(r.date ?? '') : max), '')
+    : String(a.date ?? '');
 
 const awards = (raw as Award[])
   .slice()
-  .sort((a, b) => String(b.year ?? '').localeCompare(String(a.year ?? '')));
+  .sort((a, b) => sortKey(b).localeCompare(sortKey(a)));
 
-// 按 photoId 找到对应照片，供灯箱显示；找不到就返回 null（只显示文字）
+// 作品组里的奖项行：按时间从新到旧，保证「主轴那一行在最上面」这个版式成立
+// （不依赖 awards.json 里手写的先后顺序）
+const rowsOf = (a: Award) =>
+  (a.awards ?? [])
+    .slice()
+    .sort((x, y) => String(y.date ?? '').localeCompare(String(x.date ?? '')));
+
+// "2026-05" → "2026.05"；留空就显示空
+const formatDate = (d?: string) => String(d ?? '').replace('-', '.');
+
+// 按 photoId 找到对应照片，供灯箱显示；找不到就跳过（那一条只显示文字）。
+// photoId 写字符串就是一张，写数组就是并排多张（比如一个展览入选了两件作品），
+// 多张时按拍摄时间倒序（最近的在前），和单幅类别里的排法一致。
 const photoById = new Map(allPhotos.map((p) => [p.id, p]));
+const photosOf = (a: Award) =>
+  (Array.isArray(a.photoId) ? a.photoId : a.photoId ? [a.photoId] : [])
+    .map((id) => photoById.get(id))
+    .filter((p): p is (typeof allPhotos)[number] => Boolean(p))
+    .sort((x, y) => (y.exif?.taken ?? '').localeCompare(x.exif?.taken ?? ''));
 ---
 
 <Base title="获奖作品 · 摄影作品集" description="摄影获奖、入展与提名记录">
-  <div class="container">
+  <div class="container page-container">
     <h1 class="section-title">获奖作品</h1>
 
     {awards.length === 0 ? (
@@ -41,38 +111,114 @@ const photoById = new Map(allPhotos.map((p) => [p.id, p]));
     ) : (
       <ul class="award-list">
         {awards.map((a) => {
-          const photo = a.photoId ? photoById.get(a.photoId) : null;
+          const photos = photosOf(a);
+          const axis = formatDate(sortKey(a)); // 左边栏那个年月，也是作品组的主轴
+          const rows = rowsOf(a);
           return (
           <li class="award-item">
-            <span class="award-year">{a.year}</span>
+            <span class="award-year">{axis}</span>
             <div class="award-body">
-              <h2 class="award-title">{a.title}</h2>
-              {(a.competition || a.award) && (
-                <p class="award-meta">{[a.competition, a.award].filter(Boolean).join(' · ')}</p>
+              {a.awards && a.awards.length ? (
+                /* 作品组：同一张作品拿到的多个奖。左边那一栏是组里最新的年月（主轴），
+                   其余奖项的年月排在它正下方同一列里，只在和主轴不同年月时才写出来。 */
+                <div class="award-rows">
+                  {rows.map((r) => {
+                    const date = formatDate(r.date);
+                    const showDate = date !== axis;
+                    return (
+                      <div class="award-row">
+                        {showDate && <span class="row-date">{date}</span>}
+                        <div class="row-body">
+                          <h3 class="row-title">
+                            {r.competition}
+                            <span class="award-meta">
+                              {r.award && <span class="award-level">{r.award}</span>}
+                              {r.organizer && <span class="award-organizer">主办：{r.organizer}</span>}
+                            </span>
+                          </h3>
+                          {r.entries && r.entries.length ? (
+                            <ul class="award-entries">
+                              {r.entries.map((e) => (
+                                <li>
+                                  <span class="entry-name">{e.name}</span>
+                                  {e.award && <span class="entry-award">{e.award}</span>}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : a.entries && a.entries.length ? (
+                a.competition ? (
+                  /* 同一赛事多季 / 多届：一条标题 + 紧凑行 */
+                  <>
+                    <h2 class="award-title">{a.competition}</h2>
+                    <ul class="award-entries">
+                      {a.entries.map((e) => (
+                        <li>
+                          <span class="entry-name">{e.name}</span>
+                          {e.award && <span class="entry-award">{e.award}</span>}
+                        </li>
+                      ))}
+                    </ul>
+                    {a.organizer && <p class="award-organizer">主办：{a.organizer}</p>}
+                  </>
+                ) : (
+                  /* 同一张作品拿了不同赛事的奖：每个赛事各成一块，共用左边这个年月 */
+                  a.entries.map((e) => (
+                    <div class="award-block">
+                      <h2 class="award-title">
+                        {e.name}
+                        <span class="award-meta">
+                          {e.award && <span class="award-level">{e.award}</span>}
+                          {e.organizer && <span class="award-organizer">主办：{e.organizer}</span>}
+                        </span>
+                      </h2>
+                    </div>
+                  ))
+                )
+              ) : (
+                <>
+                  <h2 class="award-title">
+                    {a.competition}
+                    <span class="award-meta">
+                      {a.award && <span class="award-level">{a.award}</span>}
+                      {a.organizer && <span class="award-organizer">主办：{a.organizer}</span>}
+                    </span>
+                  </h2>
+                </>
               )}
-              {photo && (
-                <a
-                  class="award-photo"
-                  href={photo.src}
-                  data-lightbox
-                  data-title={photo.title ?? a.title ?? ''}
-                  data-series="获奖作品"
-                  data-srcset={photo.srcset}
-                  data-width={photo.width}
-                  data-height={photo.height}
-                  data-exif={photo.exif ? JSON.stringify(photo.exif) : undefined}
-                >
-                  <img
-                    src={photo.src}
-                    srcset={photo.srcset}
-                    sizes="(max-width: 640px) 100vw, 320px"
-                    width={photo.width}
-                    height={photo.height}
-                    alt={photo.title ?? a.title ?? '获奖作品'}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </a>
+              {photos.length > 0 && (
+                <div class="award-photos">
+                  {photos.map((photo) => (
+                    <a
+                      class="award-photo"
+                      href={photo.src}
+                      data-lightbox
+                      data-title={photo.title || a.competition || ''}
+                      data-series="获奖作品"
+                      data-location={photo.location || ''}
+                      data-srcset={photo.srcset}
+                      data-width={photo.width}
+                      data-height={photo.height}
+                      data-exif={photo.exif ? JSON.stringify(photo.exif) : undefined}
+                    >
+                      <img
+                        src={photo.src}
+                        srcset={photo.srcset}
+                        sizes="(max-width: 640px) 100vw, 320px"
+                        width={photo.width}
+                        height={photo.height}
+                        alt={photo.title || a.competition || '获奖作品'}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </a>
+                  ))}
+                </div>
               )}
             </div>
             {a.link && (

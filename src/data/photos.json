@@ -1,71 +1,303 @@
 [
   {
-    "id": "水陆庵排队",
+    "id": "16mm-F1.8",
     "series": "city",
-    "title": "",
-    "src": "/photos/city/水陆庵排队-1600.webp",
-    "srcset": "/photos/city/水陆庵排队-800.webp 800w, /photos/city/水陆庵排队-1600.webp 1600w, /photos/city/水陆庵排队-2560.webp 2560w",
+    "title": "城市夜色",
+    "src": "/photos/city/16mm-F1.8-1600.webp",
+    "srcset": "/photos/city/16mm-F1.8-800.webp 800w, /photos/city/16mm-F1.8-1600.webp 1600w, /photos/city/16mm-F1.8-2560.webp 2560w",
     "width": 1600,
     "height": 1067,
     "year": null,
-    "location": "",
-    "exif": {
-      "camera": "Panasonic DC-S5",
-      "focal": "165mm",
-      "aperture": "f/5.6",
-      "shutter": "1/15s",
-      "iso": "ISO 4000",
-      "taken": "2026-02-18"
-    }
-  },
-  {
-    "id": "转角小巷",
-    "series": "city",
-    "title": "",
-    "src": "/photos/city/转角小巷-1600.webp",
-    "srcset": "/photos/city/转角小巷-800.webp 533w, /photos/city/转角小巷-1600.webp 1067w, /photos/city/转角小巷-2560.webp 1707w",
-    "width": 1067,
-    "height": 1600,
-    "year": null,
-    "location": "",
+    "location": "四川 成都",
     "exif": {
       "camera": "Panasonic DC-S1M2E",
       "focal": "16mm",
-      "aperture": "f/2.2",
-      "shutter": "1/50s",
-      "iso": "ISO 800",
+      "aperture": "f/1.8",
+      "shutter": "1/8s",
+      "iso": "ISO 1250",
       "taken": "2026-08-18"
-    }
+    },
+    "colors": [
+      "蓝"
+    ]
   },
   {
-    "id": "鱼龙舞",
+    "id": "丽江古城",
     "series": "city",
-    "title": "",
-    "src": "/photos/city/鱼龙舞-1600.webp",
-    "srcset": "/photos/city/鱼龙舞-800.webp 533w, /photos/city/鱼龙舞-1600.webp 1067w, /photos/city/鱼龙舞-2560.webp 1707w",
-    "width": 1067,
-    "height": 1600,
+    "title": "夜色古城",
+    "src": "/photos/city/丽江古城-1600.webp",
+    "srcset": "/photos/city/丽江古城-800.webp 800w, /photos/city/丽江古城-1600.webp 1600w, /photos/city/丽江古城-2560.webp 2560w",
+    "width": 1600,
+    "height": 1002,
     "year": null,
-    "location": "",
+    "location": "云南 丽江",
     "exif": {
-      "camera": "Panasonic DC-S1M2E",
-      "focal": "20mm",
-      "aperture": "f/3.5",
-      "shutter": "1/60s",
-      "iso": "ISO 800",
-      "taken": "2026-08-19"
-    }
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/15s",
+      "iso": "ISO 180",
+      "taken": "2025-01-30"
+    },
+    "colors": [
+      "蓝"
+    ]
   },
   {
-    "id": "峰林布依",
-    "series": "mountains",
-    "title": "",
-    "src": "/photos/mountains/峰林布依-1600.webp",
-    "srcset": "/photos/mountains/峰林布依-800.webp 800w, /photos/mountains/峰林布依-1600.webp 1600w, /photos/mountains/峰林布依-2560.webp 2560w",
+    "id": "升庵桂湖 (1)",
+    "series": "city",
+    "title": "升庵桂湖",
+    "src": "/photos/city/升庵桂湖 (1)-1600.webp",
+    "srcset": "/photos/city/升庵桂湖 (1)-800.webp 800w, /photos/city/升庵桂湖 (1)-1600.webp 1600w, /photos/city/升庵桂湖 (1)-2560.webp 2560w",
     "width": 1600,
     "height": 1200,
     "year": null,
-    "location": "",
+    "location": "四川 成都",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/25s",
+      "iso": "ISO 110",
+      "taken": "2024-08-25"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "升庵桂湖 (3)",
+    "series": "city",
+    "title": "湖中倒影",
+    "src": "/photos/city/升庵桂湖 (3)-1600.webp",
+    "srcset": "/photos/city/升庵桂湖 (3)-800.webp 800w, /photos/city/升庵桂湖 (3)-1600.webp 1600w, /photos/city/升庵桂湖 (3)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 640",
+      "taken": "2024-08-25"
+    },
+    "colors": [
+      "蓝",
+      "绿"
+    ]
+  },
+  {
+    "id": "吉隆堡",
+    "series": "city",
+    "title": "吉隆堡",
+    "src": "/photos/city/吉隆堡-1600.webp",
+    "srcset": "/photos/city/吉隆堡-800.webp 800w, /photos/city/吉隆堡-1600.webp 1600w, /photos/city/吉隆堡-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "92mm",
+      "aperture": "f/6.1",
+      "shutter": "1/250s",
+      "iso": "ISO 125",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "青",
+      "黄"
+    ]
+  },
+  {
+    "id": "喀斯特地貌和城市",
+    "series": "city",
+    "title": "喀斯特地貌下的城市",
+    "src": "/photos/city/喀斯特地貌和城市-1600.webp",
+    "srcset": "/photos/city/喀斯特地貌和城市-800.webp 800w, /photos/city/喀斯特地貌和城市-1600.webp 1600w, /photos/city/喀斯特地貌和城市-2560.webp 2560w",
+    "width": 1600,
+    "height": 944,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "69mm",
+      "aperture": "f/5.8",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2026-07-21"
+    },
+    "colors": [
+      "青"
+    ]
+  },
+  {
+    "id": "回民街子佩集",
+    "series": "city",
+    "title": "回民街子佩集",
+    "src": "/photos/city/回民街子佩集-1600.webp",
+    "srcset": "/photos/city/回民街子佩集-800.webp 533w, /photos/city/回民街子佩集-1600.webp 1067w, /photos/city/回民街子佩集-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/5.6",
+      "shutter": "1/160s",
+      "iso": "ISO 640",
+      "taken": "2026-02-17"
+    },
+    "colors": [
+      "橙",
+      "蓝"
+    ]
+  },
+  {
+    "id": "塔楼建筑",
+    "series": "city",
+    "title": "布依式建筑",
+    "src": "/photos/city/塔楼建筑-1600.webp",
+    "srcset": "/photos/city/塔楼建筑-800.webp 800w, /photos/city/塔楼建筑-1600.webp 1600w, /photos/city/塔楼建筑-2560.webp 2560w",
+    "width": 1600,
+    "height": 1016,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "167mm",
+      "aperture": "f/6.3",
+      "shutter": "1/125s",
+      "iso": "ISO 100",
+      "taken": "2026-07-25"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "夕阳下的斗南花市",
+    "series": "city",
+    "title": "昆明天际线",
+    "src": "/photos/city/夕阳下的斗南花市-1600.webp",
+    "srcset": "/photos/city/夕阳下的斗南花市-800.webp 800w, /photos/city/夕阳下的斗南花市-1600.webp 1600w, /photos/city/夕阳下的斗南花市-2560.webp 2560w",
+    "width": 1600,
+    "height": 1037,
+    "year": null,
+    "location": "云南 昆明",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/100s",
+      "iso": "ISO 150",
+      "taken": "2025-02-01"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "夕阳下的烟花HDR",
+    "series": "city",
+    "title": "夕阳下烟花",
+    "src": "/photos/city/夕阳下的烟花HDR-1600.webp",
+    "srcset": "/photos/city/夕阳下的烟花HDR-800.webp 800w, /photos/city/夕阳下的烟花HDR-1600.webp 1600w, /photos/city/夕阳下的烟花HDR-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "河南 开封",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "50mm",
+      "aperture": "f/1.8",
+      "shutter": "1/25s",
+      "iso": "ISO 800",
+      "taken": "2023-07-25"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "夕阳下的雾霾成都",
+    "series": "city",
+    "title": "夕阳下的雾霾成都",
+    "src": "/photos/city/夕阳下的雾霾成都-1600.webp",
+    "srcset": "/photos/city/夕阳下的雾霾成都-800.webp 800w, /photos/city/夕阳下的雾霾成都-1600.webp 1600w, /photos/city/夕阳下的雾霾成都-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "223mm",
+      "aperture": "f/5.6",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2023-12-06"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "大渡河飞水崖大桥",
+    "series": "city",
+    "title": "大渡河飞水涯大桥",
+    "src": "/photos/city/大渡河飞水崖大桥-1600.webp",
+    "srcset": "/photos/city/大渡河飞水崖大桥-800.webp 533w, /photos/city/大渡河飞水崖大桥-1600.webp 1067w, /photos/city/大渡河飞水崖大桥-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 雅安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "180mm",
+      "aperture": "f/5.6",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2026-04-04"
+    },
+    "colors": [
+      "青"
+    ]
+  },
+  {
+    "id": "宝光佛寺",
+    "series": "city",
+    "title": "宝光佛寺",
+    "src": "/photos/city/宝光佛寺-1600.webp",
+    "srcset": "/photos/city/宝光佛寺-800.webp 800w, /photos/city/宝光佛寺-1600.webp 1600w, /photos/city/宝光佛寺-2560.webp 2560w",
+    "width": 1600,
+    "height": 1348,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/60s",
+      "iso": "ISO 150",
+      "taken": "2024-08-25"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "峰林布依",
+    "series": "city",
+    "title": "峰林布依",
+    "src": "/photos/city/峰林布依-1600.webp",
+    "srcset": "/photos/city/峰林布依-800.webp 800w, /photos/city/峰林布依-1600.webp 1600w, /photos/city/峰林布依-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
     "exif": {
       "camera": "DJI mini4pro",
       "focal": "24mm",
@@ -73,94 +305,1905 @@
       "shutter": "1/2000s",
       "iso": "ISO 210",
       "taken": "2026-07-25"
-    }
+    },
+    "colors": [
+      "绿"
+    ]
   },
   {
-    "id": "达古冰川东措日月海",
-    "series": "mountains",
-    "title": "",
-    "src": "/photos/mountains/达古冰川东措日月海-1600.webp",
-    "srcset": "/photos/mountains/达古冰川东措日月海-800.webp 800w, /photos/mountains/达古冰川东措日月海-1600.webp 1600w, /photos/mountains/达古冰川东措日月海-2560.webp 2560w",
-    "width": 1600,
-    "height": 1200,
+    "id": "工地-工人闲谈",
+    "series": "city",
+    "title": "夜月废土",
+    "src": "/photos/city/工地-工人闲谈-1600.webp",
+    "srcset": "/photos/city/工地-工人闲谈-800.webp 533w, /photos/city/工地-工人闲谈-1600.webp 1067w, /photos/city/工地-工人闲谈-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
     "year": null,
-    "location": "",
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/4.5",
+      "shutter": "1/6s",
+      "iso": "ISO 3200",
+      "taken": "2026-01-09"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "布依山寨",
+    "series": "city",
+    "title": "布依山寨",
+    "src": "/photos/city/布依山寨-1600.webp",
+    "srcset": "/photos/city/布依山寨-800.webp 800w, /photos/city/布依山寨-1600.webp 1600w, /photos/city/布依山寨-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/6.3",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2026-07-25"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "广州塔",
+    "series": "city",
+    "title": "广州塔",
+    "src": "/photos/city/广州塔-1600.webp",
+    "srcset": "/photos/city/广州塔-800.webp 533w, /photos/city/广州塔-1600.webp 1067w, /photos/city/广州塔-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "广东 广州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/50s",
+      "iso": "ISO 2000",
+      "taken": "2024-02-25"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "广州大佛寺",
+    "series": "city",
+    "title": "大佛寺",
+    "src": "/photos/city/广州大佛寺-1600.webp",
+    "srcset": "/photos/city/广州大佛寺-800.webp 800w, /photos/city/广州大佛寺-1600.webp 1600w, /photos/city/广州大佛寺-2560.webp 2560w",
+    "width": 1600,
+    "height": 1103,
+    "year": null,
+    "location": "广东 广州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/5",
+      "shutter": "1/125s",
+      "iso": "ISO 4000",
+      "taken": "2024-02-25"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "建水十七孔桥",
+    "series": "city",
+    "title": "建水十七孔桥",
+    "src": "/photos/city/建水十七孔桥-1600.webp",
+    "srcset": "/photos/city/建水十七孔桥-800.webp 800w, /photos/city/建水十七孔桥-1600.webp 1600w, /photos/city/建水十七孔桥-2560.webp 2560w",
+    "width": 1600,
+    "height": 900,
+    "year": null,
+    "location": "云南 红河哈尼族彝族自治州",
     "exif": {
       "camera": "DJI mini4pro",
       "focal": "24mm",
       "aperture": "f/1.7",
-      "shutter": "1/6000s",
-      "iso": "ISO 140",
-      "taken": "2026-09-20"
-    }
-  },
-  {
-    "id": "风，像流动的乐章",
-    "series": "mountains",
-    "title": "",
-    "src": "/photos/mountains/风，像流动的乐章-1600.webp",
-    "srcset": "/photos/mountains/风，像流动的乐章-800.webp 533w, /photos/mountains/风，像流动的乐章-1600.webp 1067w, /photos/mountains/风，像流动的乐章-2560.webp 1707w",
-    "width": 1067,
-    "height": 1600,
-    "year": null,
-    "location": "",
-    "exif": {
-      "camera": "Panasonic DC-S5",
-      "focal": "82mm",
-      "aperture": "f/6",
-      "shutter": "1/250s",
-      "iso": "ISO 640",
+      "shutter": "1/5000s",
+      "iso": "ISO 410",
       "taken": "2026-07-31"
-    }
+    },
+    "colors": [
+      "蓝"
+    ]
   },
   {
-    "id": "鹿隐",
-    "series": "mountains",
-    "title": "",
-    "src": "/photos/mountains/鹿隐-1600.webp",
-    "srcset": "/photos/mountains/鹿隐-800.webp 533w, /photos/mountains/鹿隐-1600.webp 1067w, /photos/mountains/鹿隐-2560.webp 1707w",
-    "width": 1067,
-    "height": 1600,
-    "year": null,
-    "location": "",
-    "exif": {
-      "camera": "Panasonic DC-S5",
-      "focal": "180mm",
-      "aperture": "f/6.3",
-      "shutter": "1/200s",
-      "iso": "ISO 640",
-      "taken": "2026-05-16"
-    }
-  },
-  {
-    "id": "劳力士",
-    "series": "sea",
-    "title": "",
-    "src": "/photos/sea/劳力士-1600.webp",
-    "srcset": "/photos/sea/劳力士-800.webp 800w, /photos/sea/劳力士-1600.webp 1600w, /photos/sea/劳力士-2560.webp 2560w",
+    "id": "建水小火车",
+    "series": "city",
+    "title": "建水小火车",
+    "src": "/photos/city/建水小火车-1600.webp",
+    "srcset": "/photos/city/建水小火车-800.webp 800w, /photos/city/建水小火车-1600.webp 1600w, /photos/city/建水小火车-2560.webp 2560w",
     "width": 1600,
     "height": 1067,
     "year": null,
-    "location": "",
+    "location": "云南 红河哈尼族彝族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/8",
+      "shutter": "1/400s",
+      "iso": "ISO 640",
+      "taken": "2026-07-31"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "成都理工-赛博风水图",
+    "series": "city",
+    "title": "夕阳水图",
+    "src": "/photos/city/成都理工-赛博风水图-1600.webp",
+    "srcset": "/photos/city/成都理工-赛博风水图-800.webp 800w, /photos/city/成都理工-赛博风水图-1600.webp 1600w, /photos/city/成都理工-赛博风水图-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/5.2",
+      "shutter": "1/40s",
+      "iso": "ISO 2500",
+      "taken": "2023-12-18"
+    },
+    "colors": [
+      "蓝",
+      "红"
+    ]
+  },
+  {
+    "id": "掠过城市的红嘴鸥",
+    "series": "city",
+    "title": "掠过城市的红嘴鸥",
+    "src": "/photos/city/掠过城市的红嘴鸥-1600.webp",
+    "srcset": "/photos/city/掠过城市的红嘴鸥-800.webp 800w, /photos/city/掠过城市的红嘴鸥-1600.webp 1600w, /photos/city/掠过城市的红嘴鸥-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "云南 大理白族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2025-01-31"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "时尚中心",
+    "series": "city",
+    "title": "时尚中心",
+    "src": "/photos/city/时尚中心-1600.webp",
+    "srcset": "/photos/city/时尚中心-800.webp 800w, /photos/city/时尚中心-1600.webp 1600w, /photos/city/时尚中心-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
     "exif": {
       "camera": "Panasonic DC-S1M2E",
       "focal": "16mm",
-      "aperture": "f/1.8",
-      "shutter": "1/200s",
-      "iso": "ISO 250",
+      "aperture": "f/6.3",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
       "taken": "2026-08-19"
-    }
+    },
+    "colors": [
+      "蓝"
+    ]
   },
   {
-    "id": "火焰腾升",
-    "series": "sea",
-    "title": "",
-    "src": "/photos/sea/火焰腾升-1600.webp",
-    "srcset": "/photos/sea/火焰腾升-800.webp 533w, /photos/sea/火焰腾升-1600.webp 1067w, /photos/sea/火焰腾升-2560.webp 1707w",
+    "id": "春日花开",
+    "series": "city",
+    "title": "春日花开",
+    "src": "/photos/city/春日花开-1600.webp",
+    "srcset": "/photos/city/春日花开-800.webp 800w, /photos/city/春日花开-1600.webp 1600w, /photos/city/春日花开-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/18",
+      "shutter": "1/30s",
+      "iso": "ISO 100",
+      "taken": "2025-04-10"
+    },
+    "colors": [
+      "橙",
+      "蓝"
+    ]
+  },
+  {
+    "id": "沙面岛教堂",
+    "series": "city",
+    "title": "沙面岛教堂",
+    "src": "/photos/city/沙面岛教堂-1600.webp",
+    "srcset": "/photos/city/沙面岛教堂-800.webp 800w, /photos/city/沙面岛教堂-1600.webp 1600w, /photos/city/沙面岛教堂-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "广东 广州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/5.6",
+      "shutter": "1/80s",
+      "iso": "ISO 1250",
+      "taken": "2024-02-26"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "消费入座",
+    "series": "city",
+    "title": "消费入座",
+    "src": "/photos/city/消费入座-1600.webp",
+    "srcset": "/photos/city/消费入座-800.webp 600w, /photos/city/消费入座-1600.webp 1200w, /photos/city/消费入座-2560.webp 1920w",
+    "width": 1200,
+    "height": 1600,
+    "year": null,
+    "location": "云南 红河哈尼族彝族自治州",
+    "exif": {
+      "camera": "Xiaomi 13 Ultra",
+      "focal": "120mm",
+      "aperture": "f/3",
+      "shutter": "1/100s",
+      "iso": "ISO 50",
+      "taken": "2026-07-31"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "澳门-银河",
+    "series": "city",
+    "title": "银河",
+    "src": "/photos/city/澳门-银河-1600.webp",
+    "srcset": "/photos/city/澳门-银河-800.webp 800w, /photos/city/澳门-银河-1600.webp 1600w, /photos/city/澳门-银河-2560.webp 2560w",
+    "width": 1600,
+    "height": 1042,
+    "year": null,
+    "location": "澳门特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/7.1",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2024-02-24"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "澳门新灏影汇",
+    "series": "city",
+    "title": "新灏影汇",
+    "src": "/photos/city/澳门新灏影汇-1600.webp",
+    "srcset": "/photos/city/澳门新灏影汇-800.webp 800w, /photos/city/澳门新灏影汇-1600.webp 1600w, /photos/city/澳门新灏影汇-2560.webp 2560w",
+    "width": 1600,
+    "height": 1038,
+    "year": null,
+    "location": "澳门特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/7.1",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2024-02-24"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "澳门烟花",
+    "series": "city",
+    "title": "元宵烟花",
+    "src": "/photos/city/澳门烟花-1600.webp",
+    "srcset": "/photos/city/澳门烟花-800.webp 800w, /photos/city/澳门烟花-1600.webp 1600w, /photos/city/澳门烟花-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "广东 珠海",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "225mm",
+      "aperture": "f/7.1",
+      "shutter": "6s",
+      "iso": "ISO 100",
+      "taken": "2024-02-24"
+    },
+    "colors": [
+      "红"
+    ]
+  },
+  {
+    "id": "澳门金碧辉煌的殿堂",
+    "series": "city",
+    "title": "奢靡之都",
+    "src": "/photos/city/澳门金碧辉煌的殿堂-1600.webp",
+    "srcset": "/photos/city/澳门金碧辉煌的殿堂-800.webp 800w, /photos/city/澳门金碧辉煌的殿堂-1600.webp 1600w, /photos/city/澳门金碧辉煌的殿堂-2560.webp 2560w",
+    "width": 1600,
+    "height": 1460,
+    "year": null,
+    "location": "澳门特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/5.4",
+      "shutter": "1/50s",
+      "iso": "ISO 1250",
+      "taken": "2024-02-24"
+    },
+    "colors": [
+      "橙",
+      "黄"
+    ]
+  },
+  {
+    "id": "狂风已至",
+    "series": "city",
+    "title": "狂风已至",
+    "src": "/photos/city/狂风已至-1600.webp",
+    "srcset": "/photos/city/狂风已至-800.webp 533w, /photos/city/狂风已至-1600.webp 1067w, /photos/city/狂风已至-2560.webp 1707w",
     "width": 1067,
     "height": 1600,
     "year": null,
-    "location": "",
+    "location": "四川 德阳",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/8",
+      "shutter": "0.6s",
+      "iso": "ISO 100",
+      "taken": "2026-08-27"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "直升机博物馆",
+    "series": "city",
+    "title": "直升机博物馆",
+    "src": "/photos/city/直升机博物馆-1600.webp",
+    "srcset": "/photos/city/直升机博物馆-800.webp 800w, /photos/city/直升机博物馆-1600.webp 1600w, /photos/city/直升机博物馆-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/250s",
+      "iso": "ISO 640",
+      "taken": "2024-04-12"
+    },
+    "colors": [
+      "绿",
+      "黄"
+    ]
+  },
+  {
+    "id": "航拍网球场",
+    "series": "city",
+    "title": "夜色下的网球场",
+    "src": "/photos/city/航拍网球场-1600.webp",
+    "srcset": "/photos/city/航拍网球场-800.webp 800w, /photos/city/航拍网球场-1600.webp 1600w, /photos/city/航拍网球场-2560.webp 2560w",
+    "width": 1600,
+    "height": 900,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/15s",
+      "iso": "ISO 220",
+      "taken": "2024-08-10"
+    },
+    "colors": [
+      "橙",
+      "蓝"
+    ]
+  },
+  {
+    "id": "西安鼓楼",
+    "series": "city",
+    "title": "鼓楼",
+    "src": "/photos/city/西安鼓楼-1600.webp",
+    "srcset": "/photos/city/西安鼓楼-800.webp 800w, /photos/city/西安鼓楼-1600.webp 1600w, /photos/city/西安鼓楼-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "254mm",
+      "aperture": "f/5.5",
+      "shutter": "1/80s",
+      "iso": "ISO 2000",
+      "taken": "2026-02-17"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "西藏酒店",
+    "series": "city",
+    "title": "西藏酒店",
+    "src": "/photos/city/西藏酒店-1600.webp",
+    "srcset": "/photos/city/西藏酒店-800.webp 529w, /photos/city/西藏酒店-1600.webp 1058w, /photos/city/西藏酒店-2560.webp 1693w",
+    "width": 1058,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2024-03-29"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "西财-遇彩虹",
+    "series": "city",
+    "title": "彩虹",
+    "src": "/photos/city/西财-遇彩虹-1600.webp",
+    "srcset": "/photos/city/西财-遇彩虹-800.webp 800w, /photos/city/西财-遇彩虹-1600.webp 1600w, /photos/city/西财-遇彩虹-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/13",
+      "shutter": "1/100s",
+      "iso": "ISO 100",
+      "taken": "2023-07-16"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "西财-钟楼仰角",
+    "series": "city",
+    "title": "钟楼",
+    "src": "/photos/city/西财-钟楼仰角-1600.webp",
+    "srcset": "/photos/city/西财-钟楼仰角-800.webp 533w, /photos/city/西财-钟楼仰角-1600.webp 1067w, /photos/city/西财-钟楼仰角-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/22",
+      "shutter": "1/320s",
+      "iso": "ISO 800",
+      "taken": "2023-07-20"
+    },
+    "colors": [
+      "蓝",
+      "橙"
+    ]
+  },
+  {
+    "id": "观音坐莲，宝相如来",
+    "series": "city",
+    "title": "观音坐莲，宝相如来",
+    "src": "/photos/city/观音坐莲，宝相如来-1600.webp",
+    "srcset": "/photos/city/观音坐莲，宝相如来-800.webp 800w, /photos/city/观音坐莲，宝相如来-1600.webp 1600w, /photos/city/观音坐莲，宝相如来-2560.webp 2560w",
+    "width": 1600,
+    "height": 1066,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "122mm",
+      "aperture": "f/5.6",
+      "shutter": "1/320s",
+      "iso": "ISO 640",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "身临锦门",
+    "series": "city",
+    "title": "民国锦门",
+    "src": "/photos/city/身临锦门-1600.webp",
+    "srcset": "/photos/city/身临锦门-800.webp 800w, /photos/city/身临锦门-1600.webp 1600w, /photos/city/身临锦门-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/250s",
+      "iso": "ISO 640",
+      "taken": "2024-08-24"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "转角小巷",
+    "series": "city",
+    "title": "雨后小巷",
+    "src": "/photos/city/转角小巷-1600.webp",
+    "srcset": "/photos/city/转角小巷-800.webp 533w, /photos/city/转角小巷-1600.webp 1067w, /photos/city/转角小巷-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "16mm",
+      "aperture": "f/2.2",
+      "shutter": "1/50s",
+      "iso": "ISO 800",
+      "taken": "2026-08-18"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "郑州-美术新馆 (7)",
+    "series": "city",
+    "title": "郑州美术新馆",
+    "src": "/photos/city/郑州-美术新馆 (7)-1600.webp",
+    "srcset": "/photos/city/郑州-美术新馆 (7)-800.webp 800w, /photos/city/郑州-美术新馆 (7)-1600.webp 1600w, /photos/city/郑州-美术新馆 (7)-2560.webp 2560w",
+    "width": 1600,
+    "height": 947,
+    "year": null,
+    "location": "河南 郑州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/13",
+      "shutter": "1/100s",
+      "iso": "ISO 100",
+      "taken": "2023-08-03"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "香港-中环摩天轮",
+    "series": "city",
+    "title": "中环摩天轮",
+    "src": "/photos/city/香港-中环摩天轮-1600.webp",
+    "srcset": "/photos/city/香港-中环摩天轮-800.webp 800w, /photos/city/香港-中环摩天轮-1600.webp 1600w, /photos/city/香港-中环摩天轮-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "122mm",
+      "aperture": "f/5.1",
+      "shutter": "1/200s",
+      "iso": "ISO 12800",
+      "taken": "2024-02-22"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "香港-坚尼地城",
+    "series": "city",
+    "title": "坚尼地城",
+    "src": "/photos/city/香港-坚尼地城-1600.webp",
+    "srcset": "/photos/city/香港-坚尼地城-800.webp 533w, /photos/city/香港-坚尼地城-1600.webp 1067w, /photos/city/香港-坚尼地城-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "241mm",
+      "aperture": "f/5.5",
+      "shutter": "1/200s",
+      "iso": "ISO 640",
+      "taken": "2024-02-23"
+    },
+    "colors": [
+      "蓝",
+      "红"
+    ]
+  },
+  {
+    "id": "香港K11内部",
+    "series": "city",
+    "title": "K11内",
+    "src": "/photos/city/香港K11内部-1600.webp",
+    "srcset": "/photos/city/香港K11内部-800.webp 800w, /photos/city/香港K11内部-1600.webp 1600w, /photos/city/香港K11内部-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/4.5",
+      "shutter": "1/60s",
+      "iso": "ISO 1600",
+      "taken": "2024-02-22"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "香港K11外立面",
+    "series": "city",
+    "title": "K11外",
+    "src": "/photos/city/香港K11外立面-1600.webp",
+    "srcset": "/photos/city/香港K11外立面-800.webp 800w, /photos/city/香港K11外立面-1600.webp 1600w, /photos/city/香港K11外立面-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/4.6",
+      "shutter": "1/160s",
+      "iso": "ISO 100",
+      "taken": "2024-02-22"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "香港会展中心",
+    "series": "city",
+    "title": "香港会展中心",
+    "src": "/photos/city/香港会展中心-1600.webp",
+    "srcset": "/photos/city/香港会展中心-800.webp 800w, /photos/city/香港会展中心-1600.webp 1600w, /photos/city/香港会展中心-2560.webp 2560w",
+    "width": 1600,
+    "height": 990,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "169mm",
+      "aperture": "f/5.4",
+      "shutter": "1/200s",
+      "iso": "ISO 12800",
+      "taken": "2024-02-22"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "鱼龙舞",
+    "series": "city",
+    "title": "乘物游心",
+    "src": "/photos/city/鱼龙舞-1600.webp",
+    "srcset": "/photos/city/鱼龙舞-800.webp 533w, /photos/city/鱼龙舞-1600.webp 1067w, /photos/city/鱼龙舞-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/60s",
+      "iso": "ISO 800",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "9朵花儿",
+    "series": "event",
+    "title": "九朵花儿",
+    "src": "/photos/event/9朵花儿-1600.webp",
+    "srcset": "/photos/event/9朵花儿-800.webp 800w, /photos/event/9朵花儿-1600.webp 1600w, /photos/event/9朵花儿-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 2500",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "千人共舞",
+    "series": "event",
+    "title": "千人共舞",
+    "src": "/photos/event/千人共舞-1600.webp",
+    "srcset": "/photos/event/千人共舞-800.webp 800w, /photos/event/千人共舞-1600.webp 1600w, /photos/event/千人共舞-2560.webp 2560w",
+    "width": 1600,
+    "height": 1174,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/2500s",
+      "iso": "ISO 100",
+      "taken": "2025-04-17"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "峰林布依火壶",
+    "series": "event",
+    "title": "火壶",
+    "src": "/photos/event/峰林布依火壶-1600.webp",
+    "srcset": "/photos/event/峰林布依火壶-800.webp 800w, /photos/event/峰林布依火壶-1600.webp 1600w, /photos/event/峰林布依火壶-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "164mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 800",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "峰林布依铁花",
+    "series": "event",
+    "title": "峰林布依·打铁花",
+    "src": "/photos/event/峰林布依铁花-1600.webp",
+    "srcset": "/photos/event/峰林布依铁花-800.webp 800w, /photos/event/峰林布依铁花-1600.webp 1600w, /photos/event/峰林布依铁花-2560.webp 2560w",
+    "width": 1600,
+    "height": 1084,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "25mm",
+      "aperture": "f/6.3",
+      "shutter": "1/8s",
+      "iso": "ISO 320",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "川式喷火",
+    "series": "event",
+    "title": "川式喷火",
+    "src": "/photos/event/川式喷火-1600.webp",
+    "srcset": "/photos/event/川式喷火-800.webp 800w, /photos/event/川式喷火-1600.webp 1600w, /photos/event/川式喷火-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "42mm",
+      "aperture": "f/6",
+      "shutter": "1/250s",
+      "iso": "ISO 320",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "红",
+      "橙"
+    ]
+  },
+  {
+    "id": "布依舞蹈",
+    "series": "event",
+    "title": "布依舞蹈",
+    "src": "/photos/event/布依舞蹈-1600.webp",
+    "srcset": "/photos/event/布依舞蹈-800.webp 800w, /photos/event/布依舞蹈-1600.webp 1600w, /photos/event/布依舞蹈-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 2500",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "布依舞蹈3",
+    "series": "event",
+    "title": "布依傩戏",
+    "src": "/photos/event/布依舞蹈3-1600.webp",
+    "srcset": "/photos/event/布依舞蹈3-800.webp 800w, /photos/event/布依舞蹈3-1600.webp 1600w, /photos/event/布依舞蹈3-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "57mm",
+      "aperture": "f/5.5",
+      "shutter": "1/100s",
+      "iso": "ISO 6400",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "打出火花",
+    "series": "event",
+    "title": "打出火花",
+    "src": "/photos/event/打出火花-1600.webp",
+    "srcset": "/photos/event/打出火花-800.webp 800w, /photos/event/打出火花-1600.webp 1600w, /photos/event/打出火花-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "131mm",
+      "aperture": "f/6.3",
+      "shutter": "1/50s",
+      "iso": "ISO 6400",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "打磨牛角",
+    "series": "event",
+    "title": "斗牛·战斗准备",
+    "src": "/photos/event/打磨牛角-1600.webp",
+    "srcset": "/photos/event/打磨牛角-800.webp 800w, /photos/event/打磨牛角-1600.webp 1600w, /photos/event/打磨牛角-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 凉山彝族自治州/越西",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "168mm",
+      "aperture": "f/6.3",
+      "shutter": "1/160s",
+      "iso": "ISO 100",
+      "taken": "2026-08-03"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "澳门元宵盛会",
+    "series": "event",
+    "title": "大三巴元宵盛会",
+    "src": "/photos/event/澳门元宵盛会-1600.webp",
+    "srcset": "/photos/event/澳门元宵盛会-800.webp 800w, /photos/event/澳门元宵盛会-1600.webp 1600w, /photos/event/澳门元宵盛会-2560.webp 2560w",
+    "width": 1600,
+    "height": 889,
+    "year": null,
+    "location": "澳门特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "89mm",
+      "aperture": "f/5.6",
+      "shutter": "1/200s",
+      "iso": "ISO 1250",
+      "taken": "2024-02-24"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "舞台演出-观众拍照 (3)",
+    "series": "event",
+    "title": "舞台·观众表现",
+    "src": "/photos/event/舞台演出-观众拍照 (3)-1600.webp",
+    "srcset": "/photos/event/舞台演出-观众拍照 (3)-800.webp 800w, /photos/event/舞台演出-观众拍照 (3)-1600.webp 1600w, /photos/event/舞台演出-观众拍照 (3)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "50mm",
+      "aperture": "f/1.8",
+      "shutter": "1/80s",
+      "iso": "ISO 800",
+      "taken": "2023-09-22"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "舞台现场-完整舞台",
+    "series": "event",
+    "title": "舞台·静默时刻",
+    "src": "/photos/event/舞台现场-完整舞台-1600.webp",
+    "srcset": "/photos/event/舞台现场-完整舞台-800.webp 800w, /photos/event/舞台现场-完整舞台-1600.webp 1600w, /photos/event/舞台现场-完整舞台-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/5.6",
+      "shutter": "1/50s",
+      "iso": "ISO 2000",
+      "taken": "2023-09-22"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "赛马",
+    "series": "event",
+    "title": "彝族赛马",
+    "src": "/photos/event/赛马-1600.webp",
+    "srcset": "/photos/event/赛马-800.webp 525w, /photos/event/赛马-1600.webp 1050w, /photos/event/赛马-2560.webp 1680w",
+    "width": 1050,
+    "height": 1600,
+    "year": null,
+    "location": "四川 凉山彝族自治州/越西",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/7.1",
+      "shutter": "1/1000s",
+      "iso": "ISO 640",
+      "taken": "2026-08-03"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "走火",
+    "series": "event",
+    "title": "走火",
+    "src": "/photos/event/走火-1600.webp",
+    "srcset": "/photos/event/走火-800.webp 800w, /photos/event/走火-1600.webp 1600w, /photos/event/走火-2560.webp 2560w",
+    "width": 1600,
+    "height": 1185,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "158mm",
+      "aperture": "f/5.6",
+      "shutter": "1/100s",
+      "iso": "ISO 4000",
+      "taken": "2024-11-10"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "铁壶浴火",
+    "series": "event",
+    "title": "铁壶浴火",
+    "src": "/photos/event/铁壶浴火-1600.webp",
+    "srcset": "/photos/event/铁壶浴火-800.webp 800w, /photos/event/铁壶浴火-1600.webp 1600w, /photos/event/铁壶浴火-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "158mm",
+      "aperture": "f/5.6",
+      "shutter": "1/100s",
+      "iso": "ISO 4000",
+      "taken": "2024-11-10"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "铁树飞花",
+    "series": "event",
+    "title": "铁树飞花",
+    "src": "/photos/event/铁树飞花-1600.webp",
+    "srcset": "/photos/event/铁树飞花-800.webp 800w, /photos/event/铁树飞花-1600.webp 1600w, /photos/event/铁树飞花-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/5.6",
+      "shutter": "1/50s",
+      "iso": "ISO 5000",
+      "taken": "2024-11-10"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "观众",
+    "series": "guanzhongyuguanzhong",
+    "title": "“观”众",
+    "src": "/photos/guanzhongyuguanzhong/观众-1600.webp",
+    "srcset": "/photos/guanzhongyuguanzhong/观众-800.webp 800w, /photos/guanzhongyuguanzhong/观众-1600.webp 1600w, /photos/guanzhongyuguanzhong/观众-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/50s",
+      "iso": "ISO 10000",
+      "taken": "2025-05-28"
+    },
+    "colors": [
+      "红"
+    ]
+  },
+  {
+    "id": "观众与观众",
+    "series": "guanzhongyuguanzhong",
+    "title": "",
+    "src": "/photos/guanzhongyuguanzhong/观众与观众-1600.webp",
+    "srcset": "/photos/guanzhongyuguanzhong/观众与观众-800.webp 800w, /photos/guanzhongyuguanzhong/观众与观众-1600.webp 1600w, /photos/guanzhongyuguanzhong/观众与观众-2560.webp 2560w",
+    "width": 1600,
+    "height": 1045,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "20mm",
+      "aperture": "f/6",
+      "shutter": "1/250s",
+      "iso": "ISO 6400",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "蓝",
+      "红"
+    ]
+  },
+  {
+    "id": "万峰林八方来财",
+    "series": "nature",
+    "title": "万峰林·八方来财",
+    "src": "/photos/nature/万峰林八方来财-1600.webp",
+    "srcset": "/photos/nature/万峰林八方来财-800.webp 533w, /photos/nature/万峰林八方来财-1600.webp 1067w, /photos/nature/万峰林八方来财-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "50mm",
+      "aperture": "f/5.8",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2026-07-21"
+    },
+    "colors": [
+      "绿",
+      "青"
+    ]
+  },
+  {
+    "id": "云端之上",
+    "series": "nature",
+    "title": "云端之上",
+    "src": "/photos/nature/云端之上-1600.webp",
+    "srcset": "/photos/nature/云端之上-800.webp 800w, /photos/nature/云端之上-1600.webp 1600w, /photos/nature/云端之上-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/5000s",
+      "iso": "ISO 110",
+      "taken": "2026-09-20"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "从牛背山看贡嘎群峰",
+    "series": "nature",
+    "title": "从牛背山看贡嘎群峰",
+    "src": "/photos/nature/从牛背山看贡嘎群峰-1600.webp",
+    "srcset": "/photos/nature/从牛背山看贡嘎群峰-800.webp 800w, /photos/nature/从牛背山看贡嘎群峰-1600.webp 1600w, /photos/nature/从牛背山看贡嘎群峰-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 甘孜藏族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2025-03-01"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "冰花",
+    "series": "nature",
+    "title": "棱镜之花",
+    "src": "/photos/nature/冰花-1600.webp",
+    "srcset": "/photos/nature/冰花-800.webp 800w, /photos/nature/冰花-1600.webp 1600w, /photos/nature/冰花-2560.webp 2560w",
+    "width": 1600,
+    "height": 1124,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/8",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2024-12-21"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "北湖于景 (7)",
+    "series": "nature",
+    "title": "树下乘凉处",
+    "src": "/photos/nature/北湖于景 (7)-1600.webp",
+    "srcset": "/photos/nature/北湖于景 (7)-800.webp 800w, /photos/nature/北湖于景 (7)-1600.webp 1600w, /photos/nature/北湖于景 (7)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/5.6",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2024-08-11"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "北湖生态 (1)",
+    "series": "nature",
+    "title": "鸭戏水",
+    "src": "/photos/nature/北湖生态 (1)-1600.webp",
+    "srcset": "/photos/nature/北湖生态 (1)-800.webp 800w, /photos/nature/北湖生态 (1)-1600.webp 1600w, /photos/nature/北湖生态 (1)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2024-08-11"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "北湖生态 (2)",
+    "series": "nature",
+    "title": "蜻蜓点水",
+    "src": "/photos/nature/北湖生态 (2)-1600.webp",
+    "srcset": "/photos/nature/北湖生态 (2)-800.webp 800w, /photos/nature/北湖生态 (2)-1600.webp 1600w, /photos/nature/北湖生态 (2)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/500s",
+      "iso": "ISO 640",
+      "taken": "2024-08-11"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "北湖生态 (4)",
+    "series": "nature",
+    "title": "伺机而动",
+    "src": "/photos/nature/北湖生态 (4)-1600.webp",
+    "srcset": "/photos/nature/北湖生态 (4)-800.webp 800w, /photos/nature/北湖生态 (4)-1600.webp 1600w, /photos/nature/北湖生态 (4)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/6.3",
+      "shutter": "1/500s",
+      "iso": "ISO 100",
+      "taken": "2024-08-11"
+    },
+    "colors": [
+      "绿",
+      "红"
+    ]
+  },
+  {
+    "id": "华山乌鸦",
+    "series": "nature",
+    "title": "祥瑞之召",
+    "src": "/photos/nature/华山乌鸦-1600.webp",
+    "srcset": "/photos/nature/华山乌鸦-800.webp 800w, /photos/nature/华山乌鸦-1600.webp 1600w, /photos/nature/华山乌鸦-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 渭南",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/200s",
+      "iso": "ISO 800",
+      "taken": "2026-02-19"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "华山西峰",
+    "series": "nature",
+    "title": "华山西峰",
+    "src": "/photos/nature/华山西峰-1600.webp",
+    "srcset": "/photos/nature/华山西峰-800.webp 800w, /photos/nature/华山西峰-1600.webp 1600w, /photos/nature/华山西峰-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 渭南",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/8",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2026-02-19"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "古树一面",
+    "series": "nature",
+    "title": "古树绿韵",
+    "src": "/photos/nature/古树一面-1600.webp",
+    "srcset": "/photos/nature/古树一面-800.webp 533w, /photos/nature/古树一面-1600.webp 1067w, /photos/nature/古树一面-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 广元",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/5.6",
+      "shutter": "1/160s",
+      "iso": "ISO 500",
+      "taken": "2026-03-28"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "喇叭河溪流",
+    "series": "nature",
+    "title": "绿野迷踪",
+    "src": "/photos/nature/喇叭河溪流-1600.webp",
+    "srcset": "/photos/nature/喇叭河溪流-800.webp 533w, /photos/nature/喇叭河溪流-1600.webp 1067w, /photos/nature/喇叭河溪流-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 雅安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/11",
+      "shutter": "1/15s",
+      "iso": "ISO 50",
+      "taken": "2026-05-16"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "四姑娘山一帧四季",
+    "series": "nature",
+    "title": "一览四季",
+    "src": "/photos/nature/四姑娘山一帧四季-1600.webp",
+    "srcset": "/photos/nature/四姑娘山一帧四季-800.webp 533w, /photos/nature/四姑娘山一帧四季-1600.webp 1067w, /photos/nature/四姑娘山一帧四季-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/6.3",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2024-05-02"
+    },
+    "colors": [
+      "绿",
+      "蓝"
+    ]
+  },
+  {
+    "id": "大雁塔和唐玄奘",
+    "series": "nature",
+    "title": "大雁塔和玄奘法师",
+    "src": "/photos/nature/大雁塔和唐玄奘-1600.webp",
+    "srcset": "/photos/nature/大雁塔和唐玄奘-800.webp 800w, /photos/nature/大雁塔和唐玄奘-1600.webp 1600w, /photos/nature/大雁塔和唐玄奘-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/8",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2026-02-20"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "天光云影共徘徊，山水有相逢",
+    "series": "nature",
+    "title": "天光云影共徘徊",
+    "src": "/photos/nature/天光云影共徘徊，山水有相逢-1600.webp",
+    "srcset": "/photos/nature/天光云影共徘徊，山水有相逢-800.webp 533w, /photos/nature/天光云影共徘徊，山水有相逢-1600.webp 1067w, /photos/nature/天光云影共徘徊，山水有相逢-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/7.1",
+      "shutter": "1/400s",
+      "iso": "ISO 640",
+      "taken": "2026-01-02"
+    },
+    "colors": [
+      "蓝",
+      "青"
+    ]
+  },
+  {
+    "id": "山中营地",
+    "series": "nature",
+    "title": "空中营地",
+    "src": "/photos/nature/山中营地-1600.webp",
+    "srcset": "/photos/nature/山中营地-800.webp 800w, /photos/nature/山中营地-1600.webp 1600w, /photos/nature/山中营地-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 六盘水",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "123mm",
+      "aperture": "f/6.2",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2026-07-17"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "峡谷",
+    "series": "nature",
+    "title": "轻舟过",
+    "src": "/photos/nature/峡谷-1600.webp",
+    "srcset": "/photos/nature/峡谷-800.webp 800w, /photos/nature/峡谷-1600.webp 1600w, /photos/nature/峡谷-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "77mm",
+      "aperture": "f/6.3",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "橙",
+      "绿"
+    ]
+  },
+  {
+    "id": "峰林夕阳",
+    "series": "nature",
+    "title": "夕阳、峰林",
+    "src": "/photos/nature/峰林夕阳-1600.webp",
+    "srcset": "/photos/nature/峰林夕阳-800.webp 800w, /photos/nature/峰林夕阳-1600.webp 1600w, /photos/nature/峰林夕阳-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/2000s",
+      "iso": "ISO 100",
+      "taken": "2026-07-21"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "干海子松鼠  (2)",
+    "series": "nature",
+    "title": "藏在树枝中的松鼠",
+    "src": "/photos/nature/干海子松鼠  (2)-1600.webp",
+    "srcset": "/photos/nature/干海子松鼠  (2)-800.webp 800w, /photos/nature/干海子松鼠  (2)-1600.webp 1600w, /photos/nature/干海子松鼠  (2)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/50s",
+      "iso": "ISO 800",
+      "taken": "2024-05-01"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "干海子松鼠  (8)",
+    "series": "nature",
+    "title": "松鼠探头",
+    "src": "/photos/nature/干海子松鼠  (8)-1600.webp",
+    "srcset": "/photos/nature/干海子松鼠  (8)-800.webp 800w, /photos/nature/干海子松鼠  (8)-1600.webp 1600w, /photos/nature/干海子松鼠  (8)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "281mm",
+      "aperture": "f/5.6",
+      "shutter": "1/50s",
+      "iso": "ISO 1600",
+      "taken": "2024-05-01"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "方形田地",
+    "series": "nature",
+    "title": "建水农田",
+    "src": "/photos/nature/方形田地-1600.webp",
+    "srcset": "/photos/nature/方形田地-800.webp 800w, /photos/nature/方形田地-1600.webp 1600w, /photos/nature/方形田地-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "云南 红河哈尼族彝族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/1000s",
+      "iso": "ISO 140",
+      "taken": "2026-07-31"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "日出东方",
+    "series": "nature",
+    "title": "层林尽染",
+    "src": "/photos/nature/日出东方-1600.webp",
+    "srcset": "/photos/nature/日出东方-800.webp 800w, /photos/nature/日出东方-1600.webp 1600w, /photos/nature/日出东方-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/4000s",
+      "iso": "ISO 420",
+      "taken": "2026-07-21"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "日出云海",
+    "series": "nature",
+    "title": "雅家埂日出云海",
+    "src": "/photos/nature/日出云海-1600.webp",
+    "srcset": "/photos/nature/日出云海-800.webp 800w, /photos/nature/日出云海-1600.webp 1600w, /photos/nature/日出云海-2560.webp 2560w",
+    "width": 1600,
+    "height": 624,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/7.1",
+      "shutter": "1/80s",
+      "iso": "ISO 640",
+      "taken": "2024-03-10"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "早晨远处的飞鸟",
+    "series": "nature",
+    "title": "晨鸟飞白",
+    "src": "/photos/nature/早晨远处的飞鸟-1600.webp",
+    "srcset": "/photos/nature/早晨远处的飞鸟-800.webp 800w, /photos/nature/早晨远处的飞鸟-1600.webp 1600w, /photos/nature/早晨远处的飞鸟-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/8",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2023-11-16"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "星空营地",
+    "series": "nature",
+    "title": "夜宿星空",
+    "src": "/photos/nature/星空营地-1600.webp",
+    "srcset": "/photos/nature/星空营地-800.webp 800w, /photos/nature/星空营地-1600.webp 1600w, /photos/nature/星空营地-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 六盘水",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "15s",
+      "iso": "ISO 6400",
+      "taken": "2026-07-17"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "星空营地2",
+    "series": "nature",
+    "title": "星空营地",
+    "src": "/photos/nature/星空营地2-1600.webp",
+    "srcset": "/photos/nature/星空营地2-800.webp 800w, /photos/nature/星空营地2-1600.webp 1600w, /photos/nature/星空营地2-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 六盘水",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "15s",
+      "iso": "ISO 6400",
+      "taken": "2026-07-17"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "月上柳梢头",
+    "series": "nature",
+    "title": "月上柳梢头",
+    "src": "/photos/nature/月上柳梢头-1600.webp",
+    "srcset": "/photos/nature/月上柳梢头-800.webp 800w, /photos/nature/月上柳梢头-1600.webp 1600w, /photos/nature/月上柳梢头-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/200s",
+      "iso": "ISO 640",
+      "taken": "2023-11-26"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "月亮-早晨的月亮",
+    "series": "nature",
+    "title": "清晨明月",
+    "src": "/photos/nature/月亮-早晨的月亮-1600.webp",
+    "srcset": "/photos/nature/月亮-早晨的月亮-800.webp 800w, /photos/nature/月亮-早晨的月亮-1600.webp 1600w, /photos/nature/月亮-早晨的月亮-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/7.1",
+      "shutter": "1/200s",
+      "iso": "ISO 100",
+      "taken": "2023-11-05"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "月如昼",
+    "series": "nature",
+    "title": "月如昼",
+    "src": "/photos/nature/月如昼-1600.webp",
+    "srcset": "/photos/nature/月如昼-800.webp 533w, /photos/nature/月如昼-1600.webp 1067w, /photos/nature/月如昼-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "98mm",
+      "aperture": "f/4.9",
+      "shutter": "1/10s",
+      "iso": "ISO 1250",
+      "taken": "2025-12-30"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "树的生命力",
+    "series": "nature",
+    "title": "树的生命力",
+    "src": "/photos/nature/树的生命力-1600.webp",
+    "srcset": "/photos/nature/树的生命力-800.webp 800w, /photos/nature/树的生命力-1600.webp 1600w, /photos/nature/树的生命力-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "48mm",
+      "aperture": "f/5.2",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2025-04-10"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "毕棚沟龙王海",
+    "series": "nature",
+    "title": "毕棚沟龙王海",
+    "src": "/photos/nature/毕棚沟龙王海-1600.webp",
+    "srcset": "/photos/nature/毕棚沟龙王海-800.webp 533w, /photos/nature/毕棚沟龙王海-1600.webp 1067w, /photos/nature/毕棚沟龙王海-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/7.1",
+      "shutter": "1/200s",
+      "iso": "ISO 100",
+      "taken": "2024-12-21"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "池隐雾中现",
+    "series": "nature",
+    "title": "池隐雾中现",
+    "src": "/photos/nature/池隐雾中现-1600.webp",
+    "srcset": "/photos/nature/池隐雾中现-800.webp 800w, /photos/nature/池隐雾中现-1600.webp 1600w, /photos/nature/池隐雾中现-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/8000s",
+      "iso": "ISO 100",
+      "taken": "2025-11-01"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "洱海废船",
+    "series": "nature",
+    "title": "洱海·搁浅",
+    "src": "/photos/nature/洱海废船-1600.webp",
+    "srcset": "/photos/nature/洱海废船-800.webp 533w, /photos/nature/洱海废船-1600.webp 1067w, /photos/nature/洱海废船-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "云南 大理白族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "263mm",
+      "aperture": "f/9",
+      "shutter": "1/640s",
+      "iso": "ISO 640",
+      "taken": "2025-01-31"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "满园春色关不住",
+    "series": "nature",
+    "title": "满园春色关不住",
+    "src": "/photos/nature/满园春色关不住-1600.webp",
+    "srcset": "/photos/nature/满园春色关不住-800.webp 800w, /photos/nature/满园春色关不住-1600.webp 1600w, /photos/nature/满园春色关不住-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "176mm",
+      "aperture": "f/6.3",
+      "shutter": "1/160s",
+      "iso": "ISO 1600",
+      "taken": "2026-08-18"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "火焰腾升",
+    "series": "nature",
+    "title": "火焰升腾",
+    "src": "/photos/nature/火焰腾升-1600.webp",
+    "srcset": "/photos/nature/火焰腾升-800.webp 533w, /photos/nature/火焰腾升-1600.webp 1067w, /photos/nature/火焰腾升-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 凉山彝族自治州/越西",
     "exif": {
       "camera": "Panasonic DC-S5",
       "focal": "21mm",
@@ -168,18 +2211,1155 @@
       "shutter": "1/100s",
       "iso": "ISO 4000",
       "taken": "2026-08-04"
-    }
+    },
+    "colors": [
+      "橙",
+      "蓝"
+    ]
   },
   {
-    "id": "群像时刻",
-    "series": "sea",
-    "title": "",
-    "src": "/photos/sea/群像时刻-1600.webp",
-    "srcset": "/photos/sea/群像时刻-800.webp 800w, /photos/sea/群像时刻-1600.webp 1600w, /photos/sea/群像时刻-2560.webp 2560w",
+    "id": "牛背山云海",
+    "series": "nature",
+    "title": "牛背山·云海",
+    "src": "/photos/nature/牛背山云海-1600.webp",
+    "srcset": "/photos/nature/牛背山云海-800.webp 800w, /photos/nature/牛背山云海-1600.webp 1600w, /photos/nature/牛背山云海-2560.webp 2560w",
     "width": 1600,
     "height": 1067,
     "year": null,
-    "location": "",
+    "location": "四川 甘孜藏族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "92mm",
+      "aperture": "f/6.1",
+      "shutter": "1/50s",
+      "iso": "ISO 160",
+      "taken": "2026-08-13"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "牛背山登山栈道",
+    "series": "nature",
+    "title": "登山路",
+    "src": "/photos/nature/牛背山登山栈道-1600.webp",
+    "srcset": "/photos/nature/牛背山登山栈道-800.webp 533w, /photos/nature/牛背山登山栈道-1600.webp 1067w, /photos/nature/牛背山登山栈道-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 甘孜藏族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/30s",
+      "iso": "ISO 2000",
+      "taken": "2025-03-01"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "白鹭走来",
+    "series": "nature",
+    "title": "上岸",
+    "src": "/photos/nature/白鹭走来-1600.webp",
+    "srcset": "/photos/nature/白鹭走来-800.webp 800w, /photos/nature/白鹭走来-1600.webp 1600w, /photos/nature/白鹭走来-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "云南 大理白族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/640s",
+      "iso": "ISO 640",
+      "taken": "2025-01-31"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "皎皎明月",
+    "series": "nature",
+    "title": "破云晓月",
+    "src": "/photos/nature/皎皎明月-1600.webp",
+    "srcset": "/photos/nature/皎皎明月-800.webp 800w, /photos/nature/皎皎明月-1600.webp 1600w, /photos/nature/皎皎明月-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/5.6",
+      "shutter": "1/4s",
+      "iso": "ISO 640",
+      "taken": "2024-06-22"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "砚湖御镜（水上图书馆仰）",
+    "series": "nature",
+    "title": "砚湖御镜",
+    "src": "/photos/nature/砚湖御镜（水上图书馆仰）-1600.webp",
+    "srcset": "/photos/nature/砚湖御镜（水上图书馆仰）-800.webp 800w, /photos/nature/砚湖御镜（水上图书馆仰）-1600.webp 1600w, /photos/nature/砚湖御镜（水上图书馆仰）-2560.webp 2560w",
+    "width": 1600,
+    "height": 1080,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/1000s",
+      "iso": "ISO 100",
+      "taken": "2022-11-14"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "纳山以东稀",
+    "series": "nature",
+    "title": "纳山",
+    "src": "/photos/nature/纳山以东稀-1600.webp",
+    "srcset": "/photos/nature/纳山以东稀-800.webp 800w, /photos/nature/纳山以东稀-1600.webp 1600w, /photos/nature/纳山以东稀-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/8",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2026-01-02"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "羌人谷雪域之国",
+    "series": "nature",
+    "title": "羌人谷雪域之国",
+    "src": "/photos/nature/羌人谷雪域之国-1600.webp",
+    "srcset": "/photos/nature/羌人谷雪域之国-800.webp 800w, /photos/nature/羌人谷雪域之国-1600.webp 1600w, /photos/nature/羌人谷雪域之国-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/1000s",
+      "iso": "ISO 150",
+      "taken": "2025-01-11"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "舐犊沐恩",
+    "series": "nature",
+    "title": "舐犊沐恩",
+    "src": "/photos/nature/舐犊沐恩-1600.webp",
+    "srcset": "/photos/nature/舐犊沐恩-800.webp 600w, /photos/nature/舐犊沐恩-1600.webp 1200w, /photos/nature/舐犊沐恩-2560.webp 1920w",
+    "width": 1200,
+    "height": 1600,
+    "year": null,
+    "location": "四川 雅安",
+    "exif": {
+      "camera": "Xiaomi 13 Ultra",
+      "focal": "120mm",
+      "aperture": "f/3",
+      "shutter": "1/689s",
+      "iso": "ISO 50",
+      "taken": "2026-05-16"
+    },
+    "colors": [
+      "橙",
+      "绿"
+    ]
+  },
+  {
+    "id": "蓝水晶瀑布",
+    "series": "nature",
+    "title": "蓝水晶瀑布",
+    "src": "/photos/nature/蓝水晶瀑布-1600.webp",
+    "srcset": "/photos/nature/蓝水晶瀑布-800.webp 533w, /photos/nature/蓝水晶瀑布-1600.webp 1067w, /photos/nature/蓝水晶瀑布-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 雅安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "165mm",
+      "aperture": "f/5.6",
+      "shutter": "1/800s",
+      "iso": "ISO 640",
+      "taken": "2026-05-03"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "贡嘎群峰的云海星空",
+    "series": "nature",
+    "title": "牛背山·贡嘎群峰的云海星空",
+    "src": "/photos/nature/贡嘎群峰的云海星空-1600.webp",
+    "srcset": "/photos/nature/贡嘎群峰的云海星空-800.webp 800w, /photos/nature/贡嘎群峰的云海星空-1600.webp 1600w, /photos/nature/贡嘎群峰的云海星空-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 甘孜藏族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "50mm",
+      "aperture": "f/5.3",
+      "shutter": "6s",
+      "iso": "ISO 8000",
+      "taken": "2026-08-13"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "贡嘎雪山",
+    "series": "nature",
+    "title": "贡嘎东坡",
+    "src": "/photos/nature/贡嘎雪山-1600.webp",
+    "srcset": "/photos/nature/贡嘎雪山-800.webp 533w, /photos/nature/贡嘎雪山-1600.webp 1067w, /photos/nature/贡嘎雪山-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 甘孜藏族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/8",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2025-03-01"
+    },
+    "colors": [
+      "蓝",
+      "青"
+    ]
+  },
+  {
+    "id": "超线公园 (3)",
+    "series": "nature",
+    "title": "超线公园",
+    "src": "/photos/nature/超线公园 (3)-1600.webp",
+    "srcset": "/photos/nature/超线公园 (3)-800.webp 800w, /photos/nature/超线公园 (3)-1600.webp 1600w, /photos/nature/超线公园 (3)-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/13s",
+      "iso": "ISO 740",
+      "taken": "2024-08-25"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "达古冰川东措日月海",
+    "series": "nature",
+    "title": "东措日月海",
+    "src": "/photos/nature/达古冰川东措日月海-1600.webp",
+    "srcset": "/photos/nature/达古冰川东措日月海-800.webp 800w, /photos/nature/达古冰川东措日月海-1600.webp 1600w, /photos/nature/达古冰川东措日月海-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/6000s",
+      "iso": "ISO 140",
+      "taken": "2026-09-20"
+    },
+    "colors": [
+      "青"
+    ]
+  },
+  {
+    "id": "野马海子",
+    "series": "nature",
+    "title": "阴雨·野马海子",
+    "src": "/photos/nature/野马海子-1600.webp",
+    "srcset": "/photos/nature/野马海子-800.webp 800w, /photos/nature/野马海子-1600.webp 1600w, /photos/nature/野马海子-2560.webp 2560w",
+    "width": 1600,
+    "height": 900,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/500s",
+      "iso": "ISO 140",
+      "taken": "2024-09-16"
+    },
+    "colors": [
+      "青"
+    ]
+  },
+  {
+    "id": "银杏树叶",
+    "series": "nature",
+    "title": "银杏未黄时",
+    "src": "/photos/nature/银杏树叶-1600.webp",
+    "srcset": "/photos/nature/银杏树叶-800.webp 533w, /photos/nature/银杏树叶-1600.webp 1067w, /photos/nature/银杏树叶-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/7.1",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2023-11-04"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "长在大地上的云朵",
+    "series": "nature",
+    "title": "长在大地上的云朵",
+    "src": "/photos/nature/长在大地上的云朵-1600.webp",
+    "srcset": "/photos/nature/长在大地上的云朵-800.webp 600w, /photos/nature/长在大地上的云朵-1600.webp 1200w, /photos/nature/长在大地上的云朵-2560.webp 1920w",
+    "width": 1200,
+    "height": 1600,
+    "year": null,
+    "location": "云南 红河哈尼族彝族自治州",
+    "exif": {
+      "camera": "Xiaomi 13 Ultra",
+      "focal": "60mm",
+      "aperture": "f/1.8",
+      "shutter": "1/1250s",
+      "iso": "ISO 50",
+      "taken": "2026-07-31"
+    },
+    "colors": [
+      "蓝",
+      "青"
+    ]
+  },
+  {
+    "id": "长柏垂臂",
+    "series": "nature",
+    "title": "长柏垂臂",
+    "src": "/photos/nature/长柏垂臂-1600.webp",
+    "srcset": "/photos/nature/长柏垂臂-800.webp 800w, /photos/nature/长柏垂臂-1600.webp 1600w, /photos/nature/长柏垂臂-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 广元",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "33mm",
+      "aperture": "f/4.3",
+      "shutter": "1/80s",
+      "iso": "ISO 160",
+      "taken": "2026-03-28"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "阿尔沟龙池晴",
+    "series": "nature",
+    "title": "晴起阿尔沟龙池",
+    "src": "/photos/nature/阿尔沟龙池晴-1600.webp",
+    "srcset": "/photos/nature/阿尔沟龙池晴-800.webp 800w, /photos/nature/阿尔沟龙池晴-1600.webp 1600w, /photos/nature/阿尔沟龙池晴-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/1250s",
+      "iso": "ISO 200",
+      "taken": "2026-06-19"
+    },
+    "colors": [
+      "蓝",
+      "绿"
+    ]
+  },
+  {
+    "id": "雪山基建",
+    "series": "nature",
+    "title": "雪山基建",
+    "src": "/photos/nature/雪山基建-1600.webp",
+    "srcset": "/photos/nature/雪山基建-800.webp 800w, /photos/nature/雪山基建-1600.webp 1600w, /photos/nature/雪山基建-2560.webp 2560w",
+    "width": 1600,
+    "height": 900,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/4000s",
+      "iso": "ISO 120",
+      "taken": "2026-01-17"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "风，像流动的乐章",
+    "series": "nature",
+    "title": "风，像流动的乐章",
+    "src": "/photos/nature/风，像流动的乐章-1600.webp",
+    "srcset": "/photos/nature/风，像流动的乐章-800.webp 533w, /photos/nature/风，像流动的乐章-1600.webp 1067w, /photos/nature/风，像流动的乐章-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "云南 红河哈尼族彝族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "82mm",
+      "aperture": "f/6",
+      "shutter": "1/250s",
+      "iso": "ISO 640",
+      "taken": "2026-07-31"
+    },
+    "colors": [
+      "绿",
+      "黄"
+    ]
+  },
+  {
+    "id": "风吹松涛",
+    "series": "nature",
+    "title": "风吹松涛",
+    "src": "/photos/nature/风吹松涛-1600.webp",
+    "srcset": "/photos/nature/风吹松涛-800.webp 800w, /photos/nature/风吹松涛-1600.webp 1600w, /photos/nature/风吹松涛-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 六盘水",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/7.1",
+      "shutter": "1/400s",
+      "iso": "ISO 640",
+      "taken": "2026-07-16"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "马岭河大峡谷",
+    "series": "nature",
+    "title": "雨晴后的马岭河",
+    "src": "/photos/nature/马岭河大峡谷-1600.webp",
+    "srcset": "/photos/nature/马岭河大峡谷-800.webp 533w, /photos/nature/马岭河大峡谷-1600.webp 1067w, /photos/nature/马岭河大峡谷-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "42mm",
+      "aperture": "f/5",
+      "shutter": "1/1000s",
+      "iso": "ISO 640",
+      "taken": "2026-07-22"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "鹧鸪山",
+    "series": "nature",
+    "title": "鹧鸪山滑雪场",
+    "src": "/photos/nature/鹧鸪山-1600.webp",
+    "srcset": "/photos/nature/鹧鸪山-800.webp 800w, /photos/nature/鹧鸪山-1600.webp 1600w, /photos/nature/鹧鸪山-2560.webp 2560w",
+    "width": 1600,
+    "height": 900,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/6400s",
+      "iso": "ISO 120",
+      "taken": "2026-01-17"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "鹿隐",
+    "series": "nature",
+    "title": "鹿森神隐",
+    "src": "/photos/nature/鹿隐-1600.webp",
+    "srcset": "/photos/nature/鹿隐-800.webp 533w, /photos/nature/鹿隐-1600.webp 1067w, /photos/nature/鹿隐-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 雅安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "180mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 640",
+      "taken": "2026-05-16"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "西财-阳光透过树隙",
+    "series": "niguangzhixia",
+    "title": "",
+    "src": "/photos/niguangzhixia/西财-阳光透过树隙-1600.webp",
+    "srcset": "/photos/niguangzhixia/西财-阳光透过树隙-800.webp 533w, /photos/niguangzhixia/西财-阳光透过树隙-1600.webp 1067w, /photos/niguangzhixia/西财-阳光透过树隙-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/22",
+      "shutter": "1/125s",
+      "iso": "ISO 800",
+      "taken": "2023-07-16"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "逆光下拍摄的竹林",
+    "series": "niguangzhixia",
+    "title": "",
+    "src": "/photos/niguangzhixia/逆光下拍摄的竹林-1600.webp",
+    "srcset": "/photos/niguangzhixia/逆光下拍摄的竹林-800.webp 533w, /photos/niguangzhixia/逆光下拍摄的竹林-1600.webp 1067w, /photos/niguangzhixia/逆光下拍摄的竹林-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 眉山",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/22",
+      "shutter": "1/200s",
+      "iso": "ISO 640",
+      "taken": "2024-03-30"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "雪地泛金",
+    "series": "niguangzhixia",
+    "title": "",
+    "src": "/photos/niguangzhixia/雪地泛金-1600.webp",
+    "srcset": "/photos/niguangzhixia/雪地泛金-800.webp 533w, /photos/niguangzhixia/雪地泛金-1600.webp 1067w, /photos/niguangzhixia/雪地泛金-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/7.1",
+      "shutter": "1/400s",
+      "iso": "ISO 100",
+      "taken": "2023-01-24"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "万峰湖垂钓2",
+    "series": "people",
+    "title": "万峰湖里来垂钓",
+    "src": "/photos/people/万峰湖垂钓2-1600.webp",
+    "srcset": "/photos/people/万峰湖垂钓2-800.webp 800w, /photos/people/万峰湖垂钓2-1600.webp 1600w, /photos/people/万峰湖垂钓2-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 125",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "万峰湖垂钓3",
+    "series": "people",
+    "title": "万峰湖夏日来访",
+    "src": "/photos/people/万峰湖垂钓3-1600.webp",
+    "srcset": "/photos/people/万峰湖垂钓3-800.webp 800w, /photos/people/万峰湖垂钓3-1600.webp 1600w, /photos/people/万峰湖垂钓3-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 黔西南布依族苗族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 100",
+      "taken": "2026-07-20"
+    },
+    "colors": [
+      "绿",
+      "黄"
+    ]
+  },
+  {
+    "id": "东坡唤鱼",
+    "series": "people",
+    "title": "东坡唤鱼",
+    "src": "/photos/people/东坡唤鱼-1600.webp",
+    "srcset": "/photos/people/东坡唤鱼-800.webp 533w, /photos/people/东坡唤鱼-1600.webp 1067w, /photos/people/东坡唤鱼-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 眉山",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "29mm",
+      "aperture": "f/5.6",
+      "shutter": "1/250s",
+      "iso": "ISO 640",
+      "taken": "2024-03-30"
+    },
+    "colors": [
+      "绿",
+      "黄"
+    ]
+  },
+  {
+    "id": "丽山园铜车马",
+    "series": "people",
+    "title": "两千年",
+    "src": "/photos/people/丽山园铜车马-1600.webp",
+    "srcset": "/photos/people/丽山园铜车马-800.webp 800w, /photos/people/丽山园铜车马-1600.webp 1600w, /photos/people/丽山园铜车马-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "42mm",
+      "aperture": "f/4.9",
+      "shutter": "1/15s",
+      "iso": "ISO 6400",
+      "taken": "2026-02-18"
+    },
+    "colors": [
+      "黄"
+    ]
+  },
+  {
+    "id": "古城墙和现代人",
+    "series": "people",
+    "title": "古城墙和现代人",
+    "src": "/photos/people/古城墙和现代人-1600.webp",
+    "srcset": "/photos/people/古城墙和现代人-800.webp 599w, /photos/people/古城墙和现代人-1600.webp 1198w, /photos/people/古城墙和现代人-2560.webp 1916w",
+    "width": 1198,
+    "height": 1600,
+    "year": null,
+    "location": "云南 红河哈尼族彝族自治州",
+    "exif": {
+      "camera": "Xiaomi 13 Ultra",
+      "focal": "23mm",
+      "aperture": "f/1.9",
+      "shutter": "1/25s",
+      "iso": "ISO 254",
+      "taken": "2026-07-30"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "夕阳下的玉米地HDR",
+    "series": "people",
+    "title": "夕阳下的玉米地",
+    "src": "/photos/people/夕阳下的玉米地HDR-1600.webp",
+    "srcset": "/photos/people/夕阳下的玉米地HDR-800.webp 800w, /photos/people/夕阳下的玉米地HDR-1600.webp 1600w, /photos/people/夕阳下的玉米地HDR-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "河南 开封",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/8",
+      "shutter": "1/1000s",
+      "iso": "ISO 800",
+      "taken": "2023-07-23"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "夜骑成都",
+    "series": "people",
+    "title": "夜骑成都",
+    "src": "/photos/people/夜骑成都-1600.webp",
+    "srcset": "/photos/people/夜骑成都-800.webp 800w, /photos/people/夜骑成都-1600.webp 1600w, /photos/people/夜骑成都-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "16mm",
+      "aperture": "f/1.8",
+      "shutter": "1/20s",
+      "iso": "ISO 640",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "山峰背影",
+    "series": "people",
+    "title": "向山川",
+    "src": "/photos/people/山峰背影-1600.webp",
+    "srcset": "/photos/people/山峰背影-800.webp 800w, /photos/people/山峰背影-1600.webp 1600w, /photos/people/山峰背影-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/7.1",
+      "shutter": "1/640s",
+      "iso": "ISO 100",
+      "taken": "2024-03-10"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "广州北京路人流",
+    "series": "people",
+    "title": "北京路人流",
+    "src": "/photos/people/广州北京路人流-1600.webp",
+    "srcset": "/photos/people/广州北京路人流-800.webp 800w, /photos/people/广州北京路人流-1600.webp 1600w, /photos/people/广州北京路人流-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "广东 广州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/4.5",
+      "shutter": "1/160s",
+      "iso": "ISO 2000",
+      "taken": "2024-02-25"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "拣花",
+    "series": "people",
+    "title": "斗南花市",
+    "src": "/photos/people/拣花-1600.webp",
+    "srcset": "/photos/people/拣花-800.webp 601w, /photos/people/拣花-1600.webp 1201w, /photos/people/拣花-2560.webp 1922w",
+    "width": 1201,
+    "height": 1600,
+    "year": null,
+    "location": "云南 昆明",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/60s",
+      "iso": "ISO 2500",
+      "taken": "2025-02-01"
+    },
+    "colors": [
+      "红",
+      "蓝"
+    ]
+  },
+  {
+    "id": "挪一小舟",
+    "series": "people",
+    "title": "挪一小舟",
+    "src": "/photos/people/挪一小舟-1600.webp",
+    "srcset": "/photos/people/挪一小舟-800.webp 800w, /photos/people/挪一小舟-1600.webp 1600w, /photos/people/挪一小舟-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "149mm",
+      "aperture": "f/7.1",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2024-08-11"
+    },
+    "colors": [
+      "青"
+    ]
+  },
+  {
+    "id": "水陆庵佛上小世界",
+    "series": "people",
+    "title": "水陆庵·莲华藏界",
+    "src": "/photos/people/水陆庵佛上小世界-1600.webp",
+    "srcset": "/photos/people/水陆庵佛上小世界-800.webp 800w, /photos/people/水陆庵佛上小世界-1600.webp 1600w, /photos/people/水陆庵佛上小世界-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "134mm",
+      "aperture": "f/5.6",
+      "shutter": "1/15s",
+      "iso": "ISO 4000",
+      "taken": "2026-02-18"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "水陆庵悬塑墙",
+    "series": "people",
+    "title": "水陆庵·万佛悬塑",
+    "src": "/photos/people/水陆庵悬塑墙-1600.webp",
+    "srcset": "/photos/people/水陆庵悬塑墙-800.webp 800w, /photos/people/水陆庵悬塑墙-1600.webp 1600w, /photos/people/水陆庵悬塑墙-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/20s",
+      "iso": "ISO 4000",
+      "taken": "2026-02-18"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "水陆庵报身佛",
+    "series": "people",
+    "title": "水陆庵·报身佛",
+    "src": "/photos/people/水陆庵报身佛-1600.webp",
+    "srcset": "/photos/people/水陆庵报身佛-800.webp 533w, /photos/people/水陆庵报身佛-1600.webp 1067w, /photos/people/水陆庵报身佛-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/3.5",
+      "shutter": "1/20s",
+      "iso": "ISO 4000",
+      "taken": "2026-02-18"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "水陆庵梵音",
+    "series": "people",
+    "title": "水陆庵·梵音",
+    "src": "/photos/people/水陆庵梵音-1600.webp",
+    "srcset": "/photos/people/水陆庵梵音-800.webp 800w, /photos/people/水陆庵梵音-1600.webp 1600w, /photos/people/水陆庵梵音-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "165mm",
+      "aperture": "f/5.6",
+      "shutter": "1/15s",
+      "iso": "ISO 4000",
+      "taken": "2026-02-18"
+    },
+    "colors": [
+      "红"
+    ]
+  },
+  {
+    "id": "水陆庵须弥万象",
+    "series": "people",
+    "title": "水陆庵·须弥万象",
+    "src": "/photos/people/水陆庵须弥万象-1600.webp",
+    "srcset": "/photos/people/水陆庵须弥万象-800.webp 533w, /photos/people/水陆庵须弥万象-1600.webp 1067w, /photos/people/水陆庵须弥万象-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "陕西 西安",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "54mm",
+      "aperture": "f/5.4",
+      "shutter": "1/20s",
+      "iso": "ISO 5000",
+      "taken": "2026-02-18"
+    },
+    "colors": [
+      "橙",
+      "红"
+    ]
+  },
+  {
+    "id": "活路5",
+    "series": "people",
+    "title": "高空作业",
+    "src": "/photos/people/活路5-1600.webp",
+    "srcset": "/photos/people/活路5-800.webp 800w, /photos/people/活路5-1600.webp 1600w, /photos/people/活路5-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "121mm",
+      "aperture": "f/7.1",
+      "shutter": "1/500s",
+      "iso": "ISO 640",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "活路7",
+    "series": "people",
+    "title": "戏子",
+    "src": "/photos/people/活路7-1600.webp",
+    "srcset": "/photos/people/活路7-800.webp 800w, /photos/people/活路7-1600.webp 1600w, /photos/people/活路7-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "90mm",
+      "aperture": "f/6.1",
+      "shutter": "1/100s",
+      "iso": "ISO 6400",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "橙"
+    ]
+  },
+  {
+    "id": "活路8",
+    "series": "people",
+    "title": "活路",
+    "src": "/photos/people/活路8-1600.webp",
+    "srcset": "/photos/people/活路8-800.webp 533w, /photos/people/活路8-1600.webp 1067w, /photos/people/活路8-2560.webp 1707w",
+    "width": 1067,
+    "height": 1600,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "16mm",
+      "aperture": "f/1.8",
+      "shutter": "1/60s",
+      "iso": "ISO 1250",
+      "taken": "2026-08-18"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "点火",
+    "series": "people",
+    "title": "传递火炬",
+    "src": "/photos/people/点火-1600.webp",
+    "srcset": "/photos/people/点火-800.webp 800w, /photos/people/点火-1600.webp 1600w, /photos/people/点火-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 凉山彝族自治州/越西",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/30s",
+      "iso": "ISO 8000",
+      "taken": "2026-08-04"
+    },
+    "colors": [
+      "蓝",
+      "橙"
+    ]
+  },
+  {
+    "id": "独坐",
+    "series": "people",
+    "title": "独坐",
+    "src": "/photos/people/独坐-1600.webp",
+    "srcset": "/photos/people/独坐-800.webp 800w, /photos/people/独坐-1600.webp 1600w, /photos/people/独坐-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 凉山彝族自治州/越西",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/160s",
+      "iso": "ISO 640",
+      "taken": "2026-08-04"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "研究战局",
+    "series": "people",
+    "title": "研究战局",
+    "src": "/photos/people/研究战局-1600.webp",
+    "srcset": "/photos/people/研究战局-800.webp 800w, /photos/people/研究战局-1600.webp 1600w, /photos/people/研究战局-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "28mm",
+      "aperture": "f/4",
+      "shutter": "1/50s",
+      "iso": "ISO 1250",
+      "taken": "2024-02-21"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "穿越玉米地",
+    "series": "people",
+    "title": "穿越玉米地",
+    "src": "/photos/people/穿越玉米地-1600.webp",
+    "srcset": "/photos/people/穿越玉米地-800.webp 800w, /photos/people/穿越玉米地-1600.webp 1600w, /photos/people/穿越玉米地-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 六盘水",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "21mm",
+      "aperture": "f/4.5",
+      "shutter": "1/160s",
+      "iso": "ISO 100",
+      "taken": "2026-07-16"
+    },
+    "colors": [
+      "绿",
+      "橙"
+    ]
+  },
+  {
+    "id": "筑梦献国",
+    "series": "people",
+    "title": "筑梦献国",
+    "src": "/photos/people/筑梦献国-1600.webp",
+    "srcset": "/photos/people/筑梦献国-800.webp 800w, /photos/people/筑梦献国-1600.webp 1600w, /photos/people/筑梦献国-2560.webp 2560w",
+    "width": 1600,
+    "height": 1059,
+    "year": 2023,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "300mm",
+      "aperture": "f/6.3",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2023-11-07"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "群像时刻",
+    "series": "people",
+    "title": "群像时刻",
+    "src": "/photos/people/群像时刻-1600.webp",
+    "srcset": "/photos/people/群像时刻-800.webp 800w, /photos/people/群像时刻-1600.webp 1600w, /photos/people/群像时刻-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "贵州 六盘水",
     "exif": {
       "camera": "Panasonic DC-S5",
       "focal": "20mm",
@@ -187,6 +3367,279 @@
       "shutter": "1/640s",
       "iso": "ISO 800",
       "taken": "2026-07-16"
-    }
+    },
+    "colors": [
+      "绿",
+      "橙"
+    ]
+  },
+  {
+    "id": "花市大买卖",
+    "series": "people",
+    "title": "鲜花交易",
+    "src": "/photos/people/花市大买卖-1600.webp",
+    "srcset": "/photos/people/花市大买卖-800.webp 579w, /photos/people/花市大买卖-1600.webp 1159w, /photos/people/花市大买卖-2560.webp 1854w",
+    "width": 1159,
+    "height": 1600,
+    "year": null,
+    "location": "云南 昆明",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "20mm",
+      "aperture": "f/4.5",
+      "shutter": "1/60s",
+      "iso": "ISO 2500",
+      "taken": "2025-02-01"
+    },
+    "colors": [
+      "蓝",
+      "红"
+    ]
+  },
+  {
+    "id": "阳坡梯田夜景",
+    "series": "people",
+    "title": "阳坡梯田火把节",
+    "src": "/photos/people/阳坡梯田夜景-1600.webp",
+    "srcset": "/photos/people/阳坡梯田夜景-800.webp 800w, /photos/people/阳坡梯田夜景-1600.webp 1600w, /photos/people/阳坡梯田夜景-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 凉山彝族自治州/越西",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "200mm",
+      "aperture": "f/6.3",
+      "shutter": "1/200s",
+      "iso": "ISO 2500",
+      "taken": "2026-08-04"
+    },
+    "colors": [
+      "蓝",
+      "黄"
+    ]
+  },
+  {
+    "id": "雨中骑行",
+    "series": "people",
+    "title": "雨中骑行",
+    "src": "/photos/people/雨中骑行-1600.webp",
+    "srcset": "/photos/people/雨中骑行-800.webp 800w, /photos/people/雨中骑行-1600.webp 1600w, /photos/people/雨中骑行-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "127mm",
+      "aperture": "f/6.2",
+      "shutter": "1/200s",
+      "iso": "ISO 1000",
+      "taken": "2026-08-17"
+    },
+    "colors": [
+      "绿",
+      "橙"
+    ]
+  },
+  {
+    "id": "雪景下的黄继光纪念雕像",
+    "series": "people",
+    "title": "风雪援朝",
+    "src": "/photos/people/雪景下的黄继光纪念雕像-1600.webp",
+    "srcset": "/photos/people/雪景下的黄继光纪念雕像-800.webp 800w, /photos/people/雪景下的黄继光纪念雕像-1600.webp 1600w, /photos/people/雪景下的黄继光纪念雕像-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 德阳",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "152mm",
+      "aperture": "f/5.6",
+      "shutter": "1/200s",
+      "iso": "ISO 100",
+      "taken": "2024-01-24"
+    },
+    "colors": [
+      "绿"
+    ]
+  },
+  {
+    "id": "香港夜生活之赛马会",
+    "series": "people",
+    "title": "香港夜生活之赛马会",
+    "src": "/photos/people/香港夜生活之赛马会-1600.webp",
+    "srcset": "/photos/people/香港夜生活之赛马会-800.webp 800w, /photos/people/香港夜生活之赛马会-1600.webp 1600w, /photos/people/香港夜生活之赛马会-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "37mm",
+      "aperture": "f/4.6",
+      "shutter": "1/50s",
+      "iso": "ISO 1250",
+      "taken": "2024-02-21"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "香港重庆大厦",
+    "series": "people",
+    "title": "重庆大厦",
+    "src": "/photos/people/香港重庆大厦-1600.webp",
+    "srcset": "/photos/people/香港重庆大厦-800.webp 800w, /photos/people/香港重庆大厦-1600.webp 1600w, /photos/people/香港重庆大厦-2560.webp 2560w",
+    "width": 1600,
+    "height": 1149,
+    "year": null,
+    "location": "香港特别行政区",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "70mm",
+      "aperture": "f/4.5",
+      "shutter": "1/400s",
+      "iso": "ISO 640",
+      "taken": "2024-02-22"
+    },
+    "colors": [
+      "红"
+    ]
+  },
+  {
+    "id": "云海公路",
+    "series": "tianlu",
+    "title": "天路",
+    "src": "/photos/tianlu/云海公路-1600.webp",
+    "srcset": "/photos/tianlu/云海公路-800.webp 800w, /photos/tianlu/云海公路-1600.webp 1600w, /photos/tianlu/云海公路-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "贵州 六盘水",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/2000s",
+      "iso": "ISO 110",
+      "taken": "2026-07-16"
+    },
+    "colors": [
+      "青",
+      "绿"
+    ]
+  },
+  {
+    "id": "云海阿坝",
+    "series": "tianlu",
+    "title": "天路",
+    "src": "/photos/tianlu/云海阿坝-1600.webp",
+    "srcset": "/photos/tianlu/云海阿坝-800.webp 556w, /photos/tianlu/云海阿坝-1600.webp 1111w, /photos/tianlu/云海阿坝-2560.webp 1778w",
+    "width": 1111,
+    "height": 1600,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/7.1",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2024-03-10"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "莫说山中无人至，我言此间万壑寒",
+    "series": "tianlu",
+    "title": "天路",
+    "src": "/photos/tianlu/莫说山中无人至，我言此间万壑寒-1600.webp",
+    "srcset": "/photos/tianlu/莫说山中无人至，我言此间万壑寒-800.webp 800w, /photos/tianlu/莫说山中无人至，我言此间万壑寒-1600.webp 1600w, /photos/tianlu/莫说山中无人至，我言此间万壑寒-2560.webp 2560w",
+    "width": 1600,
+    "height": 1200,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/250s",
+      "iso": "ISO 100",
+      "taken": "2025-01-11"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "雪山和路",
+    "series": "tianlu",
+    "title": "天路",
+    "src": "/photos/tianlu/雪山和路-1600.webp",
+    "srcset": "/photos/tianlu/雪山和路-800.webp 800w, /photos/tianlu/雪山和路-1600.webp 1600w, /photos/tianlu/雪山和路-2560.webp 2560w",
+    "width": 1600,
+    "height": 900,
+    "year": null,
+    "location": "四川 阿坝藏族羌族自治州",
+    "exif": {
+      "camera": "DJI mini4pro",
+      "focal": "24mm",
+      "aperture": "f/1.7",
+      "shutter": "1/5000s",
+      "iso": "ISO 140",
+      "taken": "2026-01-17"
+    },
+    "colors": [
+      "蓝"
+    ]
+  },
+  {
+    "id": "青绕神山-蜿蜒的路",
+    "series": "tianlu",
+    "title": "天路",
+    "src": "/photos/tianlu/青绕神山-蜿蜒的路-1600.webp",
+    "srcset": "/photos/tianlu/青绕神山-蜿蜒的路-800.webp 800w, /photos/tianlu/青绕神山-蜿蜒的路-1600.webp 1600w, /photos/tianlu/青绕神山-蜿蜒的路-2560.webp 2560w",
+    "width": 1600,
+    "height": 956,
+    "year": null,
+    "location": "四川 甘孜藏族自治州",
+    "exif": {
+      "camera": "Panasonic DC-S5",
+      "focal": "60mm",
+      "aperture": "f/6.3",
+      "shutter": "1/320s",
+      "iso": "ISO 100",
+      "taken": "2023-08-21"
+    },
+    "colors": [
+      "绿",
+      "蓝"
+    ]
+  },
+  {
+    "id": "烟雾之中",
+    "series": "wanbansecaijianbenzhen",
+    "title": "烟雾之中",
+    "src": "/photos/wanbansecaijianbenzhen/烟雾之中-1600.webp",
+    "srcset": "/photos/wanbansecaijianbenzhen/烟雾之中-800.webp 800w, /photos/wanbansecaijianbenzhen/烟雾之中-1600.webp 1600w, /photos/wanbansecaijianbenzhen/烟雾之中-2560.webp 2560w",
+    "width": 1600,
+    "height": 1067,
+    "year": null,
+    "location": "四川 成都",
+    "exif": {
+      "camera": "Panasonic DC-S1M2E",
+      "focal": "68mm",
+      "aperture": "f/6",
+      "shutter": "1/320s",
+      "iso": "ISO 1000",
+      "taken": "2026-08-19"
+    },
+    "colors": [
+      "蓝"
+    ]
   }
 ]

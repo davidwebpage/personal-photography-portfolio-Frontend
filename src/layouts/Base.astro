@@ -46,9 +46,14 @@ const path = Astro.url.pathname;
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="/">David photograph</a>
+      <!-- 站名拆成两块：电脑端同一行显示，手机端上下两行（CSS 控制） -->
+      <a class="brand" href="/"><span>David</span><span>Photography</span></a>
+      <!-- 手机端：把整排栏目收进这个「几条横杠」的按钮里，点开才展开 -->
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="site-nav">
+        <span class="bars" aria-hidden="true"></span>
+      </button>
       <div class="header-tools">
-        <nav class="site-nav">
+        <nav id="site-nav" class="site-nav">
           {nav.map((item) => (
             <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
           ))}
@@ -63,15 +68,19 @@ const path = Astro.url.pathname;
           </svg>
         </button>
       </div>
-      <button id="bgm-toggle" class="bgm-toggle on" aria-label="关闭背景音乐" aria-pressed="true"><span class="ico">♪</span></button>
+      <button id="bgm-toggle" class="bgm-toggle on" aria-label="暂停背景音乐，双击切换下一首" aria-pressed="true"><span class="ico">♪</span></button>
       <!-- 浏览器拦住自动播放时才出现（脚本控制），提示访客怎么让音乐响起来；一出声就收走 -->
-      <span id="bgm-hint" class="bgm-hint" role="status" hidden>点一下页面，音乐即响起</span>
+      <span id="bgm-hint" class="bgm-hint" role="status" hidden>点击页面任意位置，播放音乐</span>
+      <!-- 音乐第一次真正出声、上面那条收走之后，这条滑入一次，交代按钮的用法：
+           向左滑入 → 停 4 秒 → 向右滑出（只出现一次，脚本控制） -->
+      <span id="bgm-tip" class="bgm-tip" role="status" hidden>单击暂停/播放 · 双击换下一首</span>
     </header>
 
-    <!-- 背景音乐：每次打开网站从音乐库里随机抽一首，循环播放，右上角按钮可开关（默认开）。
+    <!-- 背景音乐：每次打开网站从音乐库里随机抽一首，播完再从剩下的里随机抽下一首，
+         一轮放完才允许重复。右上角按钮可开关（默认开）。
          歌单在 src/data/music.json，往 public/audio/ 里丢文件再往那份清单里加一行即可。
          用 <template> 传数据是因为站内换页只替换 <main>、只执行行内脚本，JSON 块会被丢掉 -->
-    <audio id="bgm" loop preload="auto"></audio>
+    <audio id="bgm" preload="auto"></audio>
     <template data-music-pool set:html={JSON.stringify(music)}></template>
     <!-- 选歌必须放在这儿、用行内脚本（is:inline）：解析到这个位置就定下 src，
          浏览器立刻开始加载音乐——和以前把 src 直接写在 HTML 里是同一条起跑线。
@@ -98,11 +107,11 @@ const path = Astro.url.pathname;
     </main>
 
     <footer class="site-footer">
-      © {new Date().getFullYear()} David photograph · 保留所有权利 · 照片未经授权请勿使用
+      © {new Date().getFullYear()} David Photography · 版权所有 · 照片未经授权请勿使用
     </footer>
 
     <!-- 灯箱查看器（仿储卫民 Thomas 站）：大图为主体，同图重度虚化做背景。
-         左上 返回 + 序号，右上 缩放/播放/下载/沉浸式/关闭，两侧翻页箭头，
+         左上 返回 + 序号，右上 缩放/播放/播放方式/全屏/填满屏幕/关闭，两侧翻页箭头，
          底部 EXIF + 该系列缩略图 + 快捷键提示 -->
     <div id="lightbox" role="dialog" aria-modal="true" aria-label="查看大图">
       <!-- 背景：当前图片重度虚化后铺满全屏 -->
@@ -110,7 +119,7 @@ const path = Astro.url.pathname;
 
       <div class="lb-top">
         <div class="lb-left">
-          <button class="lb-icon lb-back" aria-label="返回上一个界面" title="返回">
+          <button class="lb-icon lb-back" aria-label="返回上一个界面" title="返回（ESC）">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" /></svg>
           </button>
           <span class="lb-counter" aria-live="polite">000 / 000</span>
@@ -126,12 +135,17 @@ const path = Astro.url.pathname;
             <svg class="ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
             <svg class="ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
           </button>
-          <button class="lb-icon lb-full" aria-label="沉浸式观看（全屏）" title="沉浸式观看（F）">
+          <button class="lb-icon lb-shuffle" aria-label="播放方式：循环" title="播放方式：循环（点击改为随机）" aria-pressed="false">
+            <svg class="ico-loop" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2.4 20.2 6 16.6 9.6M3.8 11.2V9.4a3.6 3.6 0 0 1 3.6-3.6h12.8M7.4 21.6 3.8 18 7.4 14.4M20.2 12.8v1.8a3.6 3.6 0 0 1-3.6 3.6H3.8" /></svg>
+            <svg class="ico-rand" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17c7.3 0 7.3-11 10-11H20M17 3l3 3-3 3M4 7c7.3 0 7.3 11 10 11H20M17 15l3 3-3 3" /></svg>
+          </button>
+          <button class="lb-icon lb-full" aria-label="全屏显示" title="全屏显示（S）">
             <svg class="ico-full" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 15v5h-5M15 4h5v5M9 20H4v-5" /></svg>
             <svg class="ico-exit" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 20v-5h5M20 9h-5V4M4 15h5v5" /></svg>
           </button>
-          <button class="lb-icon lb-close" aria-label="关闭查看" title="关闭（ESC）">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 18 18M18 6 6 18" /></svg>
+          <button class="lb-icon lb-fill" aria-label="填满屏幕" title="填满屏幕（F）">
+            <svg class="ico-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8 3 3M3 8V3h5" /><path d="M16 16l5 5M21 16v5h-5" /></svg>
+            <svg class="ico-unfill" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l5 5M10 5v5H5" /><path d="M19 19l-5-5M14 19v-5h5" /></svg>
           </button>
         </div>
       </div>
@@ -148,10 +162,14 @@ const path = Astro.url.pathname;
         <img alt="" draggable="false" />
       </figure>
 
-      <!-- 底部：标题 + EXIF、该系列缩略图 -->
+      <!-- 底部：标题/拍摄地/拍摄时间同行 + EXIF、该系列缩略图 -->
       <div class="lb-bottom">
         <div class="lb-info">
-          <div class="lb-title"></div>
+          <div class="lb-caption">
+            <span class="lb-title"></span>
+            <span class="lb-location"></span>
+            <span class="lb-taken"></span>
+          </div>
           <div class="lb-exif"></div>
         </div>
         <div class="lb-thumbs" aria-label="该系列图片列表"></div>
@@ -159,19 +177,68 @@ const path = Astro.url.pathname;
     </div>
 
     <script>
-      // ---------- 背景音乐：随机抽一首循环播放 + 右上角开关（默认开） ----------
+      // ---------- 背景音乐：随机抽一首，播完再从剩下的里随机抽下一首 + 右上角开关（默认开） ----------
       const bgm = document.getElementById('bgm');
       const bgmToggle = document.getElementById('bgm-toggle');
       const bgmHint = document.getElementById('bgm-hint');
+      const bgmTip = document.getElementById('bgm-tip');
       let bgmStarted = false;
+      // bgmEnabled = 用户是否想听音乐（默认开，点按钮切换）；bgmPlaying = 当前是否真的在出声。
+      // 两者必须分开：一首歌播完时浏览器会先触发 pause 事件把 bgmPlaying 置 false，
+      // 但用户并没有关音乐——若用 bgmPlaying 判断要不要续播，就会播完一首就停。
+      let bgmEnabled = true;
       let bgmPlaying = true;
 
-      // 这次放哪一首，上面的行内脚本已经定好了（src 在那儿就设上了，浏览器随即开始加载）
+      // 这次放哪一首，上面的行内脚本已经定好了（src 在那儿就设上了，浏览器随即开始加载）。
+      // 播完一首后，从「还没放过」的剩余歌单里随机抽下一首；一轮放完才重置、允许重复。
+      const bgmPool = (() => {
+        try {
+          return JSON.parse(document.querySelector('template[data-music-pool]').innerHTML);
+        } catch (e) {
+          return [];
+        }
+      })();
+      // 剩余待播：初始为整份歌单去掉当前这首（当前这首是行内脚本随机定的，不重复放）。
+      // 用 getAttribute('src') 拿原始相对路径来比——bgm.src 会被浏览器解析成绝对 URL，
+      // 和歌单里的相对路径永远对不上，当前这首就排不掉了。
+      let bgmRemaining = bgmPool.filter((t) => t.file !== bgm.getAttribute('src'));
+
+      function pickNextBgm() {
+        // 一轮放完（剩余为空）就重置回整份歌单，重新开始一轮
+        if (bgmRemaining.length === 0) bgmRemaining = bgmPool.slice();
+        const i = Math.floor(Math.random() * bgmRemaining.length);
+        const next = bgmRemaining.splice(i, 1)[0];
+        bgm.src = next.file;
+        const btn = document.getElementById('bgm-toggle');
+        if (btn && next.title) btn.title = '背景音乐：' + next.title;
+        // 用户开着音乐就续播下一首；被用户关掉/没启动就只换歌不自动出声
+        if (bgmEnabled && bgmStarted) bgm.play().catch(() => {});
+      }
+      // 一首放完 → 从剩下的里随机抽下一首
+      bgm.addEventListener('ended', pickNextBgm);
 
       function updateBgmUI() {
-        bgmToggle.classList.toggle('on', bgmPlaying);
-        bgmToggle.setAttribute('aria-pressed', String(bgmPlaying));
-        bgmToggle.setAttribute('aria-label', bgmPlaying ? '关闭背景音乐' : '播放背景音乐');
+        bgmToggle.classList.toggle('on', bgmEnabled);
+        bgmToggle.setAttribute('aria-pressed', String(bgmEnabled));
+        bgmToggle.setAttribute('aria-label', (bgmEnabled ? '暂停背景音乐' : '播放背景音乐') + '，双击切换下一首');
+      }
+      // 按钮用法提示：整页只出现一次。等第一条「点一下页面」收走 1 秒后，
+      // 再向左滑入（从右侧进）→ 停 4 秒 → 向右滑出。
+      let bgmTipDone = false;
+      function showBgmTip() {
+        if (bgmTipDone || !bgmTip) return;
+        bgmTipDone = true;
+        // 先把上一条让开，隔 1 秒再接上，避免两条提示衔接得太紧
+        window.setTimeout(() => {
+          bgmTip.hidden = false;
+          bgmTip.classList.add('in');
+          window.setTimeout(() => {
+            bgmTip.classList.remove('in');
+            bgmTip.classList.add('out');
+            // 等滑出动画走完再真正 hidden，免得滑到一半被截断
+            window.setTimeout(() => { bgmTip.hidden = true; }, 400);
+          }, 4000);
+        }, 1000);
       }
       // 一进站就放。浏览器有条硬规矩：访客还没跟页面产生过任何互动时不许自动出声
       // （Chrome / Safari / Firefox 都一样，专门拦的就是「一打开就响」这种）。
@@ -191,8 +258,22 @@ const path = Astro.url.pathname;
       }
       // 按钮点击：关/开。默认是开启状态，点一下即静音，再点恢复
       function toggleBgm() {
-        if (bgm.paused) { bgm.volume = 0.4; bgm.play().catch(() => {}); }
+        bgmEnabled = !bgmEnabled;
+        if (bgmEnabled) { bgm.volume = 0.4; bgm.play().catch(() => {}); }
         else bgm.pause();
+        updateBgmUI();
+      }
+      // 双击按钮：换下一首，并让它响。
+      // 主动点两下就是「我要听下一首」，所以顺带把音乐打开（原本关着也打开）。
+      function nextBgm() {
+        bgmEnabled = true;
+        bgm.volume = 0.4;
+        pickNextBgm(); // 内部在 enabled 为真时会自动续播
+        // 一进站从没启动过（或被暂停）时，上面那步不会播，这里补一次；
+        // 被浏览器拦下就把提示露出来，和 startBgm 的处理保持一致
+        const p = bgm.play();
+        if (p && p.catch) p.catch(() => { bgmHint.hidden = false; });
+        updateBgmUI();
       }
 
       bgm.addEventListener('play', () => {
@@ -200,6 +281,7 @@ const path = Astro.url.pathname;
         bgmPlaying = true;
         bgmHint.hidden = true; // 出声了就把提示收走
         updateBgmUI();
+        showBgmTip(); // 那条收走后，滑入一次按钮用法说明
       });
       bgm.addEventListener('pause', () => { bgmPlaying = false; updateBgmUI(); });
 
@@ -213,12 +295,45 @@ const path = Astro.url.pathname;
       document.addEventListener('keydown', startBgm);
       document.addEventListener('touchstart', startBgm, { passive: true });
       document.addEventListener('wheel', startBgm, { passive: true });
-      // 从别的标签页切回来时再试一次（有些浏览器这时候才放行）
+      // 移动端：熄屏或切到后台时自动暂停音乐，回到前台自动恢复。
+      // 桌面端不暂停——切标签页时让音乐继续（用户没要求，别改桌面行为）。
+      const isMobile = window.matchMedia('(max-width: 640px)').matches;
+      let bgmWasPlaying = false;
       document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') startBgm();
+        if (document.visibilityState === 'hidden') {
+          // 熄屏 / 切后台：正在出声就暂停，并记住状态，回来时恢复
+          if (isMobile && bgmPlaying && bgmStarted) {
+            bgmWasPlaying = true;
+            bgm.pause();
+          }
+        } else if (document.visibilityState === 'visible') {
+          if (bgmWasPlaying) {
+            // 刚才因为切后台被我们暂停的，恢复播放（用户没关音乐）
+            bgmWasPlaying = false;
+            bgm.volume = 0.4;
+            bgm.play().catch(() => {});
+          } else {
+            // 从别的标签页切回来时再试一次（有些浏览器这时候才放行）
+            startBgm();
+          }
+        }
       });
+      // 音乐按钮：单击 = 暂停/播放，双击 = 换下一首。
+      // 双击一定会先产生两次 click，所以单击不能立刻执行——先挂 250ms 的定时器，
+      // 这期间若来了第二下，就取消单击、改判为双击。
+      let bgmClickTimer = null;
       document.addEventListener('click', (e) => {
-        if (e.target.closest('#bgm-toggle')) toggleBgm();
+        if (!e.target.closest('#bgm-toggle')) return;
+        if (bgmClickTimer !== null) {
+          clearTimeout(bgmClickTimer);
+          bgmClickTimer = null;
+          nextBgm();
+        } else {
+          bgmClickTimer = window.setTimeout(() => {
+            bgmClickTimer = null;
+            toggleBgm();
+          }, 250);
+        }
       });
 
       // ---------- 系列页顶栏：封面处透明浮层，滚过封面后加回底色保证可读 ----------
@@ -228,6 +343,36 @@ const path = Astro.url.pathname;
       }
       updateHeader();
       window.addEventListener('scroll', updateHeader, { passive: true });
+
+      // ---------- 手机端：汉堡按钮开合整排栏目 ----------
+      // 顶栏在窄屏会换行，展开菜单后高度变了，重新量一次写进 --header-h
+      // （单幅作品页左侧抽屉要贴着顶栏下沿，高度不对就会露出一条缝）
+      const navToggle = document.getElementById('nav-toggle');
+      function syncHeaderHeight() {
+        if (headerEl) document.documentElement.style.setProperty('--header-h', headerEl.offsetHeight + 'px');
+      }
+      function setNavOpen(open) {
+        headerEl.classList.toggle('nav-open', open);
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+      }
+      navToggle.addEventListener('click', () => {
+        setNavOpen(!headerEl.classList.contains('nav-open'));
+        syncHeaderHeight(); // 展开/收起后顶栏高度变了，重新量
+      });
+      // 点菜单里的链接（换页或跳锚点）之后自动收起，免得挡住新页面
+      document.addEventListener('click', (e) => {
+        if (!headerEl.classList.contains('nav-open')) return;
+        if (e.target.closest('#site-nav a')) setNavOpen(false);
+      });
+      // 视口变宽回到电脑布局时，把手机菜单的状态清掉
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 640 && headerEl.classList.contains('nav-open')) setNavOpen(false);
+        syncHeaderHeight();
+      });
+      syncHeaderHeight();
+      // 换页后顶栏内容没变但字体可能刚落地，再量一次
+      window.addEventListener('load', syncHeaderHeight);
 
       // ---------- 明暗主题：默认跟设备，点过按钮之后记住选择 ----------
       const themeBtn = document.getElementById('theme-toggle');
@@ -267,32 +412,86 @@ const path = Astro.url.pathname;
       });
       renderThemeBtn();
 
-      // ---------- 首页背景：每次打开从作品里随机抽一张 ----------
+      // ---------- 首页背景：每次打开从作品里随机抽 5 张，轮播播放 ----------
       // 候选池写在首页的 <template data-hero-pool> 里（不用 <script> 存数据，
       // 因为换页时 execScripts 会把页面里的 script 当代码再跑一遍）
       function applyRandomHero() {
-        const img = document.querySelector('.hero img[data-hero-random]');
+        const hero = document.querySelector('.hero');
         const tpl = document.querySelector('template[data-hero-pool]');
-        if (!img || !tpl) return;
+        if (!hero || !tpl) return;
 
         let pool = [];
         try { pool = JSON.parse(tpl.innerHTML); } catch (e) { return; }
         if (!pool.length) return;
 
-        img.classList.remove('ready');
-        const pick = pool[Math.floor(Math.random() * pool.length)];
-        img.sizes = '100vw';
-        img.srcset = pick.srcset || '';
-        img.src = pick.src;
-        // 已经缓存过就直接显示，否则等加载完再淡入
-        if (img.complete) img.classList.add('ready');
-        else img.addEventListener('load', () => img.classList.add('ready'), { once: true });
+        // 随机抽 5 张（不重复；池子不足 5 张就全用）
+        const shuffled = [...pool].sort(() => Math.random() - 0.5);
+        const picks = shuffled.slice(0, 5);
+
+        // 清掉旧的轮播图与指示器（回到首页时可能已存在）
+        hero.querySelectorAll('.hero-slide').forEach((el) => el.remove());
+        hero.querySelectorAll('.hero-dots').forEach((el) => el.remove());
+
+        // 为每张建一个叠放的 img，第一张直接显示，其余透明
+        const slides = picks.map((pick, i) => {
+          const img = document.createElement('img');
+          img.className = 'hero-slide' + (i === 0 ? ' ready' : '');
+          img.alt = '';
+          img.fetchPriority = 'high';
+          img.decoding = 'async';
+          img.sizes = '100vw';
+          img.srcset = pick.srcset || '';
+          img.src = pick.src;
+          hero.appendChild(img);
+          return img;
+        });
+
+        // 右下角横杠指示器：每张一个，点击手动切换
+        const dots = document.createElement('div');
+        dots.className = 'hero-dots';
+        dots.setAttribute('role', 'tablist');
+        dots.setAttribute('aria-label', '选择背景图');
+        const dotEls = picks.map((_, i) => {
+          const d = document.createElement('button');
+          d.type = 'button';
+          d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+          d.setAttribute('role', 'tab');
+          d.setAttribute('aria-label', `背景图 ${i + 1}`);
+          d.addEventListener('click', () => goTo(i));
+          dots.appendChild(d);
+          return d;
+        });
+        hero.appendChild(dots);
+
+        // 切到第 n 张：交叉淡入淡出 + 轻微缩放动画
+        let cur = 0;
+        function goTo(n) {
+          if (n === cur) return;
+          slides[cur].classList.remove('ready');
+          slides[n].classList.add('ready');
+          dotEls[cur].classList.remove('active');
+          dotEls[n].classList.add('active');
+          cur = n;
+          // 手动点击后重置自动轮播计时
+          window.clearInterval(hero._heroTimer);
+          hero._heroTimer = window.setInterval(autoNext, 5000);
+        }
+        function autoNext() { goTo((cur + 1) % slides.length); }
+
+        if (slides.length < 2) return;
+        window.clearInterval(hero._heroTimer);
+        hero._heroTimer = window.setInterval(autoNext, 5000);
       }
       applyRandomHero();
 
       const lb = document.getElementById('lightbox');
+      // 触屏设备（手机 / 平板）：翻页用左右滑动、缩略图条不跟着自动滚。按指针类型判断，
+      // 不按宽度——横屏手机宽度能到 800+px，按宽度写会漏掉。
+      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
       const lbImg = lb.querySelector('img');
       const lbCap = lb.querySelector('.lb-title');
+      const lbLocation = lb.querySelector('.lb-location');
+      const lbTaken = lb.querySelector('.lb-taken');
       const lbExif = lb.querySelector('.lb-exif');
       const lbCounter = lb.querySelector('.lb-counter');
       let items = [];
@@ -303,9 +502,14 @@ const path = Astro.url.pathname;
       const lbThumbs = lb.querySelector('.lb-thumbs');
       const playBtn = lb.querySelector('.lb-play');
       const fullBtn = lb.querySelector('.lb-full');
+      const fillBtn = lb.querySelector('.lb-fill');
+      const shuffleBtn = lb.querySelector('.lb-shuffle');
       let zoom = 1;          // 当前缩放倍数
+      let slideDir = 1;      // 手机端翻页方向：+1 下一张，-1 上一张（见 open）
       let playing = false;   // 是否正在自动轮播
       let playTimer = null;
+      let fillMode = false;  // 是否「填满屏幕」：图片铺满全屏，隐藏背景与底部信息
+      let shuffle = false;   // 轮播顺序：false = 顺序，true = 随机（只影响自动轮播，手动翻页不变）
 
       // 序号显示成「1 / 10 · 城市切片」：不补零，分母是这一组照片的实际张数，
       // 数字后面跟所属系列名（从全部照片页进来时是「全部照片」）
@@ -340,6 +544,7 @@ const path = Astro.url.pathname;
             src: el.getAttribute('href'),
             title: el.dataset.title || '',
             series: el.dataset.series || '',
+            location: el.dataset.location || '',
             srcset: el.dataset.srcset || '',
             width: parseInt(el.dataset.width || '0'),
             height: parseInt(el.dataset.height || '0'),
@@ -348,7 +553,8 @@ const path = Astro.url.pathname;
         };
       }
 
-      // 渲染 EXIF 拍摄参数面板：单行展示 设备 · 焦段 · 光圈 · 快门 · ISO · 日期；无 EXIF 时隐藏
+      // 渲染 EXIF 拍摄参数面板：单行展示 设备 · 焦段 · 光圈 · 快门 · ISO；无 EXIF 时隐藏。
+      // 不含拍摄日期——日期在上一行的说明里已经显示，这里重复就没必要了。
       function renderExif(item) {
         const e = item.exif;
         if (!e) {
@@ -357,18 +563,30 @@ const path = Astro.url.pathname;
           return;
         }
         lbExif.hidden = false;
-        lbExif.textContent = [e.camera, e.focal, e.aperture, e.shutter, e.iso, e.taken]
+        lbExif.textContent = [e.camera, e.focal, e.aperture, e.shutter, e.iso]
           .filter(Boolean)
           .join(' · ');
       }
 
-      // 相邻预加载
+      // 渲染底部说明行：名称、拍摄地、拍摄时间同一行，段间距拉开层次。
+      // 各段为空时整个 span 隐藏（CSS :empty），只显示有的那些段。
+      function renderCaption(item) {
+        lbCap.textContent = item.title;
+        lbLocation.textContent = item.location;
+        lbTaken.textContent = item.exif?.taken ?? '';
+      }
+
+      // 相邻预加载：和 lbImg 一样带上 srcset + sizes，预热的是浏览器真正会选中的那一档，
+      // 而不是只下基础 src。否则滑动到相邻图时它还得现下载高清档，又会出现逐行加载。
       function preload(idx) {
-        const next = (idx + 1) % items.length;
-        const prev = (idx + items.length - 1) % items.length;
-        const img = new Image();
-        img.src = items[next].src;
-        new Image().src = items[prev].src;
+        const warm = (it) => {
+          const im = new Image();
+          im.sizes = '92vw';
+          if (it.srcset) im.srcset = it.srcset;
+          im.src = it.src;
+        };
+        warm(items[(idx + 1) % items.length]);
+        warm(items[(idx + items.length - 1) % items.length]);
       }
 
       // 切换图片（带过渡动画）；点击 [data-lightbox] 第一次调用即打开灯箱
@@ -397,24 +615,54 @@ const path = Astro.url.pathname;
         lb.classList.add('open');
         document.body.style.overflow = 'hidden';
 
+        // 手机端翻页是左右滑动，得知道往哪边滑：+1 = 看下一张（新图从右边进），
+        // -1 = 上一张。要在 idx 被改写之前算。
+        const prevIdx = idx;
+        slideDir = entering || newIdx > prevIdx ? 1 : -1;
+
         idx = (newIdx + items.length) % items.length;
         const item = items[idx];
 
-        // 重置缩放与拖动偏移；背景换成当前图的重度虚化版本；同步序号、下载链接、缩略图高亮、地址栏
+        // 重置缩放与拖动偏移；同步序号、下载链接、缩略图高亮、地址栏
+        // （背景虚化层挪到下方 onload 里再换，避免切图时闪一下黑——见 onload）
+        // 铺满模式下切图：保持铺满状态，等新图加载完再按新图尺寸重算铺满倍数
         zoom = 1;
         resetPan();
-        lbBg.style.backgroundImage = `url("${item.src}")`;
+        // 背景虚化层等新图加载完再换（见下方 onload）：换早了浏览器会先丢掉旧底图、
+        // 新底图还没下载好，露出灯箱自身的纯黑底（#050505），照片边缘以外就「闪一下黑」。
         updateCounter();
         syncUrl();
         syncThumbs();
         // 轮播中：为刚切到的新图重排下一拍（重新播进度、取新的随机时长）
         if (playing) scheduleNext();
 
-        // 切换过渡期间先隐藏 EXIF，避免显示上一张的参数
+        // 切换过渡期间先清空说明行，避免显示上一张的参数
+        lbCap.textContent = '';
+        lbLocation.textContent = '';
+        lbTaken.textContent = '';
         lbExif.hidden = true;
 
         // 切换前先预加载相邻图
         preload(idx);
+
+        // 手机端翻页：把「当前这张」定格成一个替身浮在同样的位置，等下让它往反方向滑出去。
+        // 之所以要替身：DOM 里只有一个 <img>，换 src 的瞬间旧图就没了，单靠它演不出「旧的滑走、
+        // 新的滑进来」。替身是 position:fixed 量在老图当时的屏幕位置上，所以不受布局变化影响。
+        // 注意必须挂在 #lightbox 里面——挂 body 上会被 z-index:100 的灯箱盖在底下。
+        let ghost = null;
+        if (isTouch && !entering && lbImg.getAttribute('src')) {
+          const r = lbImg.getBoundingClientRect();
+          ghost = lbImg.cloneNode(false);
+          ghost.removeAttribute('srcset');
+          ghost.removeAttribute('sizes');
+          ghost.className = 'lb-ghost';
+          ghost.setAttribute('aria-hidden', 'true');
+          ghost.style.cssText =
+            `position:fixed;left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px;` +
+            'margin:0;max-width:none;max-height:none;object-fit:contain;z-index:6;pointer-events:none;' +
+            'box-shadow:0 24px 80px rgba(0, 0, 0, 0.65);transition:none;opacity:1;';
+          lb.appendChild(ghost);
+        }
 
         // 先把新图放进去，设置初始状态
         // 用 srcset 选档：高分屏自动取最大档（2560），手机取小档
@@ -428,46 +676,97 @@ const path = Astro.url.pathname;
           lbImg.style.transition = 'none';
           lbImg.style.opacity = '0';
           lbImg.style.transform = `scale(${1.03 * zoom})`;
+        } else if (ghost) {
+          // 手机端翻页：新图先停在屏幕外待命（用 vw 而不是 %，竖图按自身宽度算位移
+          // 可能只挪出半个屏幕，露在边上）。这时它显示的还是旧图，但已经在屏幕外，看不见。
+          lbImg.style.transition = 'none';
+          lbImg.style.opacity = '1';
+          lbImg.style.transform = `scale(${zoom}) translateX(${slideDir * 100}vw)`;
         } else {
           lbImg.style.opacity = '0.3';
           lbImg.style.transform = `scale(${0.95 * zoom})`;
         }
 
-        const newImg = new Image();
-        newImg.onerror = () => {
-          // 加载失败也恢复，避免 isAnimating 卡死导致后续点图无效
-          lbCap.textContent = item.title + '（加载失败）';
-          settle();
-        };
-        newImg.onload = () => {
-          // 新图加载完成
+        // 等新图真正「下载完 + 解码成位图」再开始过渡动画，避免滑动时图片边解码边逐行画出。
+        // 关键：直接监听 lbImg 自己（带 srcset）的 load，而不是另开一个 new Image 只下
+        // item.src 那一份——lbImg 走 srcset 往往选了更高清的档，newImg 的 onload 先响、
+        // lbImg 那张还没好，滑动时就会「逐行加载」地渲染出来。
+        // 下载完成后再用 decode() 等它解码完毕，确保一次性绘出整张图。
+        const reveal = () => {
+          // 此刻图已在缓存里，换背景虚化层是瞬时的，不会闪黑
+          lbBg.style.backgroundImage = `url("${item.src}")`;
           lbCap.textContent = item.title;
           renderExif(item);
+          renderCaption(item);
+          // 铺满模式下切图：新图尺寸定下来后按它重算铺满倍数
+          if (fillMode) applyFillZoom();
           syncPan(false); // 新图的尺寸到这里才定下来，重新算一次能不能拖
 
-          if (entering) {
-            // 打开：一条过渡走完，淡入的同时从 1.03 收到 1，中途不会消失
-            void lbImg.offsetWidth;
-            lbImg.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
-            lbImg.style.opacity = '1';
-            lbImg.style.transform = `scale(${zoom})`;
-            setTimeout(settle, 350);
-            return;
+          const start = () => {
+            if (entering) {
+              // 打开：一条过渡走完，淡入的同时从 1.03 收到 1，中途不会消失
+              void lbImg.offsetWidth;
+              lbImg.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+              lbImg.style.opacity = '1';
+              lbImg.style.transform = `scale(${zoom})`;
+              setTimeout(settle, 350);
+              return;
+            }
+
+            if (ghost) {
+              // 手机端翻页：新图从侧边滑进来，旧图替身同时往反方向滑出去，两边一起动就是一次左右滑动。
+              // 先把起始位置重新摆一次：上面 applyFillZoom（铺满模式）可能刚把 transform
+              // 改回 scale(zoom)，不重摆的话图已经居中，这一步就滑不起来了。
+              lbImg.style.transition = 'none';
+              lbImg.style.transform = `scale(${zoom}) translateX(${slideDir * 100}vw)`;
+              void lbImg.offsetWidth;
+              lbImg.style.transition = 'transform 0.3s ease';
+              lbImg.style.transform = `scale(${zoom}) translateX(0)`;
+              ghost.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+              ghost.style.transform = `translateX(${-slideDir * 100}vw)`;
+              ghost.style.opacity = '0';
+              const dead = ghost;
+              ghost = null;
+              setTimeout(() => dead.remove(), 340);
+              setTimeout(settle, 300);
+              return;
+            }
+
+            // 翻页：先让当前图缩小淡出
+            lbImg.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+            lbImg.style.opacity = '0';
+            lbImg.style.transform = `scale(${0.95 * zoom})`;
+
+            // 等待当前图完全消失后，新图放大淡入
+            setTimeout(() => {
+              lbImg.style.transform = `scale(${zoom})`;
+              lbImg.style.opacity = '1';
+              settle();
+            }, 250);
+          };
+          // decode() 等图片解码成位图后再开始动画，杜绝滑动中的逐行渲染；
+          // 解码失败也照常开始（极少见，至少别卡死动画）。
+          if (typeof lbImg.decode === 'function') {
+            lbImg.decode().then(start, start);
+          } else {
+            start();
           }
-
-          // 翻页：先让当前图缩小淡出
-          lbImg.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-          lbImg.style.opacity = '0';
-          lbImg.style.transform = `scale(${0.95 * zoom})`;
-
-          // 等待当前图完全消失后，新图放大淡入
-          setTimeout(() => {
-            lbImg.style.transform = `scale(${zoom})`;
-            lbImg.style.opacity = '1';
-            settle();
-          }, 250);
         };
-        newImg.src = item.src;
+        const onErr = () => {
+          // 加载失败也恢复，避免 isAnimating 卡死导致后续点图无效
+          lbCap.textContent = item.title + '（加载失败）';
+          // 手机端翻页的替身留着会永远压在新图上，一并清掉
+          if (ghost) { ghost.remove(); ghost = null; }
+          settle();
+        };
+        // 同一张图可能已在缓存里（complete 且 naturalWidth>0），直接走 reveal；
+        // 否则等 lbImg 自己的 load 事件——它走 srcset，load 时选中的那一档才真的下好了。
+        if (lbImg.complete && lbImg.naturalWidth > 0) {
+          reveal();
+        } else {
+          lbImg.addEventListener('load', reveal, { once: true });
+          lbImg.addEventListener('error', onErr, { once: true });
+        }
       }
 
       function close() {
@@ -477,9 +776,19 @@ const path = Astro.url.pathname;
         resetPan();
         clearUrl();
         if (document.fullscreenElement) document.exitFullscreen();
+        // 关闭时退出「填满屏幕」，下次打开回到默认显示
+        if (fillMode) {
+          fillMode = false;
+          lb.classList.remove('fill');
+          fillBtn.classList.remove('on');
+          fillBtn.setAttribute('aria-label', '填满屏幕');
+          fillBtn.title = '填满屏幕（F）';
+        }
         lb.classList.remove('open');
         document.body.style.overflow = '';
         lbBg.style.backgroundImage = '';
+        // 手机端翻页的替身如果还在（动画没走完就关了），一并收掉
+        lb.querySelectorAll('.lb-ghost').forEach((g) => g.remove());
         lbImg.style.opacity = '';
         lbImg.style.transform = '';
       }
@@ -512,11 +821,20 @@ const path = Astro.url.pathname;
       function syncThumbs() {
         if (!lbThumbs.childElementCount) buildThumbs();
         [...lbThumbs.children].forEach((el, i) => el.classList.toggle('active', i === idx));
-        lbThumbs.querySelector('.lb-thumb.active')?.scrollIntoView({
-          inline: 'center',
-          block: 'nearest',
-          behavior: 'smooth',
-        });
+        const active = lbThumbs.querySelector('.lb-thumb.active');
+        if (!active) return;
+        // 内容溢出时（.overflow）用 flex-start 排，此时手动算 scrollLeft 把当前张居中。
+        // 不用 scrollIntoView：它会把祖先容器也一起滚，而且对 justify-content:center
+        // 的容器，左侧溢出区够不到，居中会失败。
+        const overflow = lbThumbs.scrollWidth > lbThumbs.clientWidth;
+        lbThumbs.classList.toggle('overflow', overflow);
+        if (!overflow) return;
+        // 只要「照片换了」（左右滑动、点箭头、按方向键、自动轮播）就把当前这张滚回可视区，
+        // 否则看到第 40 张时缩略图条还停在开头，对不上。
+        // 手指自己滑缩略图不会触发这里（syncThumbs 只在换图时调用），
+        // 所以「自由滑动」和「跟着当前张」两件事并不冲突。
+        const target = active.offsetLeft - (lbThumbs.clientWidth - active.offsetWidth) / 2;
+        lbThumbs.scrollTo({ left: target, behavior: 'smooth' });
       }
 
       // ---------- 放大后拖动画面 ----------
@@ -529,6 +847,14 @@ const path = Astro.url.pathname;
       let panning = false;
       let panFromX = 0;
       let panFromY = 0;
+      // 双指缩放（手机）：两指间距的变化倍数直接乘到 zoom 上。
+      // pinching 期间要压住单指拖动，否则两根手指各拖各的，画面会乱跳。
+      let pinching = false;
+      let pinchStartDist = 0;
+      let pinchStartZoom = 1;
+      function touchDist(t) {
+        return Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+      }
 
       // 可拖范围 = 画面超出窗口的那部分的一半（图是居中的）
       function panLimit() {
@@ -554,6 +880,7 @@ const path = Astro.url.pathname;
 
       figure.addEventListener('pointerdown', (e) => {
         if (e.button !== 0) return; // 只认左键（触屏也是 0）
+        if (pinching) return; // 正在双指缩放，别把它当成单指拖动
         const lim = panLimit();
         if (lim.x <= 0 && lim.y <= 0) return; // 画面完整可见，没什么可拖的
         panning = true;
@@ -565,7 +892,7 @@ const path = Astro.url.pathname;
         e.preventDefault();
       });
       figure.addEventListener('pointermove', (e) => {
-        if (!panning) return;
+        if (!panning || pinching) return;
         panX = e.clientX - panFromX;
         panY = e.clientY - panFromY;
         syncPan(false);
@@ -579,9 +906,54 @@ const path = Astro.url.pathname;
       figure.addEventListener('pointerup', endPan);
       figure.addEventListener('pointercancel', endPan);
 
-      // 窗口变了，可拖范围也跟着变，把画面收回边界内
+      // ---------- 手机双指缩放（触屏的放大镜替代品：手机上不显示放大/缩小按钮） ----------
+      // 两根手指落下 → 记下起始间距和当时的倍数；移动时按间距比例实时缩放。
+      // 单指轮到「拖动画面」管，所以这里只在两指时接管。
+      figure.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 2) return;
+        pinching = true;
+        panning = false;
+        pinchStartDist = touchDist(e.touches);
+        pinchStartZoom = zoom;
+      }, { passive: true });
+      figure.addEventListener('touchmove', (e) => {
+        if (!pinching || e.touches.length < 2 || !pinchStartDist) return;
+        if (e.cancelable) e.preventDefault(); // 别让浏览器顺手把整页缩放了
+        // 手机上和手指同步缩放，不加过渡动画，否则会拖在手指后面
+        zoom = Math.min(4, Math.max(1, pinchStartZoom * (touchDist(e.touches) / pinchStartDist)));
+        lbImg.style.transition = 'none';
+        lbImg.style.transform = `scale(${zoom})`;
+        syncPan(false);
+      }, { passive: false });
+      function endPinch(e) {
+        if (e.touches.length >= 2) return; // 还有两指在屏上，继续缩放
+        if (!pinching) return;
+        pinching = false;
+        pinchStartDist = 0;
+        // 缩放结束后把图收进边界内（放大过头时自动回正到能看见的范围）
+        lbImg.style.transition = 'transform 0.2s ease';
+        syncPan(true);
+      }
+      figure.addEventListener('touchend', endPinch, { passive: true });
+      figure.addEventListener('touchcancel', endPinch, { passive: true });
+
+      // 窗口变了（含手机转屏），可拖范围也跟着变，把画面收回边界内。
+      // 铺满模式下尺寸依赖窗口大小，得按新的长宽比重算一次倍数。
       window.addEventListener('resize', () => {
-        if (lb.classList.contains('open')) syncPan(false);
+        if (!lb.classList.contains('open')) return;
+        if (fillMode) applyFillZoom();
+        else syncPan(false);
+      });
+      // 手机横竖屏切换：resize 有时报的还是转屏前的尺寸（iOS 上尤其明显），
+      // 等布局定了再按新尺寸算一次，照片才不会停在错误的缩放上。
+      // 这里刻意不调 screen.orientation.lock——不锁方向，竖着拿就按竖屏排版，
+      // 横着拿就按横屏排版（版式见 global.css 里的 orientation 媒体查询）。
+      window.addEventListener('orientationchange', () => {
+        if (!lb.classList.contains('open')) return;
+        window.setTimeout(() => {
+          if (fillMode) applyFillZoom();
+          else syncPan(false);
+        }, 260);
       });
 
       // ---------- 放大 / 缩小 ----------
@@ -600,7 +972,49 @@ const path = Astro.url.pathname;
       }
       document.addEventListener('fullscreenchange', () => {
         fullBtn.classList.toggle('on', Boolean(document.fullscreenElement));
+        // 进出全屏时浏览器自己的工具栏收走/收回，可用高度变了（手机上尤其明显），
+        // 等一帧让新尺寸落定再重算：铺满模式重算倍数，否则把画面收回边界内。
+        requestAnimationFrame(() => {
+          if (!lb.classList.contains('open')) return;
+          if (fillMode) applyFillZoom();
+          else syncPan(false);
+        });
       });
+
+      // ---------- 填满屏幕：保持图片比例，放大到铺满整个屏幕 ----------
+      // 和放大镜同一套逻辑，只是自动算好倍数一步到位：取「宽、高各自要放大的
+      // 倍数」里较大的那个，短边一定被盖住、长边溢出（可拖动查看）。
+      // 不裁剪、不变形，顶栏和底部信息条都保留。
+      // 铺满状态会一直保持：切图、轮播都不退出，直到手动点按钮恢复。
+      function applyFillZoom() {
+        // 直接量图片当前「没缩放时」的显示尺寸，再算铺满整屏需要的倍数。
+        // transform 不参与布局，所以 offsetWidth/Height 拿到的始终是未放大的尺寸——
+        // 切图、转屏、进出全屏时都能直接重算，不用先清掉当前缩放。
+        // 以前这里是按 max-width:82vw / max-height:72vh 写死的，CSS 一改（手机端和
+        // 全屏下是别的比例）算出来就偏了，所以改成实测。
+        let baseW = lbImg.offsetWidth;
+        let baseH = lbImg.offsetHeight;
+        if (!baseW || !baseH) {
+          // 图还没排完版（拿不到尺寸）时退回按记录里的原始宽高 + 默认约束估算
+          const it = items[idx];
+          if (!it) return;
+          const fit = Math.min((0.82 * window.innerWidth) / it.width, (0.72 * window.innerHeight) / it.height);
+          baseW = it.width * fit;
+          baseH = it.height * fit;
+        }
+        zoom = Math.max(window.innerWidth / baseW, window.innerHeight / baseH);
+        lbImg.style.transition = 'transform 0.2s ease';
+        lbImg.style.transform = `scale(${zoom})`;
+        syncPan(true);
+      }
+      function toggleFill() {
+        fillMode = !fillMode;
+        fillBtn.classList.toggle('on', fillMode);
+        fillBtn.setAttribute('aria-label', fillMode ? '恢复默认显示' : '填满屏幕');
+        fillBtn.title = fillMode ? '恢复默认显示（F）' : '填满屏幕（F）';
+        if (fillMode) applyFillZoom();
+        else applyZoom(1);
+      }
 
       // ---------- 自动轮播 ----------
       // 每张停留 3–5 秒（随机），期间当前缩略图覆盖一层「从左到右变黑」的进度
@@ -631,7 +1045,26 @@ const path = Astro.url.pathname;
         if (!playing) return;
         // 上一张还在过渡动画里，稍等再切，避免被 open() 直接挡回而中断轮播
         if (isAnimating) { playTimer = setTimeout(tick, 250); return; }
-        open(idx + 1); // open() 内会重新排下一拍
+        open(shuffle ? randomNext() : idx + 1); // open() 内会重新排下一拍
+      }
+      // 随机模式下挑下一张：避开当前这张，避免连点同一张跳到"没变化"
+      function randomNext() {
+        if (items.length < 2) return idx;
+        let n = idx;
+        while (n === idx) n = Math.floor(Math.random() * items.length);
+        return n;
+      }
+      // 播放方式按钮：默认「循环」（按顺序放完从头再来），点一次变「随机」，再点切回
+      function updateShuffleUI() {
+        const label = shuffle ? '随机' : '循环';
+        shuffleBtn.classList.toggle('on', shuffle);
+        shuffleBtn.setAttribute('aria-pressed', String(shuffle));
+        shuffleBtn.setAttribute('aria-label', `播放方式：${label}`);
+        shuffleBtn.title = `播放方式：${label}（点击改为${shuffle ? '循环' : '随机'}）`;
+      }
+      function toggleShuffle() {
+        shuffle = !shuffle;
+        updateShuffleUI();
       }
       function stopPlay() {
         playing = false;
@@ -658,10 +1091,12 @@ const path = Astro.url.pathname;
           if (e.target.closest('.lb-zoomout')) { applyZoom(zoom - 0.25); return; }
           if (e.target.closest('.lb-zoomin')) { applyZoom(zoom + 0.25); return; }
           if (e.target.closest('.lb-play')) { togglePlay(); return; }
+          if (e.target.closest('.lb-shuffle')) { toggleShuffle(); return; }
           if (e.target.closest('.lb-full')) { toggleFull(); return; }
+          if (e.target.closest('.lb-fill')) { toggleFill(); return; }
           if (e.target.closest('.lb-prev')) { open(idx - 1); return; }
           if (e.target.closest('.lb-next')) { open(idx + 1); return; }
-          if (e.target.closest('.lb-back') || e.target.closest('.lb-close')) { close(); return; }
+          if (e.target.closest('.lb-back')) { close(); return; }
           const thumb = e.target.closest('.lb-thumb');
           if (thumb) { open(Number(thumb.dataset.i)); return; }
           if (e.target.closest('.lb-bg')) { close(); return; }
@@ -681,25 +1116,76 @@ const path = Astro.url.pathname;
         siteNav(e);
       });
 
-      // 触屏左右滑动
+      // ---------- 手机左右滑动翻页 + 双击铺满 ----------
+      // 单指横向滑动 = 上一张 / 下一张；两指缩放和「已放大后的拖动」都不算翻页。
+      // 起止点都用同一套坐标（clientX/clientY）来比，才能正确判断这次滑动是不是横向的。
+      // 双击图片 = 铺满屏幕 / 恢复默认（和电脑端按 F、点铺满按钮一个效果）。
       let touchStartX = 0;
-      let touchEndX = 0;
+      let touchStartY = 0;
+      let swiping = false;
+      let tapOnImage = false;   // 这一手的起点是不是落在图片上（只有按在图上的双击才算铺满）
+      let lastTapTime = 0;     // 上一次「点图」的时间戳，用来判双击
+      let lastTapX = 0;
+      let lastTapY = 0;
       lb.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
+        // 从底部缩略图条上起手的滑动归缩略图自己横向滚，不算翻页（两件事互不干扰）
+        if (e.target.closest('.lb-thumbs')) { swiping = false; return; }
+        if (e.touches.length !== 1) { swiping = false; return; } // 多指 = 缩放，不翻页
+        swiping = true;
+        // 点在 figure / 图片上才走双击铺满；点在虚化背景上保持「单击关闭」的既有行为
+        tapOnImage = !!e.target.closest('figure');
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
       }, { passive: true });
 
       lb.addEventListener('touchend', (e) => {
-        // 放大状态下手指是用来拖画面的，别顺手把图翻走了
-        if (zoom > 1) return;
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        // 最小滑动距离 50px，且横向为主（X 方向移动远于 Y 方向）
-        const minSwipe = 50;
-        const isHorizontal = Math.abs(diff) > Math.abs(touchStartX - e.changedTouches[0].screenY);
-        if (Math.abs(diff) > minSwipe && isHorizontal) {
-          if (diff > 0) open(idx + 1);
-          else open(idx - 1);
+        if (!swiping) return;
+        swiping = false;
+        if (pinching) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - touchStartX;
+        const dy = t.clientY - touchStartY;
+        const absDx = Math.abs(dx);
+        const absDy = Math.abs(dy);
+
+        // 位移几乎为零 = 「点」而不是「滑」：交给双击检测
+        if (absDx < 10 && absDy < 10) {
+          if (tapOnImage) {
+            const now = Date.now();
+            if (now - lastTapTime < 300 && Math.hypot(t.clientX - lastTapX, t.clientY - lastTapY) < 40) {
+              // 双击图片：切换铺满 / 恢复默认
+              lastTapTime = 0;
+              toggleFill();
+            } else {
+              lastTapTime = now;
+              lastTapX = t.clientX;
+              lastTapY = t.clientY;
+            }
+          }
+          return;
         }
+
+        // 至少滑 50px，且明显是横向（横向位移要压过纵向，避免斜滑误翻页）
+        if (absDx < 50 || absDx < absDy * 1.2) return;
+
+        // 手动放大（非铺满）状态下手指是用来拖画面的，别顺手把图翻走
+        if (zoom > 1 && !fillMode) return;
+
+        // 铺满模式下：图片可能比屏幕宽，得先拖到边缘、再继续往同方向滑才翻页，
+        // 否则正常拖动会被误判成翻页。图比屏幕窄时（lim.x === 0，如竖图在竖屏手机上）
+        // 没有横向可拖的余地，直接翻。
+        // 方向对应：向左滑（dx<0）到图片右边缘（panX = -lim.x）→ 下一张；
+        //           向右滑（dx>0）到图片左边缘（panX = +lim.x）→ 上一张。
+        if (fillMode) {
+          const lim = panLimit();
+          if (lim.x > 0) {
+            if (dx < 0 && panX > -lim.x) return; // 还没到图片右边缘，让拖动接管
+            if (dx > 0 && panX < lim.x) return;  // 还没到图片左边缘，让拖动接管
+          }
+        }
+
+        if (dx < 0) open(idx + 1); // 向左滑 → 下一张
+        else open(idx - 1);        // 向右滑 → 上一张
       }, { passive: true });
 
       document.addEventListener('keydown', (e) => {
@@ -707,9 +1193,10 @@ const path = Astro.url.pathname;
         if (e.key === 'Escape') close();
         if (e.key === 'ArrowLeft') open(idx - 1);
         if (e.key === 'ArrowRight') open(idx + 1);
-        // 空格 播放/暂停轮播，F 沉浸式
+        // 空格 播放/暂停轮播，F 填满屏幕，S 全屏显示
         if (e.key === ' ') { e.preventDefault(); togglePlay(); }
-        if (e.key === 'f' || e.key === 'F') toggleFull();
+        if (e.key === 'f' || e.key === 'F') toggleFill();
+        if (e.key === 's' || e.key === 'S') toggleFull();
       });
 
       // 深链：/series/xxx/?p=3 直接打开第 3 张（与参考站 ?p=N 结构一致）
@@ -745,7 +1232,10 @@ const path = Astro.url.pathname;
           if (!items.length) return;
 
           const width = gallery.clientWidth;
-          const colCount = width < 400 ? 1 : width < 768 ? 2 : width < 1000 ? 3 : 4;
+          // 手机也排两列（原来 400px 以下只有一列，一屏放不下几张）。
+          // 列数与 Gallery.astro 里 <img sizes> 的档位、以及 global.css 里
+          // 手机端的窄缝（.gallery/.g-col 的 gap）是对应的，改一处要一起改。
+          const colCount = width < 768 ? 2 : width < 1000 ? 3 : 5;
 
           const cols = Array.from({ length: colCount }, () => {
             const el = document.createElement('div');
@@ -778,6 +1268,110 @@ const path = Astro.url.pathname;
       window.addEventListener('resize', () => {
         clearTimeout(galleryResizeTimer);
         galleryResizeTimer = setTimeout(layoutGalleries, 150);
+      });
+
+      // ---------- 按年份 / 色调筛选（单幅作品页） ----------
+      // 点按钮 → 只留下符合条件的照片，两个维度是「并且」的关系（2024 + 蓝色）。
+      // 做法是把不符合的 .g-item 从画廊里「摘出去」，放进一个刻意不挂到页面上的
+      // 容器（filterPool），再重新分栏。
+      // 之所以是摘出去而不是 display:none：图片的 DOM 顺序就是灯箱的翻页顺序，
+      // 摘掉之后灯箱、缩略图条自动只认筛出来的这些图，不用另维护一份列表；
+      // 而且 .g-item 有 display:block 样式，hidden 属性压不住它。
+      const filterPool = document.createElement('div');
+      // 两个维度都为空 = 全部。没有「全部」按钮，再点一次选中的按钮即取消。
+      let filterState = { year: '', color: '' };
+      const yearBtns = () => [...document.querySelectorAll('.year-filter .year-btn')];
+      const colorBtns = () => [...document.querySelectorAll('.color-filter button')];
+
+      function applyFilter() {
+        const galleries = [...document.querySelectorAll('[data-gallery]')];
+        // 先认门：给「当前还在画廊里」的每张图记下它属于哪个画廊。这一步只扫画廊，
+        // 不能顺手扫池子——摘进池子里的图不在文档里、查不到，它们靠上一次盖的章
+        // 保命，这里动了它们就会永远找不回来。
+        galleries.forEach((gallery, i) => {
+          gallery.querySelectorAll('.g-item').forEach((item) => {
+            item.dataset.gi = String(i);
+          });
+        });
+        // 池子里的图单独捞一遍；两边合起来按原始顺序排，
+        // 因为分栏后的 DOM 顺序是「按列」的，直接追加会把照片顺序打乱。
+        const all = [
+          ...document.querySelectorAll('.g-item'),
+          ...filterPool.querySelectorAll('.g-item'),
+        ].sort((a, b) => Number(a.dataset.order ?? 0) - Number(b.dataset.order ?? 0));
+
+        // 一律按顺序重新追加一遍（不省这一步）：已经在画廊里的图如果原地不动，
+        // 会停在上次分栏留下的位置，整组的顺序就乱了。
+        all.forEach((item) => {
+          const tags = (item.dataset.color || '').split(' ');
+          const keep =
+            (!filterState.year || item.dataset.year === filterState.year) &&
+            (!filterState.color || tags.includes(filterState.color));
+          // 万一哪张图没盖上章，退回第一个画廊，宁可放错位置也别让它凭空消失
+          const home = keep ? galleries[Number(item.dataset.gi)] ?? galleries[0] : filterPool;
+          if (home) home.appendChild(item);
+        });
+        // 一张不剩的类别整块收起来（包括本来就空的「整理中」占位），免得还杵着
+        // 一堆空标题。必须在分栏之前做：隐藏的容器宽度为 0，分栏会按单列去排。
+        const filtering = Boolean(filterState.year) || Boolean(filterState.color);
+        document.querySelectorAll('main section').forEach((section) => {
+          if (!section.querySelector('[data-gallery], .page-empty')) return;
+          section.hidden = filtering && !section.querySelectorAll('.g-item').length;
+        });
+        // 筛选后照片少了，分栏要重排（全在池子里的空画廊会自己塌掉）
+        layoutGalleries();
+        // 每个类别标题后的张数跟着筛选结果走：数一下该 section 里还剩几张。
+        document.querySelectorAll('main section[data-cat]').forEach((section) => {
+          const count = section.querySelectorAll('[data-gallery] .g-item').length;
+          const el = section.querySelector('.cat-count');
+          if (el) el.textContent = String(count);
+        });
+        // 灯箱的图列表是首次打开时缓存的，筛完必须作废重建
+        links = [];
+        items = [];
+        lbThumbs.replaceChildren();
+        // 两组按钮都要刷，不能只刷刚点的那组：点色调的时候如果年份按钮不更新，
+        // 会让人以为年份被清空了（其实没有）
+        yearBtns().forEach((b) => {
+          const on = (b.dataset.year || '') === filterState.year;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        colorBtns().forEach((b) => {
+          const on = (b.dataset.color || '') === filterState.color;
+          b.classList.toggle('is-on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        // 两个维度都选上时可能一张都不剩，给一句提示，免得看着像页面坏了。
+        // 元素每次现查：换页会把整个 <main> 换掉，缓存下来的引用会指向已移除的节点。
+        const visibleCount = document.querySelectorAll('[data-gallery] .g-item').length;
+        const emptyEl = document.querySelector('.filter-empty');
+        if (emptyEl) emptyEl.hidden = !(filtering && visibleCount === 0);
+        // 播报当前筛选给屏幕阅读器。色块本身没有文字，这是唯一不依赖颜色的线索。
+        const statusEl = document.querySelector('.filter-status');
+        if (statusEl) {
+          const parts = [];
+          if (filterState.color) parts.push(`${filterState.color}色调`);
+          if (filterState.year) parts.push(`${filterState.year} 年`);
+          statusEl.textContent = parts.length
+            ? `已筛选：${parts.join(' · ')}，共 ${visibleCount} 张`
+            : '显示全部照片';
+        }
+      }
+
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.year-filter .year-btn, .color-filter button');
+        if (!btn || lb.classList.contains('open')) return;
+        // 没有「全部」按钮：点中的按钮再点一次就取消选中，等于恢复全部。
+        // 分派看按钮自己的选中状态，而不是回头再读 filterState，
+        // 免得状态和视觉不同步时越点越乱。
+        const again = btn.classList.contains('is-on');
+        if (btn.classList.contains('year-btn')) {
+          filterState.year = again ? '' : btn.dataset.year || '';
+        } else {
+          filterState.color = again ? '' : btn.dataset.color || '';
+        }
+        applyFilter();
       });
 
       // ---------- 局部页面切换：整站不刷新，背景音乐不中断 ----------
@@ -838,6 +1432,10 @@ const path = Astro.url.pathname;
           links = [];
           items = [];
           lbThumbs.replaceChildren();
+          filterPool.replaceChildren(); // 上一页筛掉的图（已脱离文档）也没用了
+          // 新页面的筛选按钮默认都是未选中，状态必须跟着归零：只清 DOM 不清这里，
+          // 按钮显示未选中、语义却还停在上一页的筛选上，下次一点就错乱
+          filterState = { year: '', color: '' };
           delete document.body.dataset.galleryStamped;
           execScripts(newMain);
           // 新页面的照片按同一套规则重新分栏 + 重新记录顺序

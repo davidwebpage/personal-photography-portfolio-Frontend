@@ -182,8 +182,15 @@ function countBands(values: (number | null)[], bands: Band[]): number[] {
   return counts;
 }
 
-/** 把计数整理成一行行展示数据；空档位也保留，保证每一档都看得见 */
-function buildPanel(title: string, values: (number | null)[], bands: Band[]): StatPanel {
+/** 把计数整理成一行行展示数据；空档位也保留，保证每一档都看得见。
+ *  传 sortByCount 时改成「只露用过的档、并按张数从多到少排」——焦段分布用这套，
+ *  让人一眼看出自己最常用哪一段，而不是按焦距从小到大排。 */
+function buildPanel(
+  title: string,
+  values: (number | null)[],
+  bands: Band[],
+  opts?: { sortByCount?: boolean },
+): StatPanel {
   const counts = countBands(values, bands);
   const parsed = counts.reduce((a, b) => a + b, 0);
   const rows: StatRow[] = [];
@@ -196,6 +203,11 @@ function buildPanel(title: string, values: (number | null)[], bands: Band[]): St
       percent: Math.round(ratio * 1000) / 10, // 条形宽度：保留一位小数
     });
   });
+  if (opts?.sortByCount) {
+    // 丢掉没用过的档，剩下的按张数降序（张数相同的保持原焦距顺序）
+    rows.sort((a, b) => b.count - a.count);
+    return { title, rows: rows.filter((r) => r.count > 0), parsed, missing: values.length - parsed };
+  }
   return { title, rows, parsed, missing: values.length - parsed };
 }
 
@@ -256,7 +268,7 @@ export function computeExifStats(photos: ExifPhoto[]): ExifStats {
     // 快门天梯保留空档位：连贯的梯子才看得出自己常在哪一段、哪一段从来没用过
     buildPanel('快门天梯', shutters, SHUTTER_BANDS),
     buildPanel('ISO区间', isos, ISO_BANDS),
-    { ...buildPanel('焦段分布', focals, FOCAL_BANDS), wide: true },
+    { ...buildPanel('焦段分布', focals, FOCAL_BANDS, { sortByCount: true }), wide: true },
   ].filter((p) => p.parsed > 0);
 
   // ---- 总览 ----

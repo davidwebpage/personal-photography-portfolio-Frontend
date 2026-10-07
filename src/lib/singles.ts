@@ -20,11 +20,19 @@ export const singles = allPhotos.filter(
   (p) => categorySlugs.has(p.series) && !seriesSlugs.has(p.series),
 );
 
+// 拍摄日期（EXIF 里的 taken，形如 "2026-09-20"）。字符串按字典序比就是按时间比。
+// 没有日期的返回空串，倒序排序时自然落到最后。
+const takenOf = (p: (typeof allPhotos)[number]) => p.exif?.taken ?? '';
+
 // 按类别分组：返回 [{ category, photos }]，类别顺序按 single-categories.json。
 // 空类别也返回（photos 为空数组），页面会显示占位，保证 5 个类别始终可见。
+// 类别内部按拍摄时间倒序：最近拍的在最前面。
 export function singlesByCategory() {
   return allCategories.map((c) => ({
     category: c,
-    photos: singles.filter((p) => p.series === c.slug),
+    photos: singles
+      .filter((p) => p.series === c.slug)
+      .slice()
+      .sort((a, b) => takenOf(b).localeCompare(takenOf(a))),
   }));
 }

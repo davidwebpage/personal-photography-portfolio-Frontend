@@ -13,14 +13,20 @@ const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
 }));
 ---
 
-<Base title="David photograph · 摄影作品集" description="个人摄影作品集：风光、纪实、旅行摄影系列">
+<Base title="David Photography · 摄影作品集" description="个人摄影作品集：风光、纪实、旅行摄影系列">
   <section class="hero">
     <!-- 背景图不写死 src，由脚本从下面这个池子里随机挑一张再写上 -->
     <img data-hero-random alt="" fetchpriority="high" decoding="async" />
     <template data-hero-pool set:html={JSON.stringify(heroPool)}></template>
     <div class="hero-text">
-      <h1>用影像和时间做朋友</h1>
-      <p>David photograph · 摄影作品集</p>
+      <!-- 字标用图片而不是 <h1> 文字：public/brand/slogan.webp。
+           写死 width/height，图没下载完也不会先把副标题顶下去 -->
+      <img class="hero-wordmark" src="/brand/slogan.webp" width="1361" height="216" alt="用影像和时间做朋友" />
+      <p>David Photography · 摄影作品集</p>
+      <div class="hero-actions">
+        <a class="hero-btn" href="/single/">单幅作品</a>
+        <a class="hero-btn hero-btn-ghost" href="/series/">系列作品</a>
+      </div>
     </div>
   </section>
 </Base>

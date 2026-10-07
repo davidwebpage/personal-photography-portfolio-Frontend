@@ -9,10 +9,16 @@
     "build": "astro build",
     "preview": "astro preview",
     "placeholders": "node scripts/gen-placeholders.mjs",
-    "photos": "node scripts/build-photos.mjs"
+    "photos": "node scripts/build-photos.mjs",
+    "from-sheet": "node scripts/build-from-sheet.mjs",
+    "colors": "node scripts/color-tags.mjs",
+    "changelog": "node scripts/changelog.mjs",
+    "test": "node --test scripts/lib/*.test.mjs"
   },
   "dependencies": {
-    "astro": "^5.13.0"
+    "astro": "^5.13.0",
+    "exceljs": "^4.4.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "sharp": "^0.34.3"

@@ -1,2 +1,38 @@
 [
+  {
+    "slug": "tianlu",
+    "title": "天路",
+    "subtitle": "系列副标题待填",
+    "description": "路，是山野本不具备的褶皱。几千年的屹立，几十年的征程，这道新来的线，顺着山势起伏，一道拐弯，云漫上来，路便成了景的一部分，安静得像原本就长在这里。一代人征一程，在几乎不该有路的地方，也未曾停下，把「不可至」一寸寸挪成「通途」。",
+    "cover": "/photos/tianlu/云海公路-1600.webp"
+  },
+  {
+    "slug": "guanzhongyuguanzhong",
+    "title": "观众与\"观\"众",
+    "subtitle": "系列副标题待填",
+    "description": "系列简介待填。",
+    "cover": "/photos/guanzhongyuguanzhong/观众与观众-1600.webp"
+  },
+  {
+    "slug": "wanbansecaijianbenzhen",
+    "title": "万般色彩见本真",
+    "subtitle": "系列副标题待填",
+    "description": "系列简介待填。",
+    "cover": "/photos/wanbansecaijianbenzhen/烟雾之中-1600.webp"
+  },
+  {
+    "slug": "niguangzhixia",
+    "title": "逆光之下",
+    "subtitle": "系列副标题待填",
+    "description": "系列简介待填。",
+    "cover": "/photos/niguangzhixia/雪地泛金-1600.webp"
+  },
+  {
+    "slug": "commercial",
+    "title": "商业拍摄",
+    "subtitle": "内容整理中",
+    "description": "内容整理中，稍后补充。",
+    "cover": "",
+    "pending": true
+  }
 ]

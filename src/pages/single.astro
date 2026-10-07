@@ -4,29 +4,228 @@
 import Base from '../layouts/Base.astro';
 import Gallery from '../components/Gallery.astro';
 import { singlesByCategory } from '../lib/singles';
+// 档位清单和取色规则只有一份，放在脚本那边，这里引过来用。
+// 那个文件是纯函数、不依赖 sharp，站点构建引用它是安全的。
+import { COLOR_ORDER } from '../../scripts/lib/colors.mjs';
 
 const groups = singlesByCategory();
+
+// 年份筛选按钮：年份来自每张照片 EXIF 里的拍摄日期，去重后从新到旧。
+// 没有拍摄日期的照片不参与筛选（只在「全部」里出现）。
+const years = [
+  ...new Set(
+    groups
+      .flatMap(({ photos }) => photos.map((p) => p.exif?.taken?.slice(0, 4)))
+      .filter((y): y is string => Boolean(y)),
+  ),
+].sort((a, b) => b.localeCompare(a));
+
+// 色调筛选：先看哪些档位真的有照片。没照片的档位按钮要「禁用」而不是「不渲染」——
+// 圆点排成一条，抽掉中间的点会破出缺口，看着就不像一条色带了。
+const present = new Set(groups.flatMap(({ photos }) => photos.flatMap((p) => p.colors ?? [])));
+const hasAnyColor = present.size > 0;
+
+// 档位名 → CSS 变量名。色值定义在 global.css 的 :root 里，明暗两套。
+const COLOR_VAR = {
+  红: 'red',
+  橙: 'orange',
+  黄: 'yellow',
+  绿: 'green',
+  青: 'cyan',
+  蓝: 'blue',
+  紫: 'purple',
+};
+const hasFilterBar = years.length > 1 || hasAnyColor;
 ---
 
 <Base title="单幅作品 · 摄影作品集" description="单幅摄影作品，按类别分组">
+  {/* 左侧类别导航：平时藏在左缘外，鼠标移到左边时从左侧滑入。
+      当前类别中等字号、金色；鼠标悬停的那个最大。 */}
+  <nav class="side-nav" aria-label="类别导航">
+    {/* 电脑端：一个 › 箭头，提示鼠标放到左缘会有导航浮现（装饰用，不接收点击）。
+        手机端：它变成一个真按钮，点一下把类别抽屉推开、再点一下收起。 */}
+    <button class="nav-hint" type="button" aria-label="展开类别导航" aria-expanded="false" aria-controls="side-nav-panel"></button>
+    <ul class="nav-panel" id="side-nav-panel">
+      {groups.map(({ category }) => (
+        <li><a href={`/single/#cat-${category.slug}`} data-cat={category.slug}>{category.title}</a></li>
+      ))}
+    </ul>
+  </nav>
+
   <div class="container">
     <h1 class="section-title">单幅作品</h1>
+
+    <div class="filters">
+      {/* 只有一个年份时筛选没有意义，就不显示这排按钮。
+          没有「全部」按钮：一个都没选中就是全部，再点一次选中的年份即取消。 */}
+      {years.length > 1 && (
+        <div class="year-filter" role="group" aria-label="按拍摄年份筛选，再点一次取消选择">
+          {years.map((y) => (
+            <button type="button" class="year-btn" data-year={y} aria-pressed="false" title={`只看 ${y} 年（再点一次取消）`}>{y}</button>
+          ))}
+        </div>
+      )}
+
+      {/* 色调圆点。同样是「再点一次取消」，两个维度可以叠加（2024 + 蓝色）。
+          圆点只在对照片打过色调标签后出现；一张都没打过就整块隐藏，页面退化成原样。 */}
+      {hasAnyColor && (
+        <div class="color-filter">
+          <div class="color-band" role="group" aria-label="按色调筛选，再点一次取消选择">
+            {COLOR_ORDER.map((c) => {
+              const on = present.has(c);
+              return (
+                <button
+                  type="button"
+                  class="color-seg"
+                  data-color={c}
+                  style={`background: var(--c-${COLOR_VAR[c]})`}
+                  aria-label={on ? `${c}色调` : `${c}色调，暂无照片`}
+                  aria-pressed="false"
+                  disabled={!on}
+                  title={on ? `只看${c}色调（再点一次取消）` : `还没有${c}色调的照片`}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+
     {groups.length === 0 ? (
       <p class="page-empty">单幅作品整理中，稍后更新。</p>
     ) : (
-      groups.map(({ category, photos }) => (
-        <section style="margin-bottom: 48px;">
+      groups.map(({ category, photos }, gi) => (
+        <section class="single-group" id={`cat-${category.slug}`} data-cat={category.slug}>
           <h2 style="color: var(--title); letter-spacing: 0.15em; font-size: 18px; margin: 0 0 18px;">
             {category.title}
-            <span style="color: var(--muted); font-size: 13px; margin-left: 8px;">{category.subtitle}</span>
+            <span class="cat-count" style="color: var(--muted); font-size: 13px; margin-left: 8px;">{photos.length}</span>
           </h2>
           {photos.length === 0 ? (
             <p class="page-empty" style="margin-top: 0;">这个类别的照片整理中，稍后更新。</p>
           ) : (
-            <Gallery photos={photos} seriesName={category.title} />
+            <Gallery photos={photos} seriesName={category.title} eager={gi === 0 ? 2 : 0} />
           )}
         </section>
       ))
     )}
+
+    {/* 组合筛选（年份 + 色调）可能一个都不剩。必须是 section 的兄弟节点：
+        放进 section 里会被 Base.astro 那段「隐藏空分组」的逻辑当成画廊内容处理。 */}
+    <p class="page-empty filter-empty" hidden>这个筛选组合下没有照片，试试取消一个条件。</p>
   </div>
+
+  {/* is:inline 是必须的：站内换页只替换 <main> 并重跑「行内」脚本，
+      打包过的外部脚本不会重跑——写成不带 is:inline 的普通脚本标签的话，
+      从别的页面切回来导航就再也不更新了。
+      注意：注释里别写字面的 script 标签，Astro 的脚本扫描器会把它当成真的脚本开始，
+      dev 模式下直接报语法错。 */}
+  <script is:inline>
+    // 顶栏的实测高度写进 --header-h。左侧蒙版要从顶栏下沿开始铺而不是从屏幕顶铺，
+    // 否则顶栏会把蒙版顶部盖住一截，交界处出现一条硬边（详见 global.css 的 .side-nav）。
+    // 顶栏在窄屏会换行变高，所以 resize 要重测；换页会重建这段脚本，
+    // 用 window 上的引用把上一次的监听摘掉，避免越积越多。
+    (function () {
+      const set = () => {
+        const h = document.querySelector('.site-header');
+        if (h) document.documentElement.style.setProperty('--header-h', h.offsetHeight + 'px');
+      };
+      set();
+      if (window.__headerHSet) window.removeEventListener('resize', window.__headerHSet);
+      window.__headerHSet = set;
+      window.addEventListener('resize', set);
+    })();
+
+    // 左侧类别导航：手机端点箭头开合抽屉。
+    // 电脑端这个按钮是装饰（pointer-events:none），点了也没反应，所以这段只在窄屏生效。
+    (function () {
+      const nav = document.querySelector('.side-nav');
+      if (!nav) return;
+      const hint = nav.querySelector('.nav-hint');
+      if (!hint) return;
+      const setOpen = (open) => {
+        nav.classList.toggle('open', open);
+        hint.setAttribute('aria-expanded', String(open));
+        hint.setAttribute('aria-label', open ? '收起类别导航' : '展开类别导航');
+      };
+      hint.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+      // 点某个类别（跳锚点）之后自动收起，把页面让出来
+      nav.querySelectorAll('.nav-panel a').forEach((a) => {
+        a.addEventListener('click', () => setOpen(false));
+      });
+      // 点抽屉以外的地方也收起。
+      // 只有「点类别链接」和「点那个开合箭头」不算点别处——其余一律收起。
+      // 面板本身 pointer-events:none，外面那层透明膜接住点击后 target 就是 .side-nav 本身，
+      // 所以不能再写「target 在 .side-nav 里就不收」——那样永远收不起来。
+      document.addEventListener('click', (e) => {
+        if (!nav.classList.contains('open')) return;
+        if (e.target.closest('.nav-panel a') || e.target.closest('.nav-hint')) return;
+        setOpen(false);
+      });
+
+      // 同上，但认的是「滑动」：在类别文字以外的地方横向划一下也收起抽屉。
+      // 事件挂在 nav 上就能收到——面板 pointer-events:none，点在空白处时命中的是
+      // 那层透明膜（.side-nav 的 ::after，target 就是 nav 本身）；点不到 nav 的情况
+      // 只剩 <a>，那一种被下面第一个判断挡掉。
+      let navTouchX = 0;
+      let navTouchY = 0;
+      nav.addEventListener('touchstart', (e) => {
+        if (!nav.classList.contains('open')) return;
+        if (e.touches.length !== 1) return;
+        if (e.target.closest('.nav-panel a')) return;
+        navTouchX = e.touches[0].clientX;
+        navTouchY = e.touches[0].clientY;
+      }, { passive: true });
+      nav.addEventListener('touchend', (e) => {
+        if (!nav.classList.contains('open')) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - navTouchX;
+        const dy = t.clientY - navTouchY;
+        // 明显是横向划（横向位移压过纵向）才算，斜着往下滚页面那种不误触
+        if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+        setOpen(false);
+      }, { passive: true });
+      // 从手机宽度转回电脑宽度时，清掉展开状态（电脑端靠悬停，不认这个类）
+      if (window.__sideNavDrawerResize) window.removeEventListener('resize', window.__sideNavDrawerResize);
+      window.__sideNavDrawerResize = () => {
+        if (window.innerWidth > 860 && nav.classList.contains('open')) setOpen(false);
+      };
+      window.addEventListener('resize', window.__sideNavDrawerResize);
+      // 换页回来时复位（局部换页只换 <main>，抽屉状态得自己清）
+      setOpen(false);
+    })();
+
+    // 左侧类别导航：滚动时高亮当前所在的类别（is-current → 中等字号 + 金色）。
+    (function () {
+      const nav = document.querySelector('.side-nav');
+      if (!nav) return;
+      const links = Array.from(nav.querySelectorAll('a[data-cat]'));
+      const sections = links
+        .map((a) => document.getElementById('cat-' + a.dataset.cat))
+        .filter(Boolean);
+      if (!sections.length) return;
+
+      // 判定线画在视口高度的 1/3 处：最后一个「顶部越过判定线」的类别就是当前类别。
+      // 比 IntersectionObserver 稳——那个在快速滚动和细长分组上会漏判。
+      const update = () => {
+        const line = window.innerHeight / 3;
+        let current = sections[0];
+        for (const s of sections) {
+          if (s.getBoundingClientRect().top <= line) current = s;
+          else break;
+        }
+        const slug = current.id.replace('cat-', '');
+        links.forEach((a) => a.classList.toggle('is-current', a.dataset.cat === slug));
+      };
+
+      // 换页会重建这段脚本，用 window 上的引用把上一次的监听摘掉，避免越积越多
+      if (window.__sideNavUpdate) {
+        window.removeEventListener('scroll', window.__sideNavUpdate);
+        window.removeEventListener('resize', window.__sideNavUpdate);
+      }
+      window.__sideNavUpdate = update;
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
 </Base>
