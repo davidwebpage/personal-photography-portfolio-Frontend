@@ -2,14 +2,15 @@
 // 首页：大图 hero
 // 背景图从所有照片里随机抽一张（抽取逻辑在 Base.astro 的 applyRandomHero）
 import Base from '../layouts/Base.astro';
+import { assetUrl, assetSrcset } from '../lib/asset-url';
 import allPhotos from '../data/photos.json';
 
 // 首页背景的候选池：每次打开随机抽一张（抽取逻辑在 Base.astro 的 applyRandomHero）。
 // 只用横构图——竖图铺满整屏会被裁掉大半；横图不够时再退回全部照片。
 const landscape = allPhotos.filter((p) => p.width >= p.height);
 const heroPool = (landscape.length ? landscape : allPhotos).map((p) => ({
-  src: p.src,
-  srcset: p.srcset,
+  src: assetUrl(p.src),
+  srcset: assetSrcset(p.srcset),
 }));
 ---
 

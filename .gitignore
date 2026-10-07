@@ -9,3 +9,8 @@ _masters/
 # Anaconda / Jupyter 在这个目录留下的杂物，与网站无关
 anaconda_projects/
 .ipynb_checkpoints/
+
+# 照片和音频已迁移到 Cloudflare R2 对象存储，本地保留用于开发
+# 线上从 R2 加载（环境变量 ASSET_BASE_URL）
+public/photos/
+public/audio/

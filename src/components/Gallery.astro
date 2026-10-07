@@ -10,6 +10,8 @@
 //
 // 样式与分栏脚本都在 global.css / Base.astro（全局），不放组件里：
 // 站内是局部换页（不刷新页面），组件级样式和脚本在换页后不一定生效
+import { assetUrl, assetSrcset } from '../lib/asset-url';
+
 interface Photo {
   id: string;
   src: string;
@@ -46,22 +48,22 @@ const { photos, seriesName = '全部照片', eager = 0 } = Astro.props;
 <div class="gallery" data-gallery>
   {photos.map((p, i) => (
     <a
-      href={p.src}
+      href={assetUrl(p.src)}
       data-lightbox
       data-title={p.title ?? ''}
       data-series={seriesName}
       data-location={p.location ?? ''}
       data-year={p.exif?.taken ? p.exif.taken.slice(0, 4) : ''}
       data-color={p.colors?.join(' ') || ''}
-      data-srcset={p.srcset}
+      data-srcset={assetSrcset(p.srcset)}
       data-width={p.width}
       data-height={p.height}
       data-exif={p.exif ? JSON.stringify(p.exif) : undefined}
       class="g-item"
     >
       <img
-        src={p.src}
-        srcset={p.srcset}
+        src={assetUrl(p.src)}
+        srcset={assetSrcset(p.srcset)}
         sizes="(max-width: 767px) 50vw, (max-width: 999px) 34vw, 259px"
         width={p.width}
         height={p.height}

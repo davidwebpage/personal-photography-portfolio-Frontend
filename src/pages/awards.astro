@@ -44,6 +44,7 @@
 // photoId 对应 src/data/photos.json 里某张照片的 id。同一张照片在类别页和
 // 获奖页都会出现，但文件只有一份——获奖只是「附加在照片上的一层信息」。
 import Base from '../layouts/Base.astro';
+import { assetUrl, assetSrcset } from '../lib/asset-url';
 import raw from '../data/awards.json';
 import allPhotos from '../data/photos.json';
 
@@ -196,19 +197,19 @@ const photosOf = (a: Award) =>
                   {photos.map((photo) => (
                     <a
                       class="award-photo"
-                      href={photo.src}
+                      href={assetUrl(photo.src)}
                       data-lightbox
                       data-title={photo.title || a.competition || ''}
                       data-series="获奖作品"
                       data-location={photo.location || ''}
-                      data-srcset={photo.srcset}
+                      data-srcset={assetSrcset(photo.srcset)}
                       data-width={photo.width}
                       data-height={photo.height}
                       data-exif={photo.exif ? JSON.stringify(photo.exif) : undefined}
                     >
                       <img
-                        src={photo.src}
-                        srcset={photo.srcset}
+                        src={assetUrl(photo.src)}
+                        srcset={assetSrcset(photo.srcset)}
                         sizes="(max-width: 640px) 100vw, 320px"
                         width={photo.width}
                         height={photo.height}

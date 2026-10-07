@@ -3,6 +3,7 @@
 import '../styles/global.css';
 // 背景音乐歌单（src/data/music.json）：整页打开时随机抽一首，站内跳页不换歌
 import music from '../data/music.json';
+import { assetUrl } from '../lib/asset-url';
 
 interface Props {
   title: string;
@@ -81,7 +82,7 @@ const path = Astro.url.pathname;
          歌单在 src/data/music.json，往 public/audio/ 里丢文件再往那份清单里加一行即可。
          用 <template> 传数据是因为站内换页只替换 <main>、只执行行内脚本，JSON 块会被丢掉 -->
     <audio id="bgm" preload="none"></audio>
-    <template data-music-pool set:html={JSON.stringify(music)}></template>
+    <template data-music-pool set:html={JSON.stringify(music.map((m) => ({ ...m, file: assetUrl(m.file) })))}></template>
     <!-- 选歌必须放在这儿、用行内脚本（is:inline）：解析到这个位置就定下 src，
          preload="none" 所以不会立刻下载，等用户点了播放才加载。
          提前定 src 是为了让 play() 被调用时不用再等一轮选曲。

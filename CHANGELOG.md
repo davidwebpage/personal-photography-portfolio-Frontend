@@ -2,6 +2,14 @@
 
 记录每次对网站的改动：更新了什么、怎么实现的。新条目在最上面。
 
+## 2026-10-08
+
+### 更新内容
+照片和音频迁移到 Cloudflare R2 对象存储，代码自动区分本地/生产环境
+
+### 实现方式
+创建 src/lib/asset-url.ts 工具：本地开发用本地路径，生产环境通过 ASSET_BASE_URL 环境变量自动加 R2 前缀；更新 Gallery.astro、awards.astro、index.astro、Base.astro 使用该工具；照片和音频从 git 移除（加入 .gitignore），本地保留用于开发；新增 wrangler 开发依赖
+
 ## 2026-10-07
 
 ### 更新内容
