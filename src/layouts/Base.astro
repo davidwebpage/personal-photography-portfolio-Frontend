@@ -80,10 +80,11 @@ const path = Astro.url.pathname;
          一轮放完才允许重复。右上角按钮可开关（默认开）。
          歌单在 src/data/music.json，往 public/audio/ 里丢文件再往那份清单里加一行即可。
          用 <template> 传数据是因为站内换页只替换 <main>、只执行行内脚本，JSON 块会被丢掉 -->
-    <audio id="bgm" preload="auto"></audio>
+    <audio id="bgm" preload="none"></audio>
     <template data-music-pool set:html={JSON.stringify(music)}></template>
     <!-- 选歌必须放在这儿、用行内脚本（is:inline）：解析到这个位置就定下 src，
-         浏览器立刻开始加载音乐——和以前把 src 直接写在 HTML 里是同一条起跑线。
+         preload="none" 所以不会立刻下载，等用户点了播放才加载。
+         提前定 src 是为了让 play() 被调用时不用再等一轮选曲。
          如果放到下面那个模块脚本里，要等 DOM 解析完才开跑，白白晚一截；
          要是「先写死一首、脚本再换掉」，又会白下载一遍不要的那首。 -->
     <script is:inline>
