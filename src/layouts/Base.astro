@@ -502,7 +502,16 @@ const path = Astro.url.pathname;
       const lb = document.getElementById('lightbox');
       // 触屏设备（手机 / 平板）：翻页用左右滑动、缩略图条不跟着自动滚。按指针类型判断，
       // 不按宽度——横屏手机宽度能到 800+px，按宽度写会漏掉。
-      const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      // 但媒体查询不能一家独大：部分手机浏览器、以及桌面端开的「手机模拟」调试环境里，
+      // hover/pointer 会报成桌面值，只认它会让滑动翻页整段失效，退回到「缩小-淡入」的旧动画。
+      // 所以再叠加真实的触摸能力兜底。
+      const isTouch =
+        window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+        (navigator.maxTouchPoints || 0) > 0 ||
+        'ontouchstart' in window;
+      // 翻页是「左右滑入滑出」还是「缩小淡出再淡入」：触屏设备用滑动；桌面端把窗口缩到
+      // 手机宽度（开发者工具常见的调试姿势）也按滑动走，免得同一套手机版式出现两种动画。
+      const useSlide = isTouch || window.matchMedia('(max-width: 900px)').matches;
       const lbImg = lb.querySelector('img');
       const lbCap = lb.querySelector('.lb-title');
       const lbLocation = lb.querySelector('.lb-location');
@@ -530,14 +539,28 @@ const path = Astro.url.pathname;
       // 数字后面跟所属系列名（从全部照片页进来时是「全部照片」）
       function updateCounter() {
         const name = items[idx]?.series || '';
-        lbCounter.textContent = `${idx + 1} / ${items.length}${name ? ` · ${name}` : ''}`;
+        // 拆成两段：窄屏只留「第几张 / 共几张」，系列名藏起来（见 global.css），
+        // 免得顶栏被撑到把右上角最后一个按钮挤出屏幕。
+        lbCounter.textContent = `${idx + 1} / ${items.length}`;
+        if (name) {
+          const series = document.createElement('span');
+          series.className = 'lb-counter-series';
+          series.textContent = ` · ${name}`;
+          lbCounter.appendChild(series);
+        }
       }
 
-      // 把当前张数写进地址栏（?p=N），可直接分享/刷新回到这一张；用 replaceState 不产生历史记录
-      function syncUrl() {
+      // 把当前张数写进地址栏（?p=N），可直接分享/刷新回到这一张。
+      // 从画廊点开灯箱时用 pushState 压一条历史：手机返回键 / 手势会先关掉灯箱回到画廊，
+      // 而不是把整页退掉（见 popstate）。灯箱里翻页只 replaceState，不越积历史。
+      let lbEntryPushed = false;   // 灯箱这一条历史是不是我们压的
+      let ignoreNextPop = false;   // 自己调 history.back() 收灯箱时，吞掉随之而来的 popstate
+      let openingFromUrl = false;  // 本次 open 是不是「带 ?p= 深链」进来的
+      function syncUrl(push) {
         const url = new URL(location.href);
         url.searchParams.set('p', String(idx + 1));
-        history.replaceState(history.state, '', url);
+        if (push) history.pushState({ lightbox: true }, '', url);
+        else history.replaceState(history.state, '', url);
       }
       function clearUrl() {
         const url = new URL(location.href);
@@ -625,6 +648,11 @@ const path = Astro.url.pathname;
         // 本次调用是「刚把灯箱打开」还是「已经在看，切到另一张」，两者动画不同：
         // 打开 = 原位淡入 + 轻微放大（一次过渡）；翻页 = 旧图缩小淡出 → 新图放大淡入
         const entering = !lb.classList.contains('open');
+        // 深链（?p=）打开时，当前这条历史本身就是灯箱的，不再额外压一条；
+        // 从画廊点开时才压，这样返回键先收灯箱、再退页面。
+        const fromUrl = openingFromUrl;
+        openingFromUrl = false;
+        const pushHistory = entering && !fromUrl;
 
         // 加 .open 让灯箱可见（CSS: #lightbox.open{display:flex}），并锁住页面滚动
         lb.classList.add('open');
@@ -646,7 +674,8 @@ const path = Astro.url.pathname;
         // 背景虚化层等新图加载完再换（见下方 onload）：换早了浏览器会先丢掉旧底图、
         // 新底图还没下载好，露出灯箱自身的纯黑底（#050505），照片边缘以外就「闪一下黑」。
         updateCounter();
-        syncUrl();
+        syncUrl(pushHistory);
+        if (pushHistory) lbEntryPushed = true;
         syncThumbs();
         // 轮播中：为刚切到的新图重排下一拍（重新播进度、取新的随机时长）
         if (playing) scheduleNext();
@@ -665,7 +694,7 @@ const path = Astro.url.pathname;
         // 新的滑进来」。替身是 position:fixed 量在老图当时的屏幕位置上，所以不受布局变化影响。
         // 注意必须挂在 #lightbox 里面——挂 body 上会被 z-index:100 的灯箱盖在底下。
         let ghost = null;
-        if (isTouch && !entering && lbImg.getAttribute('src')) {
+        if (useSlide && !entering && lbImg.getAttribute('src')) {
           const r = lbImg.getBoundingClientRect();
           ghost = lbImg.cloneNode(false);
           ghost.removeAttribute('srcset');
@@ -784,12 +813,12 @@ const path = Astro.url.pathname;
         }
       }
 
-      function close() {
+      // 收起灯箱界面本身（不碰历史记录），供「手机返回键退掉我们压的那条历史」时复用
+      function hideLightbox() {
         stopPlay();
         pendingOpen = null;
         zoom = 1;
         resetPan();
-        clearUrl();
         if (document.fullscreenElement) document.exitFullscreen();
         // 关闭时退出「填满屏幕」，下次打开回到默认显示
         if (fillMode) {
@@ -806,6 +835,20 @@ const path = Astro.url.pathname;
         lb.querySelectorAll('.lb-ghost').forEach((g) => g.remove());
         lbImg.style.opacity = '';
         lbImg.style.transform = '';
+      }
+
+      function close() {
+        if (lbEntryPushed) {
+          // 打开灯箱时压的那条历史要退掉，否则它会一直留在历史里，
+          // 下次返回键会先撞上一条「已经关掉的灯箱」空档
+          lbEntryPushed = false;
+          ignoreNextPop = true;
+          history.back();
+        } else {
+          // 深链进来的：?p= 就是当前这条，直接替换掉即可
+          clearUrl();
+        }
+        hideLightbox();
       }
 
       // ---------- 底部缩略图列表：该系列全部图片，点击跳转 ----------
@@ -1224,7 +1267,10 @@ const path = Astro.url.pathname;
           links = built.links;
           items = built.items;
         }
-        if (items.length) open(n - 1);
+        if (items.length) {
+          openingFromUrl = true;
+          open(n - 1);
+        }
       }
       openFromUrl();
 
@@ -1481,6 +1527,16 @@ const path = Astro.url.pathname;
 
       // 浏览器前进/后退
       window.addEventListener('popstate', () => {
+        // 自己按返回键收灯箱时，回退产生的这次 popstate 直接吞掉，别再切页
+        if (ignoreNextPop) { ignoreNextPop = false; return; }
+        // 手机上按返回键 / 侧滑手势：灯箱开着就先收掉它，留在背后的画廊
+        if (lbEntryPushed && lb.classList.contains('open')) {
+          lbEntryPushed = false;
+          hideLightbox();
+          return;
+        }
+        // 深链（没压历史）打开时当前地址已经换了，先把灯箱收掉再照常切页
+        if (lb.classList.contains('open')) hideLightbox();
         switchView(new URL(location.href), true);
       });
     </script>

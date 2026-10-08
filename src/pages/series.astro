@@ -5,6 +5,7 @@
 import Base from '../layouts/Base.astro';
 import allSeries from '../data/series.json';
 import allPhotos from '../data/photos.json';
+import { assetUrl } from '../lib/asset-url';
 
 const countOf = (slug) => allPhotos.filter((p) => p.series === slug).length;
 
@@ -40,7 +41,7 @@ function seriesSpan(slug) {
         {series.map((s) => (
           <a class={`series-card${s.empty ? ' series-card-empty' : ''}`} href={`/series/${s.slug}/`}>
             {s.empty ? null : (
-              <img src={s.cover} alt={s.title} loading="lazy" decoding="async" />
+              <img src={assetUrl(s.cover)} alt={s.title} loading="lazy" decoding="async" />
             )}
             <div class="card-text">
               <h3>{s.title}</h3>

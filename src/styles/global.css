@@ -492,22 +492,29 @@ img { max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* 中间留一道最小间距；左右两块各自不许越界，窄屏时光缩左边而不是把右边顶出屏幕 */
+  gap: 12px;
   padding: 18px 28px;
 }
-.lb-left { display: flex; align-items: center; gap: 16px; }
+.lb-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
 .lb-counter {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 13px;
   letter-spacing: 0.08em;
   white-space: nowrap;
   color: rgba(255, 255, 255, 0.55);
+  /* 序号是这一行里唯一可以被压缩的部分：太长就省略号收尾，绝不把工具按钮挤出去 */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.lb-tools { display: flex; align-items: center; gap: 10px; }
+.lb-tools { display: flex; align-items: center; gap: 10px; flex: none; }
 
 /* 圆形图标按钮（与参考站右上角一致） */
 .lb-icon {
   width: 44px;
   height: 44px;
+  flex: none;
   display: grid;
   place-items: center;
   padding: 0;
@@ -1197,6 +1204,9 @@ body:has(.hero) .site-header:not(.scrolled) .nav-toggle {
   .lb-top { padding: 10px; }
   .lb-left { gap: 8px; }
   .lb-counter { font-size: 11px; letter-spacing: 0.08em; white-space: nowrap; }
+  /* 手机顶栏横向本来就紧张：序号只留「第几张 / 共几张」，系列名收掉，
+     这样右上角的工具按钮（含最右边的「填满屏幕」）不会溢出到屏幕外 */
+  .lb-counter-series { display: none; }
   .lb-icon { width: 34px; height: 34px; }
   .lb-icon svg { width: 17px; height: 17px; }
   .lb-tools { gap: 5px; }
