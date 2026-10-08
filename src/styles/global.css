@@ -463,6 +463,17 @@ img { max-width: 100%; }
   align-items: center;
   justify-content: center;
 }
+/* 电脑端：照片默认在整个屏幕里垂直居中，但上下两块「家具」并不一样高——
+   顶部按钮行只到 62px（18px 内边距 + 44px 圆形按钮），底部那条（标题 + 参数 +
+   缩略图）却有 ~124px，结果是照片看着偏低、几乎贴住标题。
+   给 figure 加一段下外边距：flex 居中的是「外边距框」，照片整体上移半个下外边距，
+   于是「到顶部按钮的距离」和「到底部标题的距离」正好相等。
+   用 margin 而不是 padding/translate：padding 会连 .lb-bg / .lb-top / .lb-bottom
+   这些绝对定位的兄弟一起挪，translate 又会和放大后的拖拽（也写在 figure 的 transform 上）打架。
+   数值 = 底部信息条高度(124) − 顶部按钮下沿(62)；它和照片大小无关（横竖、宽窄都恒定，
+   因为 flex 每次都从居中位置减去同样的半个边距），所以写死 px 而不是 vh。
+   手机端在下面各自的断点里覆盖成 13vh / 9vh。 */
+#lightbox:not(.fill) figure { margin-bottom: 62px; }
 #lightbox img {
   /* 大图尽量占满屏幕，上下留出顶栏和底部信息条的位置：
      底部那条（标题/参数/缩略图）大约占 120px，所以高度封在 72vh */
