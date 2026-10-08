@@ -477,6 +477,51 @@ img { max-width: 100%; }
   user-select: none;
 }
 
+/* 灯箱占位层：点开瞬间先用缓存的小图放大虚化顶住，等大图就绪再淡出。
+   压在真图下面（z-index 小于 .lb-img），铺满 figure 这块框、按自身比例 contain。
+   柔化用的模糊会溢出边界一点点，当作边缘柔光，可以接受。 */
+#lightbox .lb-ph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  filter: blur(16px);
+  transform: scale(1.06);
+  box-shadow: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+/* 真图要压在占位层上面：它是普通流里的元素，这里给个定位 + 更高的层级才盖得住 */
+#lightbox .lb-img {
+  position: relative;
+  z-index: 2;
+}
+
+/* 加载指示器：大图未就绪时转圈。有小图占位做底，做成小而含蓄的一圈即可 */
+.lb-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  z-index: 4;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-top-color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  animation: lb-spin 0.8s linear infinite;
+  pointer-events: none;
+}
+.lb-spinner[hidden] { display: none; }
+@keyframes lb-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .lb-spinner { animation-duration: 2s; }
+}
+
 /* 放大到超出屏幕时，光标提示「可以拖」；拖动中变成抓紧的手。
    touch-action:none 是给触屏用的：手指按住拖画面，而不是被浏览器当成翻页手势 */
 #lightbox figure.can-pan { cursor: grab; touch-action: none; }
