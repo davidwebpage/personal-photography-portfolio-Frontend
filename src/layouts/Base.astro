@@ -11,6 +11,9 @@ interface Props {
 }
 const { title, description = '个人摄影作品集' } = Astro.props;
 
+// 社交分享缩略图（微信/QQ/微博等）：用固定图片，走前端域名不走 R2
+const ogImage = new URL('/brand/og-image.webp', Astro.site ?? 'https://davidphoto.pages.dev').href;
+
 // 顶栏导航项，增删页面时改这里
 const nav = [
   { href: '/', label: '首页' },
@@ -44,6 +47,16 @@ const path = Astro.url.pathname;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- 微信/QQ/微博分享时的缩略图和标题 -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="David Photography" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
   <body>
     <header class="site-header">

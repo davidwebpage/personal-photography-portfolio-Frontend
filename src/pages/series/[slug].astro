@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Gallery from '../../components/Gallery.astro';
 import allSeries from '../../data/series.json';
 import allPhotos from '../../data/photos.json';
+import { assetUrl } from '../../lib/asset-url';
 
 export function getStaticPaths() {
   return allSeries.map((s) => ({
@@ -42,7 +43,7 @@ const span =
   ) : (
   <!-- 整屏封面：小标题 / 超大主标题 / 年份·张数 / 向下滚动提示 -->
   <section class="series-hero">
-    <img src={s.cover} alt={s.title} />
+    <img src={assetUrl(s.cover)} alt={s.title} />
     <div class="series-hero-veil"></div>
     <div class="series-hero-inner">
       <h1>{s.title}</h1>

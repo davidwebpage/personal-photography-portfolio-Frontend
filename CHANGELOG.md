@@ -5,6 +5,14 @@
 ## 2026-10-08
 
 ### 更新内容
+修复系列封面图加载失败 + 添加微信分享缩略图 + 修正站点域名
+
+### 实现方式
+1) series/[slug].astro 的封面图 s.cover 改用 assetUrl()，线上从 R2 拉取（之前直接用本地路径导致 404）；2) Base.astro head 添加 og:image / og:title / og:description 等社交分享 meta 标签，og-image.webp 放 public/brand/ 走前端不走 R2；3) astro.config.mjs 的 site 从 example.com 改为 https://davidphoto.pages.dev
+
+## 2026-10-08
+
+### 更新内容
 照片和音频迁移到 Cloudflare R2 对象存储，代码自动区分本地/生产环境
 
 ### 实现方式
