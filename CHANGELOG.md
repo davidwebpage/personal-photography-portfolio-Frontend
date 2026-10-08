@@ -5,6 +5,14 @@
 ## 2026-10-08
 
 ### 更新内容
+图片托管支持「全前端」与「走 R2」两种模式，一条命令切换
+
+### 实现方式
+把 src/lib/asset-url.ts 的开关从「看 ASSET_BASE_URL 有没有设」改成显式的 ASSET_MODE（local 默认 / r2）：local 模式图片保持 /photos/... 随站点一起部署，r2 模式加 R2 前缀；r2 但没设 ASSET_BASE_URL 时构建直接报错，并在构建日志打印当前模式。package.json 增加 build:local / build:r2 / deploy:local / deploy:r2 四条命令。public/photos 和 public/audio 移出 .gitignore 随代码进仓库，这样 Cloudflare 自动构建也能拿到图。
+
+## 2026-10-08
+
+### 更新内容
 电脑端单图模式：照片整体上提一点，上下留白左右对称，不再贴着底部的标题
 
 ### 实现方式

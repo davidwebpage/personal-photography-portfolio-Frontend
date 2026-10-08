@@ -10,7 +10,5 @@ _masters/
 anaconda_projects/
 .ipynb_checkpoints/
 
-# 照片和音频已迁移到 Cloudflare R2 对象存储，本地保留用于开发
-# 线上从 R2 加载（环境变量 ASSET_BASE_URL）
-public/photos/
-public/audio/
+# public/photos/ 和 public/audio/ 现在进 git（全前端模式要把图片跟代码一起部署）。
+# 走 R2 的站点不读它们，但留在仓库里更稳妥：换台电脑 git clone 完就能构建。

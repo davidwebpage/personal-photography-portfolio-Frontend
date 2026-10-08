@@ -21,7 +21,10 @@ export PATH="$HOME/.local/node/bin:$PATH"
 | `npm install` | 安装依赖（只需跑一次，或依赖变动后） |
 | `npm run dev` | 本地预览，浏览器打开 http://localhost:4321 （改文件即时刷新） |
 | `npm run dev -- --host` | 同上，但**局域网可访问**——手机连同一个 Wi-Fi 也能打开（见下文「手机 / 平板预览」） |
-| `npm run build` | 构建静态站点到 `dist/` |
+| `npm run build` | 构建静态站点到 `dist/`（**默认全前端**：图片打进 `dist/`） |
+| `npm run build:r2` | 同上，但图片走 Cloudflare R2（需设 `ASSET_BASE_URL`，见「图片托管的两种模式」） |
+| `npm run build:local` | 同上，显式指定全前端模式（和 `npm run build` 等价） |
+| `npm run deploy` | 构建 + 部署到 Cloudflare Pages |
 | `npm run preview` | 本地预览构建产物 |
 | `npm run placeholders` | 重新生成灰色占位图（仅搭框架阶段用） |
 | `npm run photos` | 处理真实照片（见下文"替换成真实照片"） |
@@ -134,7 +137,7 @@ personal-photography-portfolio/
    ```
    系列 slug 必须和 `src/data/series.json` 里的 `slug` 一致。支持 jpg / jpeg / png / tiff / webp。
    不想归入任何系列的单张照片，放进 `_masters/single/`（见下文「单图作品」）。
-2. 运行 `npm run photos`。脚本会对每张照片生成 800 / 1600 / 2560 三档宽度的 webp + jpg，输出到 `public/photos/<系列>/`，并更新 `src/data/photos.json`。
+2. 运行 `npm run photos`。脚本会对每张照片生成 800 / 1600 / 2560 三档宽度的 webp（只生成 webp，不留 jpg 副本），输出到 `public/photos/<系列>/`，并更新 `src/data/photos.json`。
 3. 打开 `src/data/photos.json`，给每张照片填 `title`（标题）和 `location`（拍摄地）。**已手工填写的字段再次运行脚本时会被保留**，放心重复执行。
 4. 同步编辑 `src/data/series.json`：系列标题、简介、封面图路径、年份。新增系列就加一段 JSON，`series/[slug].astro` 会自动生成对应页面。
 5. **运行 `npm run colors`** 给新照片打色调标签。这一步别省：`npm run photos` 只负责图片和 EXIF，**不带色调标签的新照片在任何色调筛选下都会被筛掉**（它不属于任何一个色调档）。脚本跑完会提示还剩哪几张没打标。
@@ -353,11 +356,41 @@ personal-photography-portfolio/
 
 灯箱看图和系列页封面上的顶栏固定用深色界面（照片才是主体），不跟着切换。
 
+## 图片托管的两种模式
+
+照片和音频可以从两个地方加载，用环境变量 `ASSET_MODE` 切换，**页面代码完全不用改**（开关集中在 `src/lib/asset-url.ts`，所有页面都走它）。
+
+| | 全前端（`local`，默认） | 走 R2（`r2`） |
+|---|---|---|
+| 图片地址 | `/photos/...`，和网页同一个域名 | `https://pub-xxxx.r2.dev/photos/...` |
+| 图片在哪 | 打进 `dist/`，随站点一起部署 | Cloudflare R2 对象存储 |
+| 部署包大小 | 约 227MB | 小（图片不进 `dist/`） |
+| 换一张图 | 要重新构建 + 重新部署整站 | 只更新 R2 上那 3 个文件，秒级生效 |
+| 换台电脑 | `git clone` 完就能构建 | 图片得另外同步（不在 git 里就没有） |
+
+**怎么切**（两条命令）：
+
+```bash
+npm run build          # 全前端版（默认）
+npm run build:r2       # 走 R2，需要同时设 ASSET_BASE_URL
+```
+
+`ASSET_MODE=r2` 却没设 `ASSET_BASE_URL` 时，构建会**直接报错退出**——这是故意的，免得打出个图片全指向空地址的站。构建日志里会打印一行 `[assets] 模式 = ...`，部署错了版本一眼就能看出来。
+
+**线上两版同时在线**：两个 Cloudflare Pages 站点连同一个仓库，靠环境变量区分——
+
+- 全前端站：设 `ASSET_MODE=local`，**不要**设 `ASSET_BASE_URL`
+- 走 R2 站：设 `ASSET_MODE=r2` + `ASSET_BASE_URL=https://pub-xxxx.r2.dev`
+
+两个站的构建命令都是 `npm run build` 即可（默认值是全前端，所以走 R2 那个站**必须显式设 `ASSET_MODE=r2`**，否则会跟着变成全前端版）。
+
+本地开发（`npm run dev`）永远是全前端模式，从本地 `public/` 读图，和线上无关。
+
 ## 上线部署清单（到时候再办）
 
 1. **域名**：在国内注册商（阿里云 / 腾讯云）购买，例如 `你的名字.com`。
 2. **ICP 备案**：服务器/对象存储在国内必须备案，注册商后台有指引，约 2–3 周。
-3. **部署**：`npm run build` 后把 `dist/` 上传到腾讯云 COS（静态网站托管）+ CDN 加速，绑定域名。
+3. **部署**：现在托管在 **Cloudflare Pages**（连 Git 自动构建，或 `npm run deploy` 手动推 `dist/`）。
 4. 把 `astro.config.mjs` 里的 `site` 改成真实域名（用于 sitemap 和 canonical）。
 
 ## FAQ

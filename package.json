@@ -7,7 +7,11 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:local": "ASSET_MODE=local astro build",
+    "build:r2": "ASSET_MODE=r2 astro build",
     "preview": "astro preview",
+    "deploy:local": "npm run build:local && CF_PAGES_PROJECT=photography-portfolio-local node scripts/deploy.mjs",
+    "deploy:r2": "npm run build:r2 && node scripts/deploy.mjs",
     "placeholders": "node scripts/gen-placeholders.mjs",
     "photos": "node scripts/build-photos.mjs",
     "from-sheet": "node scripts/build-from-sheet.mjs",
