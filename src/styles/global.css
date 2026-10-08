@@ -477,9 +477,11 @@ img { max-width: 100%; }
   user-select: none;
 }
 
-/* 灯箱占位层：点开瞬间先用缓存的小图放大虚化顶住，等大图就绪再淡出。
+/* 灯箱占位层：点开瞬间先用缓存的小图顶住位置，等大图就绪再淡出。
    压在真图下面（z-index 小于 .lb-img），铺满 figure 这块框、按自身比例 contain。
-   柔化用的模糊会溢出边界一点点，当作边缘柔光，可以接受。 */
+   刻意不加模糊/放大：小图（800w）放大到全屏本来就够柔和，够当占位；
+   加了 blur + scale 反而会溢出照片边界、变成一圈半透明虚边（横图左右尤其明显），
+   那块大模糊还会在打开那一下白耗一次栅格化、让人觉得更卡。 */
 #lightbox .lb-ph {
   position: absolute;
   inset: 0;
@@ -488,8 +490,6 @@ img { max-width: 100%; }
   max-width: none;
   max-height: none;
   object-fit: contain;
-  filter: blur(16px);
-  transform: scale(1.06);
   box-shadow: none;
   opacity: 0;
   transition: opacity 0.35s ease;
