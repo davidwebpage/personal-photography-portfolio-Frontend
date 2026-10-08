@@ -26,7 +26,6 @@ export PATH="$HOME/.local/node/bin:$PATH"
 | `npm run build:local` | 同上，显式指定全前端模式（和 `npm run build` 等价） |
 | `npm run deploy` | 构建 + 部署到 Cloudflare Pages |
 | `npm run preview` | 本地预览构建产物 |
-| `npm run placeholders` | 重新生成灰色占位图（仅搭框架阶段用） |
 | `npm run photos` | 处理真实照片（见下文"替换成真实照片"） |
 | `npm run colors` | 给照片打色调标签（见「按色调筛选」；加 `--dry` 只预览不写） |
 | `npm test` | 跑色调分档的单元测试 |
@@ -118,30 +117,44 @@ personal-photography-portfolio/
 ├── public/photos/        网站引用的图片（占位图或处理后的成品）
 ├── public/audio/         背景音乐文件（见「背景音乐」）
 ├── scripts/
-│   ├── gen-placeholders.mjs   生成占位图
 │   ├── build-photos.mjs       真实照片处理管线
 │   ├── changelog.mjs          更新日志工具（见「更新日志」）
 │   ├── install-hooks.sh       安装 git 钩子（已装好）
 │   └── git-hooks/pre-commit   强制更新日志的提交钩子
 ├── CHANGELOG.md            更新日志（见「更新日志」）
-└── _masters/             ★ 你的原始照片（不会上传 git，见 .gitignore）
+└── _masters/             （临时工作区）新增/替换照片时放母版，处理完可删，见 .gitignore
 ```
 
-## 替换成真实照片
+## 新增 / 替换照片（精简流程）
 
-1. 把原始照片按系列放进 `_masters/<系列slug>/`，例如：
+照片原图有 3G 左右，项目里**平时不保存母版**，需要更新时再临时放进来。脚本已经改成「只增改、不动旧照片」：只处理你放进 `_masters/` 的那几张，原有 164 张记录原封不动。
+
+**需要准备什么**
+
+- 原始照片文件（jpg / jpeg / png / tiff / webp 都行，从百度盘或移动硬盘取回）
+- 知道它属于哪个类别或系列
+
+**操作步骤**
+
+1. 在项目里新建 `_masters/<系列slug>/`，把这次要新增或替换的照片放进去。例如：
    ```
-   _masters/mountains/DSC001.jpg
-   _masters/mountains/DSC002.jpg
-   _masters/sea/IMG_1234.jpg
+   _masters/nature/DSC001.jpg
+   _masters/city/我的新照片.jpg
    ```
-   系列 slug 必须和 `src/data/series.json` 里的 `slug` 一致。支持 jpg / jpeg / png / tiff / webp。
-   不想归入任何系列的单张照片，放进 `_masters/single/`（见下文「单图作品」）。
-2. 运行 `npm run photos`。脚本会对每张照片生成 800 / 1600 / 2560 三档宽度的 webp（只生成 webp，不留 jpg 副本），输出到 `public/photos/<系列>/`，并更新 `src/data/photos.json`。
-3. 打开 `src/data/photos.json`，给每张照片填 `title`（标题）和 `location`（拍摄地）。**已手工填写的字段再次运行脚本时会被保留**，放心重复执行。
-4. 同步编辑 `src/data/series.json`：系列标题、简介、封面图路径、年份。新增系列就加一段 JSON，`series/[slug].astro` 会自动生成对应页面。
-5. **运行 `npm run colors`** 给新照片打色调标签。这一步别省：`npm run photos` 只负责图片和 EXIF，**不带色调标签的新照片在任何色调筛选下都会被筛掉**（它不属于任何一个色调档）。脚本跑完会提示还剩哪几张没打标。
-6. `npm run dev` 看效果，满意后 `npm run build`。
+   系列 slug 要和 `src/data/series.json` 里的 `slug` 一致；不属于任何系列的单图，目录名随便起（例如 `_masters/single/`），页面会自动归到「单幅作品」。
+2. 运行 `npm run photos`。脚本会：
+   - 只处理 `_masters/` 里这次放的照片，生成 800 / 1600 / 2560 三档 webp 到 `public/photos/<系列>/`；
+   - 把新记录**追加**到 `src/data/photos.json`，同名照片则更新那一条；
+   - **原有照片记录全部保留**，不会因为这次没放母版而消失。
+3. 运行 `npm run colors` 给新照片打色调标签。这一步别省：没打标的照片在任何色调筛选下都会被筛掉。
+4. 打开 `src/data/photos.json`，给新照片补 `title`（标题）和 `location`（拍摄地）。已有的手填字段在以后更新时会被保留。
+5. 如果是新系列，同步编辑 `src/data/series.json`（标题、简介、封面、年份）。
+6. `npm run dev` 预览，满意后 `npm run build`。
+7. 确认没问题后，**可以删掉 `_masters/`** 省空间；网站用的是 `public/photos/` 里的派生图，不受影响。下次再加照片，重复以上步骤即可。
+
+> 想换某张已有照片：把新原图用**原来的文件名**放进 `_masters/<原系列>/`，跑一次 `npm run photos` 就会替换那一张，其余照片不受影响。
+>
+> 想一次批量更新很多张：按上面的做法把要更新的都放进 `_masters/` 再跑一次即可。不需要、也不建议把 164 张母版全部搬回来。
 
 ## 手动更新图片（不跑脚本）
 
@@ -225,7 +238,7 @@ personal-photography-portfolio/
 
 顶栏「单幅作品」这一栏放**不属于任何系列**的照片——单张的、临时的、还没凑成组的都放这里。
 
-放法：把照片丢进 `_masters/single/`，运行 `npm run photos` 即可。判定规则很简单：**照片的系列名 = 它所在的目录名，凡是目录名不在 `src/data/series.json` 的 slug 清单里，就算单图**。所以：
+放法：把照片临时放进 `_masters/single/`（或任何不在系列清单里的目录），运行 `npm run photos` 即可；处理完 `_masters/` 可以删掉。判定规则很简单：**照片的系列名 = 它所在的目录名，凡是目录名不在 `src/data/series.json` 的 slug 清单里，就算单图**。所以：
 
 - 目录名不叫 `single` 也行（比如 `_masters/杂片/`），效果一样；
 - 反过来，如果你新开了一个目录想当系列、却忘了往 `series.json` 里登记，那些照片会落到「单图作品」里，而不会凭空消失——发现它们出现在这儿，就说明该去补 `series.json` 了。
@@ -396,10 +409,10 @@ npm run build:r2       # 走 R2，需要同时设 ASSET_BASE_URL
 ## FAQ
 
 **需要自己写代码吗？**
-日常更新只需要：往 `_masters/` 放照片 → `npm run photos` → 编辑两个 JSON 文件（纯文本，照现有格式填）→ `npm run build`。页面结构改动才需要碰代码。
+日常更新只需要：把新照片临时放进 `_masters/<类别>/` → `npm run photos` → `npm run colors` → 补一下标题/地点 → `npm run build`。处理完 `_masters/` 可删。页面结构改动才需要碰代码。
 
 **照片原图会被公开吗？**
-不会。`_masters/` 不会被构建也不会进 git，网站只引用 `public/photos/` 里压缩后的副本（最大 2560px 宽）。
+不会。`_masters/` 不会进 git，平时甚至不在项目里（只在更新照片时临时放进来），网站只引用 `public/photos/` 里压缩后的副本（最大 2560px 宽，已进 git）。
 
 **访客数据、评论、后台管理？**
 都没有——纯静态站。需要留言功能可后期接第三方表单服务（如 Formspree）。

@@ -43,11 +43,21 @@ function cleanPath(s) {
   return String(s ?? '').trim().replace(/^['"]|['"]$/g, '');
 }
 
-// 已存在的手工字段（标题/地点/年份/色调）在重新生成时保留
+// 读现有清单，作为「合并」基准：本脚本只增改表里出现的照片，
+// 其余旧记录一律保留（母版图平时不在项目里，不能按本次导入内容重建整份清单）。
 let existing = [];
 try {
   existing = JSON.parse(await readFile(DATA, 'utf8'));
-} catch { /* 第一次运行 */ }
+} catch (err) {
+  if (err.code !== 'ENOENT') {
+    console.error(`✗ 读不懂 ${path.relative(ROOT, DATA)}：${err.message}`);
+    process.exit(1);
+  }
+}
+if (!Array.isArray(existing)) {
+  console.error('✗ photos.json 不是数组，已中止。');
+  process.exit(1);
+}
 const keep = new Map(existing.map((p) => [`${p.series}/${p.id}`, p]));
 
 const wb = new ExcelJS.Workbook();
@@ -136,11 +146,24 @@ for (const [slug, s] of seriesMap) {
   });
 }
 
-// ---------- 3. 写回 ----------
-photos.sort((a, b) => (a.series + a.id).localeCompare(b.series + b.id));
-await writeFile(DATA, JSON.stringify(photos, null, 2) + '\n', 'utf8');
-await writeFile(SERIES_DATA, JSON.stringify(seriesList, null, 2) + '\n', 'utf8');
+// ---------- 3. 合并写回 ----------
+// 照片：现有清单为底，本次表里处理过的覆盖进去，其余保留。
+const mergedPhotos = new Map(keep);
+for (const rec of photos) mergedPhotos.set(`${rec.series}/${rec.id}`, rec);
+const finalPhotos = [...mergedPhotos.values()].sort((a, b) => (a.series + a.id).localeCompare(b.series + b.id));
+await writeFile(DATA, JSON.stringify(finalPhotos, null, 2) + '\n', 'utf8');
 
-console.log(`\n完成：${photos.length} 张照片（单幅 ${singleRows.length} + 系列 ${photos.length - singleRows.length}）→ public/photos/`);
-console.log(`系列 ${seriesList.length} 个 → src/data/series.json`);
+// 系列：同样以现有 series.json 为底，表里出现的 slug 更新，其余保留。
+let existingSeries = [];
+try {
+  existingSeries = JSON.parse(await readFile(SERIES_DATA, 'utf8'));
+} catch { /* 第一次运行 */ }
+const seriesBySlug = new Map(Array.isArray(existingSeries) ? existingSeries.map((x) => [x.slug, x]) : []);
+for (const s of seriesList) seriesBySlug.set(s.slug, s);
+const finalSeries = [...seriesBySlug.values()];
+await writeFile(SERIES_DATA, JSON.stringify(finalSeries, null, 2) + '\n', 'utf8');
+
+console.log(`\n完成：本次处理 ${photos.length} 张（单幅 ${singleRows.length} + 系列 ${photos.length - singleRows.length}）→ public/photos/`);
+console.log(`清单共 ${finalPhotos.length} 张（原 ${existing.length} 张保留）→ src/data/photos.json`);
+console.log(`系列共 ${finalSeries.length} 个 → src/data/series.json`);
 console.log('下一步：npm run colors 打色调标签，然后 npm run dev 看效果。');

@@ -42,6 +42,19 @@ const path = Astro.url.pathname;
           saved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
         document.documentElement.setAttribute('data-theme', saved);
+
+        // 手机端灯箱隐藏桌面专用的放大/缩小按钮。部分手机浏览器会把指针能力
+        // 误报成桌面，所以再按手机系统标识兜底；有触摸屏的电脑不受影响。
+        var coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        var touchCapable = (navigator.maxTouchPoints || 0) > 0 || 'ontouchstart' in window;
+        var ua = navigator.userAgent || '';
+        // iPadOS 13+ 的 Safari 会伪装成 Mac，但它一定带多点触控。
+        var mobileUA = /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|MicroMessenger/i.test(ua)
+          || (/Macintosh/i.test(ua) && (navigator.maxTouchPoints || 0) > 1);
+        var uaMobile = !!(navigator.userAgentData && navigator.userAgentData.mobile);
+        if (coarse || uaMobile || (touchCapable && mobileUA)) {
+          document.documentElement.setAttribute('data-touch', '1');
+        }
       })();
     </script>
     <title>{title}</title>

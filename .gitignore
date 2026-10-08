@@ -12,3 +12,9 @@ anaconda_projects/
 
 # public/photos/ 和 public/audio/ 现在进 git（全前端模式要把图片跟代码一起部署）。
 # 走 R2 的站点不读它们，但留在仓库里更稳妥：换台电脑 git clone 完就能构建。
+
+# Cloudflare/Wrangler 本地调试缓存，自动生成，不进 git
+.wrangler/
+
+# Claude 等本地工具的私有配置，与网站无关
+.claude/

@@ -595,10 +595,13 @@ img { max-width: 100%; }
 
 /* 触屏设备（手机 / 平板，横竖屏都算）不显示放大 / 缩小按钮：
    这两个按钮是给鼠标准备的，手指有更直接的双指捏合（见 Base.astro 的缩放逻辑）。
-   按指针类型判断而不是按屏幕宽度——横屏手机的宽度达到 800+px，按宽度写会漏掉。 */
+   按指针类型判断而不是只按屏幕宽度——横屏手机的宽度达到 800+px，按宽度写会漏掉。
+   另加 data-touch 兜底：部分手机浏览器会把 hover/pointer 误报成桌面，电脑则保留按钮。 */
 @media (hover: none) and (pointer: coarse) {
   .lb-zoomout, .lb-zoomin { display: none; }
 }
+html[data-touch='1'] .lb-zoomout,
+html[data-touch='1'] .lb-zoomin { display: none; }
 
 /* ---------- 两侧翻页箭头 ---------- */
 .lb-arrow {
