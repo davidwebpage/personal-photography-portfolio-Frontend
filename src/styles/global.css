@@ -477,31 +477,11 @@ img { max-width: 100%; }
   user-select: none;
 }
 
-/* 灯箱占位层：点开瞬间先用缓存的小图顶住位置，等大图就绪再淡出。
-   压在真图下面（z-index 小于 .lb-img），铺满 figure 这块框、按自身比例 contain。
-   刻意不加模糊/放大：小图（800w）放大到全屏本来就够柔和，够当占位；
-   加了 blur + scale 反而会溢出照片边界、变成一圈半透明虚边（横图左右尤其明显），
-   那块大模糊还会在打开那一下白耗一次栅格化、让人觉得更卡。 */
-#lightbox .lb-ph {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  object-fit: contain;
-  box-shadow: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  pointer-events: none;
-}
-/* 真图要压在占位层上面：它是普通流里的元素，这里给个定位 + 更高的层级才盖得住 */
-#lightbox .lb-img {
-  position: relative;
-  z-index: 2;
-}
+/* 注意：.lb-img 上不要写 width/height 属性。
+   figure 是 flex 容器，带属性的 <img> 会被按两条轴各自卡一遍 max-width/max-height，
+   比例被拉歪 → 图框比照片大一圈，而 box-shadow 贴着图框画 → 照片外多出一圈半透明的边。 */
 
-/* 加载指示器：大图未就绪时转圈。有小图占位做底，做成小而含蓄的一圈即可 */
+/* 加载指示器：大图未就绪时转圈。底下是整屏虚化背景，做成小而含蓄的一圈即可 */
 .lb-spinner {
   position: absolute;
   top: 50%;

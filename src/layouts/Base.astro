@@ -173,14 +173,10 @@ const path = Astro.url.pathname;
       </button>
 
       <figure>
-        <!-- 占位层：点开的一瞬间，先用画廊里已经缓存好的小图（800w）放大虚化顶住位置，
-             大图下载 + 解码完再淡出。开图时不会再出现一段空白／「加载中」的观感。
-             只在「首次打开」时用；翻页有 ghost 替身负责衔接，这条保持透明。 -->
-        <img class="lb-ph" alt="" aria-hidden="true" draggable="false" />
         <!-- draggable=false：否则按住拖动会触发浏览器自带的「拖走图片」，盖掉我们自己的平移 -->
         <img class="lb-img" alt="" draggable="false" />
       </figure>
-      <!-- 加载指示器：大图还没就绪时转圈。有了上面那层占位图做底，这里做得小而不抢眼 -->
+      <!-- 加载指示器：大图还没就绪时转圈。底下有整屏的虚化背景顶着，这里做得小而不抢眼 -->
       <div class="lb-spinner" aria-hidden="true" hidden></div>
 
       <!-- 底部：标题/拍摄地/拍摄时间同行 + EXIF、该系列缩略图 -->
@@ -519,8 +515,7 @@ const path = Astro.url.pathname;
       // 手机宽度（开发者工具常见的调试姿势）也按滑动走，免得同一套手机版式出现两种动画。
       const useSlide = isTouch || window.matchMedia('(max-width: 900px)').matches;
       const lbImg = lb.querySelector('.lb-img');
-      // 占位层与加载指示器（见上方 markup 的说明）
-      const lbPh = lb.querySelector('.lb-ph');
+      // 加载指示器（见上方 markup 的说明）
       const lbSpinner = lb.querySelector('.lb-spinner');
       const lbCap = lb.querySelector('.lb-title');
       const lbLocation = lb.querySelector('.lb-location');
@@ -581,8 +576,8 @@ const path = Astro.url.pathname;
       // 缓存 items 数组，只在首次打开时构建（页面是静态的）
       // 画廊分栏会改变 DOM 顺序，这里按记录在 data-order 上的原始顺序还原，
       // 保证灯箱翻页顺序 = 照片在 photos.json 里的顺序
-      // 从 srcset 里挑最小的一档（一般是 800w）当灯箱占位图。这张画廊里早就缓存过了，
-      // 点开瞬间能立刻顶上，不用等网络。
+      // 从 srcset 里挑最小的一档（一般是 800w）。这张画廊里早就缓存过了，点开瞬间能立刻用上，
+      // 不用等网络；它只用来铺灯箱那层重度虚化的背景，清晰度无所谓。
       function smallestSrc(srcset, fallback) {
         if (!srcset) return fallback;
         let best = null;
@@ -607,7 +602,7 @@ const path = Astro.url.pathname;
             const srcset = el.dataset.srcset || '';
             return {
               src,
-              // 占位层用的小图（见 smallestSrc）
+              // 铺背景用的最小一档（见 smallestSrc）
               thumb: smallestSrc(srcset, src),
               title: el.dataset.title || '',
               series: el.dataset.series || '',
@@ -744,19 +739,19 @@ const path = Astro.url.pathname;
         lbImg.srcset = item.srcset;
         lbImg.src = item.src;
         lbImg.alt = item.title;
-        // 提前把原始宽高写进 <img>：① 图没到之前就按正确比例占好位置，加载完不会再「啪」地撑开一下；
-        // ② 占位层要贴着这个框铺，图还没加载时它才有尺寸可依。
-        if (item.width) lbImg.setAttribute('width', String(item.width));
-        if (item.height) lbImg.setAttribute('height', String(item.height));
+        // 不往 <img> 上写 width/height：figure 是 flex 容器，一旦带了宽高属性，
+        // 浏览器会把两条轴各自按 max-width/max-height 卡一遍（各自独立，比例就被拉歪了），
+        // 图框会比照片本身大一圈，而 box-shadow 是贴着「框」画的 —— 于是照片外面多出
+        // 一圈半透明的边（横图左右、竖图上下都能看见）。不写属性，图框就严丝合缝贴着照片。
 
-        // 占位层 + 转圈指示器只在「首次打开」时用：立刻拿画廊里缓存好的小图顶上，
-        // 不再写「加载中...」那种字眼。翻页那条有 ghost 替身衔接，占位层收起来免得抢戏。
+        // 转圈指示器只在「首次打开」时用：翻页那条有 ghost 替身衔接，不用再转。
+        // 同时把整屏的虚化背景先铺上——用画廊里已经缓存好的小图，点开的一瞬间
+        // 就不是一片纯黑，而是这张照片糊开的样子。零额外流量：小图本来就在缓存里，
+        // 而且它是 blur(34px) + 压暗过的，清晰度无所谓。
         if (entering) {
-          lbPh.src = item.thumb || item.src;
-          lbPh.style.opacity = '1';
+          lbBg.style.backgroundImage = item.thumb ? `url("${item.thumb}")` : '';
           lbSpinner.hidden = false;
         } else {
-          lbPh.style.opacity = '0';
           lbSpinner.hidden = true;
         }
 
@@ -782,9 +777,8 @@ const path = Astro.url.pathname;
         // lbImg 那张还没好，滑动时就会「逐行加载」地渲染出来。
         // 下载完成后再用 decode() 等它解码完毕，确保一次性绘出整张图。
         const reveal = () => {
-          // 大图就绪：收起指示器、让占位层淡出（真图在它上面淡入，等于一次交叉溶解）
+          // 大图就绪：收起指示器
           lbSpinner.hidden = true;
-          lbPh.style.opacity = '0';
           // 此刻图已在缓存里，换背景虚化层是瞬时的，不会闪黑
           lbBg.style.backgroundImage = `url("${item.src}")`;
           lbCap.textContent = item.title;
@@ -847,7 +841,6 @@ const path = Astro.url.pathname;
         const onErr = () => {
           // 加载失败也恢复，避免 isAnimating 卡死导致后续点图无效
           lbSpinner.hidden = true;
-          lbPh.style.opacity = '0';
           lbCap.textContent = item.title + '（加载失败）';
           // 手机端翻页的替身留着会永远压在新图上，一并清掉
           if (ghost) { ghost.remove(); ghost = null; }
@@ -885,9 +878,7 @@ const path = Astro.url.pathname;
         lb.querySelectorAll('.lb-ghost').forEach((g) => g.remove());
         lbImg.style.opacity = '';
         lbImg.style.transform = '';
-        // 占位层与指示器复位，下次打开重新走一遍
-        lbPh.style.opacity = '0';
-        lbPh.removeAttribute('src');
+        // 指示器复位，下次打开重新走一遍
         lbSpinner.hidden = true;
       }
 
